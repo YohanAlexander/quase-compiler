@@ -1,0 +1,94 @@
+
+
+classe _Ponto começa
+	
+	var int x, y;
+	
+	procedimento Setx ( int t_x ) x = t_x
+	procedimento Sety ( int t_y ) y = t_y
+
+termina
+
+classe _Vetor começa
+
+	objeto _Ponto pxy;
+	var int z;
+	
+	procedimento Setz ( int t_z ) z = t_z
+
+termina
+
+classe _Func começa
+        função real modulo_real(real n) começa
+	
+	       se (n < 0) então n * (-1.0) senão n
+	       
+	termina
+
+        função real raiz(real n, real i, real j) começa
+	
+	       se ( ((i + j) / 2) * ((i + j) / 2) == n ) ou
+	       	       ( (modulo_real(((i + j) / 2) * ((i + j) / 2)) - n) < 0.00001) então
+		       	      (i + j) / 2
+	       senão se ( ((i + j) / 2) * ((i + j) / 2) < n)
+	       	     então sqrt(n, (i + j) / 2)
+		     senão sqrt(n, i, (i + j) / 2)
+		     
+	termina
+
+	função real achar_raiz(real n, real i) começa
+	
+		 se (i * i == n) então i
+		 senão se (i * i > n) então raiz(n, i - 1, i)
+		       senão achar_raiz(n, i + 1)
+		       
+	termina
+
+	função real dist ( _Ponto pi, _Ponto pii ) começa
+
+		achar_raiz((pii.x - pi.x) * (pii.x - pi.x) + (pii.y - pi.y) * (pii.y - pi.y))
+
+	termina
+
+	função _Vetor soma ( _Vetor vi, _Vetor vii ) começa
+
+		objeto _Vetor vout;
+		
+		vout.pxy.Setx  ( vi.pxy.x + vii.pxy.x );
+		vout.pxy.Sety ( vi.pxy.y + vii.pxy.y );
+		vout.Setz ( vi.z + vii.z );
+
+	termina
+
+termina
+
+classe _Main começa
+
+	objeto _Ponto pi, pii;
+	obejeto _Func functions;
+	objeto _IO terminal;
+	objeto _Vetor vj, vjj;
+
+	vj.pxy.x = 1;
+	vj.pxy.y = 2;
+	vj.z = 3;
+
+	vjj.pxy.x = 4;
+	vjj.pxy.y = 5;
+	vjj.z = 6;
+	
+	=> precedimento Main () começa
+
+		p1.Setx ( terminal.read(); );
+		p1.Sety ( terminal.read(); );
+
+		p2.Setx ( terminal.read(); );
+		p2.Sety ( terminal.read(); );
+
+		terminal.print ( functions.dist (pi, pii); );
+
+		terminal.print ( functions.soma (vj, vjj); );
+	
+	termina
+
+termina

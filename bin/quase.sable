@@ -1,0 +1,65 @@
+Package quase;
+
+Helpers
+    letra_minuscula = ['a'..'z'];
+    letra_maiuscula = ['A'..'Z'];
+    letra = letra_minuscula | letra_maiuscula;
+    
+    digito = ['0'..'9'];
+    inteiro_binario = '0b' ('0' | '1')+;
+    inteiro_decimal = digito+;
+    real_decimal = inteiro_decimal '.' inteiro_decimal;
+    real_cientifico = inteiro_decimal ('e' | 'E') inteiro_decimal;
+ 
+Tokens
+	e_comercial = '&';
+	ponto_virgula = ';';
+	classe = 'classe';
+	filha_da_classe = 'filha da classe';
+	comeca = 'começa';
+	termina = 'termina';
+	objeto = 'objeto';
+	virgula = ',';
+	variavel = 'var';
+	constante = 'cons';
+	inicializacao = ':=';
+	int = 'int';
+	bool = 'bool';
+	real = 'real';
+	ponto_de_entrada = '=>';
+	procedimento = 'procedimento';
+	parenteses_esquerdo = '(';
+	parenteses_direito = ')';
+	funcao = 'função';
+	se = 'se';
+	senao = 'senão';
+	enquanto = 'enquanto';
+	atribuicao = '=';
+	ponto = '.';
+	true = 'true';
+	false = 'false';
+	subtracao = '-';
+	entao = 'então';
+	adicao = '+';
+	multiplicacao = '*';
+	divisao = '/';
+	modulo = '%';
+	igualdade = '==';
+	menor_que = '<';
+	negacao = '!';
+	e = 'e';
+	ou = 'ou';
+
+	comentario = '{' ([0..124] | 126 | 127)* '}';
+
+    id = letra (letra | '_')*;
+    cid = '_' (letra | '_')*;
+    
+    numero_inteiro = inteiro_binario | inteiro_decimal;
+    numero_real = real_decimal | real_cientifico;
+    
+    vazio = (' ' | 9 | 10 | 13)+;
+	
+Ignored Tokens
+	comentario, vazio;
+	
