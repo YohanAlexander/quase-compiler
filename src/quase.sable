@@ -4,7 +4,7 @@ Helpers
     letra_minuscula = ['a'..'z'];
     letra_maiuscula = ['A'..'Z'];
     letra = letra_minuscula | letra_maiuscula;
-    sinal = ("+" | "-");
+    sinal = ('+' | '-');
     digito = ['0'..'9'];
     inteiro_binario = '0b' ('0' | '1')+;
     inteiro_decimal = digito+;

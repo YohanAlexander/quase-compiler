@@ -4,7 +4,7 @@ Helpers
     letra_minuscula = ['a'..'z'];
     letra_maiuscula = ['A'..'Z'];
     letra = letra_minuscula | letra_maiuscula;
-    
+    sinal = ('+' | '-');
     digito = ['0'..'9'];
     inteiro_binario = '0b' ('0' | '1')+;
     inteiro_decimal = digito+;
@@ -55,8 +55,8 @@ Tokens
     id = letra (letra | '_')*;
     cid = '_' (letra | '_')*;
     
-    numero_inteiro = inteiro_binario | inteiro_decimal;
-    numero_real = real_decimal | real_cientifico;
+    numero_inteiro = sinal? inteiro_binario | sinal? inteiro_decimal;
+    numero_real = sinal? real_decimal | sinal? real_cientifico;
     
     vazio = (' ' | 9 | 10 | 13)+;
 	

@@ -9,7 +9,7 @@ public class Main {
 	public static void main(String[] args) {
 		try
 		{
-			String arquivo = "teste/primo.quase";
+			String arquivo = "teste/teste.quase";
 
 			Lexer lexer = new Lexer(new PushbackReader(new FileReader(arquivo), 1024)); 
 			Token token;
