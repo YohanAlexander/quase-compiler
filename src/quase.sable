@@ -8,7 +8,7 @@ Helpers
     inteiro_binario = '0b' ('0' | '1')+;
     inteiro_decimal = digito+;
     real_decimal = inteiro_decimal '.' inteiro_decimal;
-    real_cientifico = inteiro_decimal ('e' | 'E') inteiro_decimal;
+    real_cientifico = ['1'..'9'] ('.' inteiro_decimal)? ('e' | 'E') '-'? inteiro_decimal;
  
 Tokens
     e_comercial = '&';
