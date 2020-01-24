@@ -61,3 +61,12 @@ Tokens
 
 Ignored Tokens
     comentario, vazio;
+
+Productions
+    exp = 
+      {inteiro} numero_inteiro |
+      {real} numero_real |
+      {true} true |
+      {false} false |
+      {id} id |
+      {exp_par} parenteses_esquerdo exp parenteses_direito;
