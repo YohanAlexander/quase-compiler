@@ -63,10 +63,24 @@ Ignored Tokens
     comentario, vazio;
 
 Productions
-    exp = 
+	exp =
+	  {soma} termo adicao exp |
+	  {subt} termo subtracao exp |
+	  {multi} termo multiplicacao exp |
+	  {div} termo divisao exp |
+	  {mod} termo modulo exp |
+	  {igual} termo igualdade exp |
+	  {menor} termo menor_que exp |
+	  {dif} negacao exp |
+	  {and} termo e exp |
+	  {or} termo ou exp |
+	  {termo} termo;
+
+    termo = 
       {inteiro} numero_inteiro |
       {real} numero_real |
       {true} true |
       {false} false |
       {id} id |
-      {exp_par} parenteses_esquerdo exp parenteses_direito;
+      {par} parenteses_esquerdo exp parenteses_direito;
+	
