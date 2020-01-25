@@ -135,6 +135,8 @@ Productions
       {parametro} parametro;
     parametro =
 	  tipo id;
+	  
+	  
     comando =
       {cond} se parenteses_esquerdo exp parenteses_direito comando |
       {cond_senao} se parenteses_esquerdo exp parenteses_direito
@@ -162,6 +164,11 @@ Productions
       comeca dec comando termina;
 	
     exp =
+      {id} id |
+      {call} chamada ponto_virgula |
+      {call_id} id ponto chamada ponto_virgula |
+      {atrib} atributo ponto_virgula |
+      {atrib_id} id ponto atributo ponto_virgula |
       {cond} se parenteses_esquerdo exp parenteses_direito entao cond_exp2 |
       {soma} termo adicao exp |
       {subt} termo subtracao exp |
@@ -173,6 +180,7 @@ Productions
       {dif} negacao exp |
       {and} termo e exp |
       {or} termo ou exp |
+      {bloco_exp} bloco_exp |
       {termo} termo;
 
     cond_exp2 =
@@ -207,4 +215,8 @@ Productions
     lista_exp =
       {lista_exp} exp virgula lista_exp |
       {exp} exp |
+      {vazio} ;
+
+    /* todo */
+    atributo =
       {vazio} ;
