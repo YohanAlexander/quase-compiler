@@ -63,19 +63,35 @@ Ignored Tokens
     comentario, vazio;
 
 Productions
-	exp =
-	  {soma} termo adicao exp |
-	  {subt} termo subtracao exp |
-	  {multi} termo multiplicacao exp |
-	  {div} termo divisao exp |
-	  {mod} termo modulo exp |
-	  {igual} termo igualdade exp |
-	  {menor} termo menor_que exp |
-	  {dif} negacao exp |
-	  {and} termo e exp |
-	  {or} termo ou exp |
-	  {termo} termo;
+    programa = exp;
+	
+    exp =
+      {cond} se parenteses_esquerdo exp parenteses_direito entao cond_exp2 |
+      {soma} termo adicao exp |
+      {subt} termo subtracao exp |
+      {multi} termo multiplicacao exp |
+      {div} termo divisao exp |
+      {mod} termo modulo exp |
+      {igual} termo igualdade exp |
+      {menor} termo menor_que exp |
+      {dif} negacao exp |
+      {and} termo e exp |
+      {or} termo ou exp |
+      {termo} termo;
 
+    cond_exp2 =
+      {soma} termo adicao cond_exp2 |
+      {subt} termo subtracao cond_exp2 |
+      {multi} termo multiplicacao cond_exp2|
+      {div} termo divisao cond_exp2 |
+      {mod} termo modulo cond_exp2 |
+      {igual} termo igualdade cond_exp2 |
+      {menor} termo menor_que cond_exp2 |
+      {dif} negacao cond_exp2 |
+      {and} termo e cond_exp2 |
+      {or} termo ou cond_exp2 |
+      {fim} termo senao exp;
+	  
     termo = 
       {inteiro} numero_inteiro |
       {real} numero_real |
@@ -83,4 +99,3 @@ Productions
       {false} false |
       {id} id |
       {par} parenteses_esquerdo exp parenteses_direito;
-	
