@@ -94,9 +94,28 @@ Productions
     tipo_classe =
       cid;  
 
-    /* todo */
     comando =
-       ;
+      {cond} se parenteses_esquerdo exp parenteses_direito comando |
+      {cond_senao} se parenteses_esquerdo exp parenteses_direito
+        comando comando_senao |
+      {loop} enquanto parenteses_esquerdo exp parenteses_direito 
+        comando |
+      {atrib} id atribuicao exp ponto_virgula |
+      {call} chamada ponto_virgula |
+      {call_id} id ponto chamada ponto_virgula |
+      {bloco} bloco;
+    
+    comando_senao =
+      {cond} senao se parenteses_esquerdo exp parenteses_direito 
+        comando |
+      {cond_senao} senao se parenteses_esquerdo exp parenteses_direito
+        comando comando_senao |
+      {loop} senao enquanto parenteses_esquerdo exp parenteses_direito 
+        comando |
+      {atrib} senao id atribuicao exp ponto_virgula |
+      {call} senao chamada ponto_virgula |
+      {call_id} senao id ponto chamada ponto_virgula |
+      {bloco} senao bloco;
 
     bloco =
       comeca dec comando termina;
