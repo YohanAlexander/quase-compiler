@@ -63,17 +63,11 @@ Ignored Tokens
     comentario, vazio;
 
 Productions
-    programa = familia lista_classe;
-    lista_classe =
-      {lista_classe} def_classe lista_classe |
-      {classe} def_classe;
+    programa = familia def_classe+;
 
     familia =
-      {familia} lista_relacao ponto_virgula |
+      {familia} relacao+ ponto_virgula |
       {vazio} ;
-    lista_relacao =
-      {lista_relacao} relacao e_comercial |
-      {relacao} relacao;
     relacao =
       classe cid filha_relacao;
     filha_relacao =
@@ -83,30 +77,24 @@ Productions
       classe cid comeca atributos metodos termina;
 	
     atributos =
-      {atributos} dec atributos |
+      {atributos} dec1 atributos |
       {vazio} ;
     metodos =
       {metodos} dec2 metodos |
       {vazio} ;
 
-    dec =
+    dec1 =
       {obj} dec_obj |
       {var} dec_var |
       {cons} dec_cons;
     dec_obj =
-      objeto cid lista_id ponto_virgula;
+      objeto cid id (virgula id)* ponto_virgula;
     dec_var =
-      variavel tipo lista_id ponto_virgula;
+      variavel tipo id (virgula id)* ponto_virgula;
     dec_cons =
-      constante tipo_primitivo lista_inicializacao;
+      constante tipo_primitivo P.inicializacao (virgula P.inicializacao)*;
     inicializacao =
       id T.inicializacao exp;
-    lista_id =
-      {lista_id} id virgula lista_id |
-      {id} id;
-    lista_inicializacao =
-      {lista_inicializacao} P.inicializacao virgula lista_inicializacao |
-      {inicializacao} P.inicializacao;
 
     tipo =
       {classe} tipo_classe |
@@ -128,11 +116,8 @@ Productions
       funcao tipo id parenteses_esquerdo parametros parenteses_direito
         exp;
     parametros =
-      {parametros} lista_parametro |
+      {parametros} parametro (virgula parametro)* |
       {vazio} ;
-    lista_parametro =
-      {lista_parametro} parametro virgula lista_parametro |
-      {parametro} parametro;
     parametro =
 	  tipo id;
 	  
@@ -198,16 +183,12 @@ Productions
       {par} parenteses_esquerdo exp parenteses_direito;
 
     bloco_exp =
-      comeca lista_dec_cons exp termina;
-    lista_dec_cons =
-      {lista_dec_cons} dec_cons lista_dec_cons |
-      {dec_cons} dec_cons;
+      comeca dec_cons+ exp termina;
     
     chamada =
-      id parenteses_esquerdo lista_exp parenteses_direito;
+      id parenteses_esquerdo exp parenteses_direito;
     lista_exp =
-      {lista_exp} exp virgula lista_exp |
-      {exp} exp |
+      {lista_exp} exp (virgula exp)* |
       {vazio} ;
 
     /* todo */
