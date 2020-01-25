@@ -4,7 +4,6 @@ package quase.node;
 
 import quase.analysis.*;
 
-@SuppressWarnings("nls")
 public final class TMultiplicacao extends Token
 {
     public TMultiplicacao()
@@ -19,20 +18,17 @@ public final class TMultiplicacao extends Token
         setPos(pos);
     }
 
-    @Override
     public Object clone()
     {
       return new TMultiplicacao(getLine(), getPos());
     }
 
-    @Override
     public void apply(Switch sw)
     {
         ((Analysis) sw).caseTMultiplicacao(this);
     }
 
-    @Override
-    public void setText(@SuppressWarnings("unused") String text)
+    public void setText(String text)
     {
         throw new RuntimeException("Cannot change TMultiplicacao text.");
     }

@@ -4,7 +4,6 @@ package quase.node;
 
 import quase.analysis.*;
 
-@SuppressWarnings("nls")
 public final class TParentesesDireito extends Token
 {
     public TParentesesDireito()
@@ -19,20 +18,17 @@ public final class TParentesesDireito extends Token
         setPos(pos);
     }
 
-    @Override
     public Object clone()
     {
       return new TParentesesDireito(getLine(), getPos());
     }
 
-    @Override
     public void apply(Switch sw)
     {
         ((Analysis) sw).caseTParentesesDireito(this);
     }
 
-    @Override
-    public void setText(@SuppressWarnings("unused") String text)
+    public void setText(String text)
     {
         throw new RuntimeException("Cannot change TParentesesDireito text.");
     }

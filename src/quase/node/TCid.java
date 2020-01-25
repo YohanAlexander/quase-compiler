@@ -4,7 +4,6 @@ package quase.node;
 
 import quase.analysis.*;
 
-@SuppressWarnings("nls")
 public final class TCid extends Token
 {
     public TCid(String text)
@@ -19,13 +18,11 @@ public final class TCid extends Token
         setPos(pos);
     }
 
-    @Override
     public Object clone()
     {
       return new TCid(getText(), getLine(), getPos());
     }
 
-    @Override
     public void apply(Switch sw)
     {
         ((Analysis) sw).caseTCid(this);

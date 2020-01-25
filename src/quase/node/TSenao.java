@@ -4,35 +4,31 @@ package quase.node;
 
 import quase.analysis.*;
 
-@SuppressWarnings("nls")
 public final class TSenao extends Token
 {
     public TSenao()
     {
-        super.setText("senão");
+        super.setText("sen\u00e3o");
     }
 
     public TSenao(int line, int pos)
     {
-        super.setText("senão");
+        super.setText("sen\u00e3o");
         setLine(line);
         setPos(pos);
     }
 
-    @Override
     public Object clone()
     {
       return new TSenao(getLine(), getPos());
     }
 
-    @Override
     public void apply(Switch sw)
     {
         ((Analysis) sw).caseTSenao(this);
     }
 
-    @Override
-    public void setText(@SuppressWarnings("unused") String text)
+    public void setText(String text)
     {
         throw new RuntimeException("Cannot change TSenao text.");
     }

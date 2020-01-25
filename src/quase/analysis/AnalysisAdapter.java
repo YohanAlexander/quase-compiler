@@ -7,339 +7,614 @@ import quase.node.*;
 
 public class AnalysisAdapter implements Analysis
 {
-    private Hashtable<Node,Object> in;
-    private Hashtable<Node,Object> out;
+    private Hashtable in;
+    private Hashtable out;
 
-    @Override
     public Object getIn(Node node)
     {
-        if(this.in == null)
+        if(in == null)
         {
             return null;
         }
 
-        return this.in.get(node);
+        return in.get(node);
     }
 
-    @Override
-    public void setIn(Node node, Object o)
+    public void setIn(Node node, Object in)
     {
         if(this.in == null)
         {
-            this.in = new Hashtable<Node,Object>(1);
+            this.in = new Hashtable(1);
         }
 
-        if(o != null)
+        if(in != null)
         {
-            this.in.put(node, o);
+            this.in.put(node, in);
         }
         else
         {
             this.in.remove(node);
         }
     }
-
-    @Override
     public Object getOut(Node node)
     {
-        if(this.out == null)
+        if(out == null)
         {
             return null;
         }
 
-        return this.out.get(node);
+        return out.get(node);
     }
 
-    @Override
-    public void setOut(Node node, Object o)
+    public void setOut(Node node, Object out)
     {
         if(this.out == null)
         {
-            this.out = new Hashtable<Node,Object>(1);
+            this.out = new Hashtable(1);
         }
 
-        if(o != null)
+        if(out != null)
         {
-            this.out.put(node, o);
+            this.out.put(node, out);
         }
         else
         {
             this.out.remove(node);
         }
     }
+    public void caseStart(Start node)
+    {
+        defaultCase(node);
+    }
 
-    @Override
+    public void caseAPrograma(APrograma node)
+    {
+        defaultCase(node);
+    }
+    public void caseAListaClasseListaClasse(AListaClasseListaClasse node)
+    {
+        defaultCase(node);
+    }
+    public void caseAClasseListaClasse(AClasseListaClasse node)
+    {
+        defaultCase(node);
+    }
+    public void caseAFamiliaFamilia(AFamiliaFamilia node)
+    {
+        defaultCase(node);
+    }
+    public void caseAVazioFamilia(AVazioFamilia node)
+    {
+        defaultCase(node);
+    }
+    public void caseAListaRelacaoListaRelacao(AListaRelacaoListaRelacao node)
+    {
+        defaultCase(node);
+    }
+    public void caseARelacaoListaRelacao(ARelacaoListaRelacao node)
+    {
+        defaultCase(node);
+    }
+    public void caseARelacao(ARelacao node)
+    {
+        defaultCase(node);
+    }
+    public void caseAFilhaRelacao(AFilhaRelacao node)
+    {
+        defaultCase(node);
+    }
+    public void caseADefClasse(ADefClasse node)
+    {
+        defaultCase(node);
+    }
+    public void caseAAtributosAtributos(AAtributosAtributos node)
+    {
+        defaultCase(node);
+    }
+    public void caseAVazioAtributos(AVazioAtributos node)
+    {
+        defaultCase(node);
+    }
+    public void caseAMetodosMetodos(AMetodosMetodos node)
+    {
+        defaultCase(node);
+    }
+    public void caseAVazioMetodos(AVazioMetodos node)
+    {
+        defaultCase(node);
+    }
+    public void caseAObjDec(AObjDec node)
+    {
+        defaultCase(node);
+    }
+    public void caseAVarDec(AVarDec node)
+    {
+        defaultCase(node);
+    }
+    public void caseAConsDec(AConsDec node)
+    {
+        defaultCase(node);
+    }
+    public void caseADecObj(ADecObj node)
+    {
+        defaultCase(node);
+    }
+    public void caseADecVar(ADecVar node)
+    {
+        defaultCase(node);
+    }
+    public void caseADecCons(ADecCons node)
+    {
+        defaultCase(node);
+    }
+    public void caseAInicializacao(AInicializacao node)
+    {
+        defaultCase(node);
+    }
+    public void caseAListaIdListaId(AListaIdListaId node)
+    {
+        defaultCase(node);
+    }
+    public void caseAIdListaId(AIdListaId node)
+    {
+        defaultCase(node);
+    }
+    public void caseAListaInicializacaoListaInicializacao(AListaInicializacaoListaInicializacao node)
+    {
+        defaultCase(node);
+    }
+    public void caseAInicializacaoListaInicializacao(AInicializacaoListaInicializacao node)
+    {
+        defaultCase(node);
+    }
+    public void caseAClasseTipo(AClasseTipo node)
+    {
+        defaultCase(node);
+    }
+    public void caseAPrimitivoTipo(APrimitivoTipo node)
+    {
+        defaultCase(node);
+    }
+    public void caseAIntTipoPrimitivo(AIntTipoPrimitivo node)
+    {
+        defaultCase(node);
+    }
+    public void caseABoolTipoPrimitivo(ABoolTipoPrimitivo node)
+    {
+        defaultCase(node);
+    }
+    public void caseARealTipoPrimitivo(ARealTipoPrimitivo node)
+    {
+        defaultCase(node);
+    }
+    public void caseATipoClasse(ATipoClasse node)
+    {
+        defaultCase(node);
+    }
+    public void caseAProcDec2(AProcDec2 node)
+    {
+        defaultCase(node);
+    }
+    public void caseAFuncDec2(AFuncDec2 node)
+    {
+        defaultCase(node);
+    }
+    public void caseADecProcedimento(ADecProcedimento node)
+    {
+        defaultCase(node);
+    }
+    public void caseADecFuncao(ADecFuncao node)
+    {
+        defaultCase(node);
+    }
+    public void caseAParametrosParametros(AParametrosParametros node)
+    {
+        defaultCase(node);
+    }
+    public void caseAVazioParametros(AVazioParametros node)
+    {
+        defaultCase(node);
+    }
+    public void caseAListaParametroListaParametro(AListaParametroListaParametro node)
+    {
+        defaultCase(node);
+    }
+    public void caseAParametroListaParametro(AParametroListaParametro node)
+    {
+        defaultCase(node);
+    }
+    public void caseAParametro(AParametro node)
+    {
+        defaultCase(node);
+    }
+    public void caseACondComando(ACondComando node)
+    {
+        defaultCase(node);
+    }
+    public void caseALoopComando(ALoopComando node)
+    {
+        defaultCase(node);
+    }
+    public void caseAAtribComando(AAtribComando node)
+    {
+        defaultCase(node);
+    }
+    public void caseACallComando(ACallComando node)
+    {
+        defaultCase(node);
+    }
+    public void caseACallIdComando(ACallIdComando node)
+    {
+        defaultCase(node);
+    }
+    public void caseABlocoComando(ABlocoComando node)
+    {
+        defaultCase(node);
+    }
+    public void caseACondComandoSenao(ACondComandoSenao node)
+    {
+        defaultCase(node);
+    }
+    public void caseACondSenaoComandoSenao(ACondSenaoComandoSenao node)
+    {
+        defaultCase(node);
+    }
+    public void caseALoopComandoSenao(ALoopComandoSenao node)
+    {
+        defaultCase(node);
+    }
+    public void caseAAtribComandoSenao(AAtribComandoSenao node)
+    {
+        defaultCase(node);
+    }
+    public void caseACallComandoSenao(ACallComandoSenao node)
+    {
+        defaultCase(node);
+    }
+    public void caseACallIdComandoSenao(ACallIdComandoSenao node)
+    {
+        defaultCase(node);
+    }
+    public void caseABlocoComandoSenao(ABlocoComandoSenao node)
+    {
+        defaultCase(node);
+    }
+    public void caseABloco(ABloco node)
+    {
+        defaultCase(node);
+    }
+    public void caseACondExp(ACondExp node)
+    {
+        defaultCase(node);
+    }
+    public void caseASomaExp(ASomaExp node)
+    {
+        defaultCase(node);
+    }
+    public void caseASubtExp(ASubtExp node)
+    {
+        defaultCase(node);
+    }
+    public void caseAMultiExp(AMultiExp node)
+    {
+        defaultCase(node);
+    }
+    public void caseADivExp(ADivExp node)
+    {
+        defaultCase(node);
+    }
+    public void caseAModExp(AModExp node)
+    {
+        defaultCase(node);
+    }
+    public void caseAIgualExp(AIgualExp node)
+    {
+        defaultCase(node);
+    }
+    public void caseAMenorExp(AMenorExp node)
+    {
+        defaultCase(node);
+    }
+    public void caseADifExp(ADifExp node)
+    {
+        defaultCase(node);
+    }
+    public void caseAAndExp(AAndExp node)
+    {
+        defaultCase(node);
+    }
+    public void caseAOrExp(AOrExp node)
+    {
+        defaultCase(node);
+    }
+    public void caseABlocoExpExp(ABlocoExpExp node)
+    {
+        defaultCase(node);
+    }
+    public void caseATermoExp(ATermoExp node)
+    {
+        defaultCase(node);
+    }
+    public void caseASomaCondExp2(ASomaCondExp2 node)
+    {
+        defaultCase(node);
+    }
+    public void caseASubtCondExp2(ASubtCondExp2 node)
+    {
+        defaultCase(node);
+    }
+    public void caseAMultiCondExp2(AMultiCondExp2 node)
+    {
+        defaultCase(node);
+    }
+    public void caseADivCondExp2(ADivCondExp2 node)
+    {
+        defaultCase(node);
+    }
+    public void caseAModCondExp2(AModCondExp2 node)
+    {
+        defaultCase(node);
+    }
+    public void caseAIgualCondExp2(AIgualCondExp2 node)
+    {
+        defaultCase(node);
+    }
+    public void caseAMenorCondExp2(AMenorCondExp2 node)
+    {
+        defaultCase(node);
+    }
+    public void caseADifCondExp2(ADifCondExp2 node)
+    {
+        defaultCase(node);
+    }
+    public void caseAAndCondExp2(AAndCondExp2 node)
+    {
+        defaultCase(node);
+    }
+    public void caseAOrCondExp2(AOrCondExp2 node)
+    {
+        defaultCase(node);
+    }
+    public void caseAFimCondExp2(AFimCondExp2 node)
+    {
+        defaultCase(node);
+    }
+    public void caseAInteiroTermo(AInteiroTermo node)
+    {
+        defaultCase(node);
+    }
+    public void caseARealTermo(ARealTermo node)
+    {
+        defaultCase(node);
+    }
+    public void caseATrueTermo(ATrueTermo node)
+    {
+        defaultCase(node);
+    }
+    public void caseAFalseTermo(AFalseTermo node)
+    {
+        defaultCase(node);
+    }
+    public void caseAIdTermo(AIdTermo node)
+    {
+        defaultCase(node);
+    }
+    public void caseAParTermo(AParTermo node)
+    {
+        defaultCase(node);
+    }
+    public void caseABlocoExp(ABlocoExp node)
+    {
+        defaultCase(node);
+    }
+    public void caseAListaDecConsListaDecCons(AListaDecConsListaDecCons node)
+    {
+        defaultCase(node);
+    }
+    public void caseADecConsListaDecCons(ADecConsListaDecCons node)
+    {
+        defaultCase(node);
+    }
+    public void caseAChamada(AChamada node)
+    {
+        defaultCase(node);
+    }
+    public void caseAListaExpListaExp(AListaExpListaExp node)
+    {
+        defaultCase(node);
+    }
+    public void caseAExpListaExp(AExpListaExp node)
+    {
+        defaultCase(node);
+    }
+    public void caseAVazioListaExp(AVazioListaExp node)
+    {
+        defaultCase(node);
+    }
+    public void caseAVazioAtributo(AVazioAtributo node)
+    {
+        defaultCase(node);
+    }
+
     public void caseTEComercial(TEComercial node)
     {
         defaultCase(node);
     }
-
-    @Override
     public void caseTPontoVirgula(TPontoVirgula node)
     {
         defaultCase(node);
     }
-
-    @Override
     public void caseTClasse(TClasse node)
     {
         defaultCase(node);
     }
-
-    @Override
     public void caseTFilhaDaClasse(TFilhaDaClasse node)
     {
         defaultCase(node);
     }
-
-    @Override
     public void caseTComeca(TComeca node)
     {
         defaultCase(node);
     }
-
-    @Override
     public void caseTTermina(TTermina node)
     {
         defaultCase(node);
     }
-
-    @Override
     public void caseTObjeto(TObjeto node)
     {
         defaultCase(node);
     }
-
-    @Override
     public void caseTVirgula(TVirgula node)
     {
         defaultCase(node);
     }
-
-    @Override
     public void caseTVariavel(TVariavel node)
     {
         defaultCase(node);
     }
-
-    @Override
     public void caseTConstante(TConstante node)
     {
         defaultCase(node);
     }
-
-    @Override
     public void caseTInicializacao(TInicializacao node)
     {
         defaultCase(node);
     }
-
-    @Override
     public void caseTInt(TInt node)
     {
         defaultCase(node);
     }
-
-    @Override
     public void caseTBool(TBool node)
     {
         defaultCase(node);
     }
-
-    @Override
     public void caseTReal(TReal node)
     {
         defaultCase(node);
     }
-
-    @Override
     public void caseTPontoDeEntrada(TPontoDeEntrada node)
     {
         defaultCase(node);
     }
-
-    @Override
     public void caseTProcedimento(TProcedimento node)
     {
         defaultCase(node);
     }
-
-    @Override
     public void caseTParentesesEsquerdo(TParentesesEsquerdo node)
     {
         defaultCase(node);
     }
-
-    @Override
     public void caseTParentesesDireito(TParentesesDireito node)
     {
         defaultCase(node);
     }
-
-    @Override
     public void caseTFuncao(TFuncao node)
     {
         defaultCase(node);
     }
-
-    @Override
     public void caseTSe(TSe node)
     {
         defaultCase(node);
     }
-
-    @Override
     public void caseTSenao(TSenao node)
     {
         defaultCase(node);
     }
-
-    @Override
     public void caseTEnquanto(TEnquanto node)
     {
         defaultCase(node);
     }
-
-    @Override
     public void caseTAtribuicao(TAtribuicao node)
     {
         defaultCase(node);
     }
-
-    @Override
     public void caseTPonto(TPonto node)
     {
         defaultCase(node);
     }
-
-    @Override
     public void caseTTrue(TTrue node)
     {
         defaultCase(node);
     }
-
-    @Override
     public void caseTFalse(TFalse node)
     {
         defaultCase(node);
     }
-
-    @Override
     public void caseTSubtracao(TSubtracao node)
     {
         defaultCase(node);
     }
-
-    @Override
     public void caseTEntao(TEntao node)
     {
         defaultCase(node);
     }
-
-    @Override
     public void caseTAdicao(TAdicao node)
     {
         defaultCase(node);
     }
-
-    @Override
     public void caseTMultiplicacao(TMultiplicacao node)
     {
         defaultCase(node);
     }
-
-    @Override
     public void caseTDivisao(TDivisao node)
     {
         defaultCase(node);
     }
-
-    @Override
     public void caseTModulo(TModulo node)
     {
         defaultCase(node);
     }
-
-    @Override
     public void caseTIgualdade(TIgualdade node)
     {
         defaultCase(node);
     }
-
-    @Override
     public void caseTMenorQue(TMenorQue node)
     {
         defaultCase(node);
     }
-
-    @Override
     public void caseTNegacao(TNegacao node)
     {
         defaultCase(node);
     }
-
-    @Override
     public void caseTE(TE node)
     {
         defaultCase(node);
     }
-
-    @Override
     public void caseTOu(TOu node)
     {
         defaultCase(node);
     }
-
-    @Override
     public void caseTComentario(TComentario node)
     {
         defaultCase(node);
     }
-
-    @Override
     public void caseTId(TId node)
     {
         defaultCase(node);
     }
-
-    @Override
     public void caseTCid(TCid node)
     {
         defaultCase(node);
     }
-
-    @Override
     public void caseTNumeroInteiro(TNumeroInteiro node)
     {
         defaultCase(node);
     }
-
-    @Override
     public void caseTNumeroReal(TNumeroReal node)
     {
         defaultCase(node);
     }
-
-    @Override
     public void caseTVazio(TVazio node)
     {
         defaultCase(node);
     }
 
-    @Override
     public void caseEOF(EOF node)
     {
         defaultCase(node);
     }
 
-    @Override
-    public void caseInvalidToken(InvalidToken node)
+    public void defaultCase(Node node)
     {
-        defaultCase(node);
-    }
-
-    public void defaultCase(@SuppressWarnings("unused") Node node)
-    {
-        // do nothing
     }
 }

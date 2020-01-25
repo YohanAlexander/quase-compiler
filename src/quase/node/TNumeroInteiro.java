@@ -4,7 +4,6 @@ package quase.node;
 
 import quase.analysis.*;
 
-@SuppressWarnings("nls")
 public final class TNumeroInteiro extends Token
 {
     public TNumeroInteiro(String text)
@@ -19,13 +18,11 @@ public final class TNumeroInteiro extends Token
         setPos(pos);
     }
 
-    @Override
     public Object clone()
     {
       return new TNumeroInteiro(getText(), getLine(), getPos());
     }
 
-    @Override
     public void apply(Switch sw)
     {
         ((Analysis) sw).caseTNumeroInteiro(this);

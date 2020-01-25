@@ -4,7 +4,6 @@ package quase.node;
 
 import quase.analysis.*;
 
-@SuppressWarnings("nls")
 public final class TIgualdade extends Token
 {
     public TIgualdade()
@@ -19,20 +18,17 @@ public final class TIgualdade extends Token
         setPos(pos);
     }
 
-    @Override
     public Object clone()
     {
       return new TIgualdade(getLine(), getPos());
     }
 
-    @Override
     public void apply(Switch sw)
     {
         ((Analysis) sw).caseTIgualdade(this);
     }
 
-    @Override
-    public void setText(@SuppressWarnings("unused") String text)
+    public void setText(String text)
     {
         throw new RuntimeException("Cannot change TIgualdade text.");
     }

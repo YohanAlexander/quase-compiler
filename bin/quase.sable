@@ -61,3 +61,155 @@ Tokens
 
 Ignored Tokens
     comentario, vazio;
+
+Productions
+    programa = familia lista_classe;
+    lista_classe =
+      {lista_classe} def_classe lista_classe |
+      {classe} classe;
+
+    familia =
+      {familia} lista_relacao ponto_virgula |
+      {vazio} ;
+    lista_relacao =
+      {lista_relacao} relacao e_comercial |
+      {relacao} relacao;
+    relacao =
+      classe cid filha_relacao;
+    filha_relacao =
+      filha_da_classe cid;
+  
+    def_classe =
+      classe cid comeca atributos metodos termina;
+	
+    atributos =
+      {atributos} dec atributos |
+      {vazio} ;
+    metodos =
+      {metodos} dec2 metodos |
+      {vazio} ;
+
+    dec =
+      {obj} dec_obj |
+      {var} dec_var |
+      {cons} dec_cons;
+    dec_obj =
+      objeto cid lista_id ponto_virgula;
+    dec_var =
+      variavel tipo lista_id ponto_virgula;
+    dec_cons =
+      constante tipo_primitivo lista_inicializacao;
+    inicializacao =
+      id T.inicializacao exp;
+    lista_id =
+      {lista_id} id virgula lista_id |
+      {id} id;
+    lista_inicializacao =
+      {lista_inicializacao} P.inicializacao virgula lista_inicializacao |
+      {inicializacao} P.inicializacao;
+
+    tipo =
+      {classe} tipo_classe |
+      {primitivo} tipo_primitivo;
+    tipo_primitivo =
+      {int} int |
+      {bool} bool |
+      {real} real;
+    tipo_classe =
+      cid;  
+
+    dec2 =
+      {proc} dec_procedimento |
+      {func} dec_funcao;
+    dec_procedimento =
+      ponto_de_entrada? procedimento id parenteses_esquerdo parametros 
+        parenteses_direito comando;
+    dec_funcao =
+      funcao tipo id parenteses_esquerdo parametros parenteses_direito
+        exp;
+    parametros =
+      {parametros} lista_parametro |
+      {vazio} ;
+    lista_parametro =
+      {lista_parametro} parametro virgula lista_parametro |
+      {parametro} parametro;
+    parametro =
+	  tipo id;
+	  
+	  
+    comando =
+      {cond} se parenteses_esquerdo exp parenteses_direito comando |
+      {loop} enquanto parenteses_esquerdo exp parenteses_direito 
+        comando |
+      {atrib} id atribuicao exp ponto_virgula |
+      {call} chamada ponto_virgula |
+      {call_id} id ponto chamada ponto_virgula |
+      {bloco} bloco;
+    
+    comando_senao =
+      {cond} senao se parenteses_esquerdo exp parenteses_direito 
+        comando |
+      {cond_senao} senao se parenteses_esquerdo exp parenteses_direito
+        comando comando_senao |
+      {loop} senao enquanto parenteses_esquerdo exp parenteses_direito 
+        comando |
+      {atrib} senao id atribuicao exp ponto_virgula |
+      {call} senao chamada ponto_virgula |
+      {call_id} senao id ponto chamada ponto_virgula |
+      {bloco} senao bloco;
+
+    bloco =
+      comeca dec comando termina;
+	
+    exp =
+      {cond} se parenteses_esquerdo exp parenteses_direito entao cond_exp2 |
+      {soma} termo adicao exp |
+      {subt} termo subtracao exp |
+      {multi} termo multiplicacao exp |
+      {div} termo divisao exp |
+      {mod} termo modulo exp |
+      {igual} termo igualdade exp |
+      {menor} termo menor_que exp |
+      {dif} negacao exp |
+      {and} termo e exp |
+      {or} termo ou exp |
+      {bloco_exp} bloco_exp |
+      {termo} termo;
+
+    cond_exp2 =
+      {soma} termo adicao cond_exp2 |
+      {subt} termo subtracao cond_exp2 |
+      {multi} termo multiplicacao cond_exp2|
+      {div} termo divisao cond_exp2 |
+      {mod} termo modulo cond_exp2 |
+      {igual} termo igualdade cond_exp2 |
+      {menor} termo menor_que cond_exp2 |
+      {dif} negacao cond_exp2 |
+      {and} termo e cond_exp2 |
+      {or} termo ou cond_exp2 |
+      {fim} termo senao exp;
+	  
+    termo = 
+      {inteiro} numero_inteiro |
+      {real} numero_real |
+      {true} true |
+      {false} false |
+      {id} id |
+      {par} parenteses_esquerdo exp parenteses_direito;
+
+    bloco_exp =
+      comeca lista_dec_cons exp termina;
+    lista_dec_cons =
+      {lista_dec_cons} dec_cons lista_dec_cons |
+      {dec_cons} dec_cons;
+    
+    chamada =
+      id parenteses_esquerdo lista_exp parenteses_direito;
+    lista_exp =
+      {lista_exp} exp virgula lista_exp |
+      {exp} exp |
+      {vazio} ;
+
+    /* todo */
+    atributo =
+      {vazio} ;

@@ -4,7 +4,6 @@ package quase.node;
 
 import quase.analysis.*;
 
-@SuppressWarnings("nls")
 public final class TConstante extends Token
 {
     public TConstante()
@@ -19,20 +18,17 @@ public final class TConstante extends Token
         setPos(pos);
     }
 
-    @Override
     public Object clone()
     {
       return new TConstante(getLine(), getPos());
     }
 
-    @Override
     public void apply(Switch sw)
     {
         ((Analysis) sw).caseTConstante(this);
     }
 
-    @Override
-    public void setText(@SuppressWarnings("unused") String text)
+    public void setText(String text)
     {
         throw new RuntimeException("Cannot change TConstante text.");
     }

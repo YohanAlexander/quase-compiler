@@ -4,7 +4,6 @@ package quase.node;
 
 import quase.analysis.*;
 
-@SuppressWarnings("nls")
 public final class TPontoDeEntrada extends Token
 {
     public TPontoDeEntrada()
@@ -19,20 +18,17 @@ public final class TPontoDeEntrada extends Token
         setPos(pos);
     }
 
-    @Override
     public Object clone()
     {
       return new TPontoDeEntrada(getLine(), getPos());
     }
 
-    @Override
     public void apply(Switch sw)
     {
         ((Analysis) sw).caseTPontoDeEntrada(this);
     }
 
-    @Override
-    public void setText(@SuppressWarnings("unused") String text)
+    public void setText(String text)
     {
         throw new RuntimeException("Cannot change TPontoDeEntrada text.");
     }

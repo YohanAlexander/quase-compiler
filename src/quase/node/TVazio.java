@@ -4,7 +4,6 @@ package quase.node;
 
 import quase.analysis.*;
 
-@SuppressWarnings("nls")
 public final class TVazio extends Token
 {
     public TVazio(String text)
@@ -19,13 +18,11 @@ public final class TVazio extends Token
         setPos(pos);
     }
 
-    @Override
     public Object clone()
     {
       return new TVazio(getText(), getLine(), getPos());
     }
 
-    @Override
     public void apply(Switch sw)
     {
         ((Analysis) sw).caseTVazio(this);

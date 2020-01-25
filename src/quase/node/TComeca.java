@@ -4,35 +4,31 @@ package quase.node;
 
 import quase.analysis.*;
 
-@SuppressWarnings("nls")
 public final class TComeca extends Token
 {
     public TComeca()
     {
-        super.setText("começa");
+        super.setText("come\u00e7a");
     }
 
     public TComeca(int line, int pos)
     {
-        super.setText("começa");
+        super.setText("come\u00e7a");
         setLine(line);
         setPos(pos);
     }
 
-    @Override
     public Object clone()
     {
       return new TComeca(getLine(), getPos());
     }
 
-    @Override
     public void apply(Switch sw)
     {
         ((Analysis) sw).caseTComeca(this);
     }
 
-    @Override
-    public void setText(@SuppressWarnings("unused") String text)
+    public void setText(String text)
     {
         throw new RuntimeException("Cannot change TComeca text.");
     }
