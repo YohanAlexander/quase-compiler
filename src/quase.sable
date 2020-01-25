@@ -164,11 +164,6 @@ Productions
       comeca dec comando termina;
 	
     exp =
-      {id} id |
-      {call} chamada ponto_virgula |
-      {call_id} id ponto chamada ponto_virgula |
-      {atrib} atributo ponto_virgula |
-      {atrib_id} id ponto atributo ponto_virgula |
       {cond} se parenteses_esquerdo exp parenteses_direito entao cond_exp2 |
       {soma} termo adicao exp |
       {subt} termo subtracao exp |
