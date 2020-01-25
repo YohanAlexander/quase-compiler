@@ -64,6 +64,42 @@ Ignored Tokens
 
 Productions
     programa = exp;
+
+    dec =
+      {obj} dec_obj |
+      {var} dec_var |
+      {cons} dec_cons;
+    dec_obj =
+      objeto cid lista_id ponto_virgula;
+    dec_var =
+      variavel tipo lista_id ponto_virgula;
+    dec_cons =
+      constante tipo_primitivo lista_inicializacao;
+    inicializacao =
+      id T.inicializacao exp;
+    lista_id =
+      {lista_id} id virgula lista_id |
+      {id} id;
+    lista_inicializacao =
+      {lista_inicializacao} P.inicializacao virgula lista_inicializacao |
+      {inicializacao} P.inicializacao;
+
+    tipo =
+      {classe} tipo_classe |
+      {primitivo} tipo_primitivo;
+    tipo_primitivo =
+      {int} int |
+      {bool} bool |
+      {real} real;
+    tipo_classe =
+      cid;  
+
+    /* todo */
+    comando =
+       ;
+
+    bloco =
+      comeca dec comando termina;
 	
     exp =
       {cond} se parenteses_esquerdo exp parenteses_direito entao cond_exp2 |
@@ -99,3 +135,16 @@ Productions
       {false} false |
       {id} id |
       {par} parenteses_esquerdo exp parenteses_direito;
+
+    bloco_exp =
+      comeca lista_dec_cons exp termina;
+    lista_dec_cons =
+      {lista_dec_cons} dec_cons lista_dec_cons |
+      {dec_cons} dec_cons;
+    
+    chamada =
+      id parenteses_esquerdo lista_exp parenteses_direito;
+    lista_exp =
+      {lista_exp} exp virgula lista_exp |
+      {exp} exp |
+      {vazio} ;
