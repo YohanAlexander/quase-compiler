@@ -139,8 +139,6 @@ Productions
 	  
     comando =
       {cond} se parenteses_esquerdo exp parenteses_direito comando |
-      {cond_senao} se parenteses_esquerdo exp parenteses_direito
-        comando comando_senao |
       {loop} enquanto parenteses_esquerdo exp parenteses_direito 
         comando |
       {atrib} id atribuicao exp ponto_virgula |
