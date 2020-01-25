@@ -66,7 +66,7 @@ Productions
     programa = familia lista_classe;
     lista_classe =
       {lista_classe} def_classe lista_classe |
-      {classe} classe;
+      {classe} def_classe;
 
     familia =
       {familia} lista_relacao ponto_virgula |
