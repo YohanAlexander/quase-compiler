@@ -63,7 +63,7 @@ Ignored Tokens
     comentario, vazio;
 
 Productions
-    programa = familia lista_classe;
+    programa = {programa} familia lista_classe;
     lista_classe =
       {lista_classe} def_classe lista_classe |
       {classe} def_classe;
@@ -75,12 +75,12 @@ Productions
       {lista_relacao} relacao e_comercial |
       {relacao} relacao;
     relacao =
-      classe cid filha_relacao;
+      {relacao} classe cid filha_relacao;
     filha_relacao =
-      filha_da_classe cid;
+      {filha_relacao} filha_da_classe cid;
   
     def_classe =
-      classe cid comeca atributos metodos termina;
+      {def_classe} classe cid comeca atributos metodos termina;
 	
     atributos =
       {atributos} dec atributos |
@@ -94,13 +94,13 @@ Productions
       {var} dec_var |
       {cons} dec_cons;
     dec_obj =
-      objeto cid lista_id ponto_virgula;
+      {dec_obj} objeto cid lista_id ponto_virgula;
     dec_var =
-      variavel tipo lista_id ponto_virgula;
+      {dec_var} variavel tipo lista_id ponto_virgula;
     dec_cons =
-      constante tipo_primitivo lista_inicializacao;
+      {dec_cons} constante tipo_primitivo lista_inicializacao;
     inicializacao =
-      id T.inicializacao exp;
+      {inicializacao} id T.inicializacao exp;
     lista_id =
       {lista_id} id virgula lista_id |
       {id} id;
@@ -116,16 +116,16 @@ Productions
       {bool} bool |
       {real} real;
     tipo_classe =
-      cid;  
+      {tipo_classe} cid;  
 
     dec2 =
       {proc} dec_procedimento |
       {func} dec_funcao;
     dec_procedimento =
-      ponto_de_entrada? procedimento id parenteses_esquerdo parametros 
+      {dec_procedimento} ponto_de_entrada? procedimento id parenteses_esquerdo parametros 
         parenteses_direito comando;
     dec_funcao =
-      funcao tipo id parenteses_esquerdo parametros parenteses_direito
+      {dec_funcao} funcao tipo id parenteses_esquerdo parametros parenteses_direito
         exp;
     parametros =
       {parametros} lista_parametro |
@@ -134,7 +134,7 @@ Productions
       {lista_parametro} parametro virgula lista_parametro |
       {parametro} parametro;
     parametro =
-	  tipo id;
+      {parametro} tipo id;
 	  
 	  
     comando =
@@ -159,7 +159,7 @@ Productions
       {bloco} senao bloco;
 
     bloco =
-      comeca dec comando termina;
+      {bloco} comeca dec comando termina;
 	
     exp =
       {cond} se parenteses_esquerdo exp parenteses_direito entao cond_exp2 |
@@ -198,13 +198,13 @@ Productions
       {par} parenteses_esquerdo exp parenteses_direito;
 
     bloco_exp =
-      comeca lista_dec_cons exp termina;
+      {bloco_exp} comeca lista_dec_cons exp termina;
     lista_dec_cons =
       {lista_dec_cons} dec_cons lista_dec_cons |
       {dec_cons} dec_cons;
     
     chamada =
-      id parenteses_esquerdo lista_exp parenteses_direito;
+      {chamada} id parenteses_esquerdo lista_exp parenteses_direito;
     lista_exp =
       {lista_exp} exp virgula lista_exp |
       {exp} exp |
@@ -212,4 +212,4 @@ Productions
 
     /* todo */
     atributo =
-{vazio} ;
+      {vazio} ;
