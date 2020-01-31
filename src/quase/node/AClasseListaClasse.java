@@ -7,23 +7,23 @@ import quase.analysis.*;
 
 public final class AClasseListaClasse extends PListaClasse
 {
-    private TClasse _classe_;
+    private PDefClasse _def_classe_;
 
     public AClasseListaClasse ()
     {
     }
 
     public AClasseListaClasse (
-            TClasse _classe_
+            PDefClasse _def_classe_
     )
     {
-        setClasse (_classe_);
+        setDefClasse (_def_classe_);
     }
 
     public Object clone()
     {
         return new AClasseListaClasse (
-            (TClasse)cloneNode (_classe_)
+            (PDefClasse)cloneNode (_def_classe_)
         );
     }
 
@@ -32,16 +32,16 @@ public final class AClasseListaClasse extends PListaClasse
         ((Analysis) sw).caseAClasseListaClasse(this);
     }
 
-    public TClasse getClasse ()
+    public PDefClasse getDefClasse ()
     {
-        return _classe_;
+        return _def_classe_;
     }
 
-    public void setClasse (TClasse node)
+    public void setDefClasse (PDefClasse node)
     {
-        if(_classe_ != null)
+        if(_def_classe_ != null)
         {
-            _classe_.parent(null);
+            _def_classe_.parent(null);
         }
 
         if(node != null)
@@ -54,30 +54,30 @@ public final class AClasseListaClasse extends PListaClasse
             node.parent(this);
         }
 
-        _classe_ = node;
+        _def_classe_ = node;
     }
 
     public String toString()
     {
         return ""
-            + toString (_classe_)
+            + toString (_def_classe_)
         ;
     }
 
     void removeChild(Node child)
     {
-        if ( _classe_ == child )
+        if ( _def_classe_ == child )
         {
-            _classe_ = null;
+            _def_classe_ = null;
             return;
         }
     }
 
     void replaceChild(Node oldChild, Node newChild)
     {
-        if ( _classe_ == oldChild )
+        if ( _def_classe_ == oldChild )
         {
-            setClasse ((TClasse) newChild);
+            setDefClasse ((PDefClasse) newChild);
             return;
         }
     }

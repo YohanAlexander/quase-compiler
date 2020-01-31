@@ -744,7 +744,7 @@ public class Parser
               tpontovirgulaNode4
         );
         PListaClasse plistaclasseNode5 = (PListaClasse)nodeArrayList3.get(0);
-        APrograma pprogramaNode1 = new APrograma (
+        AProgramaPrograma pprogramaNode1 = new AProgramaPrograma (
               pfamiliaNode2,
               plistaclasseNode5
         );
@@ -758,7 +758,7 @@ public class Parser
         AVazioFamilia pfamiliaNode2 = new AVazioFamilia (
         );
         PListaClasse plistaclasseNode3 = (PListaClasse)nodeArrayList1.get(0);
-        APrograma pprogramaNode1 = new APrograma (
+        AProgramaPrograma pprogramaNode1 = new AProgramaPrograma (
               pfamiliaNode2,
               plistaclasseNode3
         );
@@ -783,9 +783,9 @@ public class Parser
     {
         ArrayList nodeList = new ArrayList(1);
         ArrayList nodeArrayList1 = (ArrayList) pop();
-        TClasse tclasseNode2 = (TClasse)nodeArrayList1.get(0);
+        PDefClasse pdefclasseNode2 = (PDefClasse)nodeArrayList1.get(0);
         AClasseListaClasse plistaclasseNode1 = new AClasseListaClasse (
-              tclasseNode2
+              pdefclasseNode2
         );
         nodeList.add(plistaclasseNode1);
         return nodeList;
@@ -824,7 +824,7 @@ public class Parser
         TClasse tclasseNode2 = (TClasse)nodeArrayList1.get(0);
         TCid tcidNode3 = (TCid)nodeArrayList2.get(0);
         PFilhaRelacao pfilharelacaoNode4 = (PFilhaRelacao)nodeArrayList3.get(0);
-        ARelacao prelacaoNode1 = new ARelacao (
+        ARelacaoRelacao prelacaoNode1 = new ARelacaoRelacao (
               tclasseNode2,
               tcidNode3,
               pfilharelacaoNode4
@@ -839,7 +839,7 @@ public class Parser
         ArrayList nodeArrayList1 = (ArrayList) pop();
         TFilhaDaClasse tfilhadaclasseNode2 = (TFilhaDaClasse)nodeArrayList1.get(0);
         TCid tcidNode3 = (TCid)nodeArrayList2.get(0);
-        AFilhaRelacao pfilharelacaoNode1 = new AFilhaRelacao (
+        AFilhaRelacaoFilhaRelacao pfilharelacaoNode1 = new AFilhaRelacaoFilhaRelacao (
               tfilhadaclasseNode2,
               tcidNode3
         );
@@ -861,7 +861,7 @@ public class Parser
         PAtributos patributosNode5 = (PAtributos)nodeArrayList4.get(0);
         PMetodos pmetodosNode6 = (PMetodos)nodeArrayList5.get(0);
         TTermina tterminaNode7 = (TTermina)nodeArrayList6.get(0);
-        ADefClasse pdefclasseNode1 = new ADefClasse (
+        ADefClasseDefClasse pdefclasseNode1 = new ADefClasseDefClasse (
               tclasseNode2,
               tcidNode3,
               tcomecaNode4,
@@ -960,7 +960,7 @@ public class Parser
         TCid tcidNode3 = (TCid)nodeArrayList2.get(0);
         PListaId plistaidNode4 = (PListaId)nodeArrayList3.get(0);
         TPontoVirgula tpontovirgulaNode5 = (TPontoVirgula)nodeArrayList4.get(0);
-        ADecObj pdecobjNode1 = new ADecObj (
+        ADecObjDecObj pdecobjNode1 = new ADecObjDecObj (
               tobjetoNode2,
               tcidNode3,
               plistaidNode4,
@@ -980,7 +980,7 @@ public class Parser
         PTipo ptipoNode3 = (PTipo)nodeArrayList2.get(0);
         PListaId plistaidNode4 = (PListaId)nodeArrayList3.get(0);
         TPontoVirgula tpontovirgulaNode5 = (TPontoVirgula)nodeArrayList4.get(0);
-        ADecVar pdecvarNode1 = new ADecVar (
+        ADecVarDecVar pdecvarNode1 = new ADecVarDecVar (
               tvariavelNode2,
               ptipoNode3,
               plistaidNode4,
@@ -998,7 +998,7 @@ public class Parser
         TConstante tconstanteNode2 = (TConstante)nodeArrayList1.get(0);
         PTipoPrimitivo ptipoprimitivoNode3 = (PTipoPrimitivo)nodeArrayList2.get(0);
         PListaInicializacao plistainicializacaoNode4 = (PListaInicializacao)nodeArrayList3.get(0);
-        ADecCons pdecconsNode1 = new ADecCons (
+        ADecConsDecCons pdecconsNode1 = new ADecConsDecCons (
               tconstanteNode2,
               ptipoprimitivoNode3,
               plistainicializacaoNode4
@@ -1015,7 +1015,7 @@ public class Parser
         TId tidNode2 = (TId)nodeArrayList1.get(0);
         TInicializacao tinicializacaoNode3 = (TInicializacao)nodeArrayList2.get(0);
         PExp pexpNode4 = (PExp)nodeArrayList3.get(0);
-        AInicializacao pinicializacaoNode1 = new AInicializacao (
+        AInicializacaoInicializacao pinicializacaoNode1 = new AInicializacaoInicializacao (
               tidNode2,
               tinicializacaoNode3,
               pexpNode4
@@ -1139,7 +1139,7 @@ public class Parser
         ArrayList nodeList = new ArrayList(1);
         ArrayList nodeArrayList1 = (ArrayList) pop();
         TCid tcidNode2 = (TCid)nodeArrayList1.get(0);
-        ATipoClasse ptipoclasseNode1 = new ATipoClasse (
+        ATipoClasseTipoClasse ptipoclasseNode1 = new ATipoClasseTipoClasse (
               tcidNode2
         );
         nodeList.add(ptipoclasseNode1);
@@ -1182,7 +1182,7 @@ public class Parser
         PParametros pparametrosNode6 = (PParametros)nodeArrayList4.get(0);
         TParentesesDireito tparentesesdireitoNode7 = (TParentesesDireito)nodeArrayList5.get(0);
         PComando pcomandoNode8 = (PComando)nodeArrayList6.get(0);
-        ADecProcedimento pdecprocedimentoNode1 = new ADecProcedimento (
+        ADecProcedimentoDecProcedimento pdecprocedimentoNode1 = new ADecProcedimentoDecProcedimento (
               null,
               tprocedimentoNode3,
               tidNode4,
@@ -1211,7 +1211,7 @@ public class Parser
         PParametros pparametrosNode6 = (PParametros)nodeArrayList5.get(0);
         TParentesesDireito tparentesesdireitoNode7 = (TParentesesDireito)nodeArrayList6.get(0);
         PComando pcomandoNode8 = (PComando)nodeArrayList7.get(0);
-        ADecProcedimento pdecprocedimentoNode1 = new ADecProcedimento (
+        ADecProcedimentoDecProcedimento pdecprocedimentoNode1 = new ADecProcedimentoDecProcedimento (
               tpontodeentradaNode2,
               tprocedimentoNode3,
               tidNode4,
@@ -1240,7 +1240,7 @@ public class Parser
         PParametros pparametrosNode6 = (PParametros)nodeArrayList5.get(0);
         TParentesesDireito tparentesesdireitoNode7 = (TParentesesDireito)nodeArrayList6.get(0);
         PExp pexpNode8 = (PExp)nodeArrayList7.get(0);
-        ADecFuncao pdecfuncaoNode1 = new ADecFuncao (
+        ADecFuncaoDecFuncao pdecfuncaoNode1 = new ADecFuncaoDecFuncao (
               tfuncaoNode2,
               ptipoNode3,
               tidNode4,
@@ -1306,7 +1306,7 @@ public class Parser
         ArrayList nodeArrayList1 = (ArrayList) pop();
         PTipo ptipoNode2 = (PTipo)nodeArrayList1.get(0);
         TId tidNode3 = (TId)nodeArrayList2.get(0);
-        AParametro pparametroNode1 = new AParametro (
+        AParametroParametro pparametroNode1 = new AParametroParametro (
               ptipoNode2,
               tidNode3
         );
@@ -1593,7 +1593,7 @@ public class Parser
         PDec pdecNode3 = (PDec)nodeArrayList2.get(0);
         PComando pcomandoNode4 = (PComando)nodeArrayList3.get(0);
         TTermina tterminaNode5 = (TTermina)nodeArrayList4.get(0);
-        ABloco pblocoNode1 = new ABloco (
+        ABlocoBloco pblocoNode1 = new ABlocoBloco (
               tcomecaNode2,
               pdecNode3,
               pcomandoNode4,
@@ -2084,7 +2084,7 @@ public class Parser
         PListaDecCons plistadecconsNode3 = (PListaDecCons)nodeArrayList2.get(0);
         PExp pexpNode4 = (PExp)nodeArrayList3.get(0);
         TTermina tterminaNode5 = (TTermina)nodeArrayList4.get(0);
-        ABlocoExp pblocoexpNode1 = new ABlocoExp (
+        ABlocoExpBlocoExp pblocoexpNode1 = new ABlocoExpBlocoExp (
               tcomecaNode2,
               plistadecconsNode3,
               pexpNode4,
@@ -2129,7 +2129,7 @@ public class Parser
         TParentesesEsquerdo tparentesesesquerdoNode3 = (TParentesesEsquerdo)nodeArrayList2.get(0);
         PListaExp plistaexpNode4 = (PListaExp)nodeArrayList3.get(0);
         TParentesesDireito tparentesesdireitoNode5 = (TParentesesDireito)nodeArrayList4.get(0);
-        AChamada pchamadaNode1 = new AChamada (
+        AChamadaChamada pchamadaNode1 = new AChamadaChamada (
               tidNode2,
               tparentesesesquerdoNode3,
               plistaexpNode4,
@@ -2189,7 +2189,7 @@ public class Parser
         {2, 0, 1},
       },
       {
-        {-1, 1, 3},
+        {-1, 3, 1},
         {38, 0, 7},
       },
       {
@@ -2208,7 +2208,7 @@ public class Parser
         {0, 0, 9},
       },
       {
-        {-1, 3, 6},
+        {-1, 1, 3},
         {2, 0, 10},
       },
       {
@@ -2224,7 +2224,7 @@ public class Parser
         {-1, 1, 4},
       },
       {
-        {-1, 1, 3},
+        {-1, 3, 10},
         {38, 0, 16},
       },
       {
@@ -3298,12 +3298,12 @@ public class Parser
     */
     private static String[] errorMessages; /* = {
       "expecting: 'classe'",
-      "expecting: cid, EOF",
+      "expecting: cid",
       "expecting: EOF",
       "expecting: ';'",
       "expecting: '&', ';'",
+      "expecting: 'classe', EOF",
       "expecting: 'filha da classe', 'come\u00e7a'",
-      "expecting: cid",
       "expecting: 'termina', 'objeto', 'var', 'cons', '=>', 'procedimento', 'fun\u00e7\u00e3o'",
       "expecting: 'come\u00e7a'",
       "expecting: 'int', 'bool', 'real', cid",
@@ -3337,7 +3337,7 @@ public class Parser
     };
     */
     private static int[] errors; /* = {
-0, 1, 2, 2, 3, 4, 0, 5, 0, 3, 1, 2, 6, 7, 4, 2, 8, 4, 6, 9, 10, 11, 7, 12, 12, 12, 13, 13, 13, 13, 13, 13, 13, 13, 13, 14, 13, 9, 15, 11, 11, 11, 11, 16, 3, 3, 17, 18, 19, 13, 20, 13, 0, 15, 13, 12, 12, 21, 13, 20, 22, 20, 3, 23, 21, 20, 24, 24, 21, 24, 24, 24, 18, 25, 26, 19, 22, 13, 27, 27, 28, 22, 29, 21, 27, 21, 26, 21, 21, 21, 21, 21, 21, 21, 21, 21, 27, 28, 30, 9, 27, 21, 15, 24, 27, 26, 26, 26, 26, 26, 26, 26, 26, 26, 30, 31, 20, 20, 32, 11, 11, 3, 27, 21, 26, 33, 11, 30, 21, 21, 34, 21, 13, 11, 11, 35, 15, 27, 27, 28, 27, 3, 20, 3, 35, 26, 36, 11, 30, 30, 34, 3, 11, 11, 26, 21, 35, 35, 35, 35, 35, 35, 35, 35, 35, 11, 11, 27, 26, 26, 26, 26, 26, 26, 26, 26, 26, 26, 
+0, 1, 2, 2, 3, 4, 5, 6, 0, 3, 1, 2, 1, 7, 4, 2, 8, 4, 1, 9, 10, 11, 7, 12, 12, 12, 13, 13, 13, 13, 13, 13, 13, 13, 13, 14, 13, 9, 15, 11, 11, 11, 11, 16, 3, 3, 17, 18, 19, 13, 20, 13, 5, 15, 13, 12, 12, 21, 13, 20, 22, 20, 3, 23, 21, 20, 24, 24, 21, 24, 24, 24, 18, 25, 26, 19, 22, 13, 27, 27, 28, 22, 29, 21, 27, 21, 26, 21, 21, 21, 21, 21, 21, 21, 21, 21, 27, 28, 30, 9, 27, 21, 15, 24, 27, 26, 26, 26, 26, 26, 26, 26, 26, 26, 30, 31, 20, 20, 32, 11, 11, 3, 27, 21, 26, 33, 11, 30, 21, 21, 34, 21, 13, 11, 11, 35, 15, 27, 27, 28, 27, 3, 20, 3, 35, 26, 36, 11, 30, 30, 34, 3, 11, 11, 26, 21, 35, 35, 35, 35, 35, 35, 35, 35, 35, 11, 11, 27, 26, 26, 26, 26, 26, 26, 26, 26, 26, 26, 
 
     };
     */
