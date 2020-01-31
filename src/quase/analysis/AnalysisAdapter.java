@@ -67,7 +67,7 @@ public class AnalysisAdapter implements Analysis
         defaultCase(node);
     }
 
-    public void caseAPrograma(APrograma node)
+    public void caseAProgramaPrograma(AProgramaPrograma node)
     {
         defaultCase(node);
     }
@@ -95,15 +95,15 @@ public class AnalysisAdapter implements Analysis
     {
         defaultCase(node);
     }
-    public void caseARelacao(ARelacao node)
+    public void caseARelacaoRelacao(ARelacaoRelacao node)
     {
         defaultCase(node);
     }
-    public void caseAFilhaRelacao(AFilhaRelacao node)
+    public void caseAFilhaRelacaoFilhaRelacao(AFilhaRelacaoFilhaRelacao node)
     {
         defaultCase(node);
     }
-    public void caseADefClasse(ADefClasse node)
+    public void caseADefClasseDefClasse(ADefClasseDefClasse node)
     {
         defaultCase(node);
     }
@@ -135,19 +135,19 @@ public class AnalysisAdapter implements Analysis
     {
         defaultCase(node);
     }
-    public void caseADecObj(ADecObj node)
+    public void caseADecObjDecObj(ADecObjDecObj node)
     {
         defaultCase(node);
     }
-    public void caseADecVar(ADecVar node)
+    public void caseADecVarDecVar(ADecVarDecVar node)
     {
         defaultCase(node);
     }
-    public void caseADecCons(ADecCons node)
+    public void caseADecConsDecCons(ADecConsDecCons node)
     {
         defaultCase(node);
     }
-    public void caseAInicializacao(AInicializacao node)
+    public void caseAInicializacaoInicializacao(AInicializacaoInicializacao node)
     {
         defaultCase(node);
     }
@@ -187,7 +187,7 @@ public class AnalysisAdapter implements Analysis
     {
         defaultCase(node);
     }
-    public void caseATipoClasse(ATipoClasse node)
+    public void caseATipoClasseTipoClasse(ATipoClasseTipoClasse node)
     {
         defaultCase(node);
     }
@@ -199,11 +199,11 @@ public class AnalysisAdapter implements Analysis
     {
         defaultCase(node);
     }
-    public void caseADecProcedimento(ADecProcedimento node)
+    public void caseADecProcedimentoDecProcedimento(ADecProcedimentoDecProcedimento node)
     {
         defaultCase(node);
     }
-    public void caseADecFuncao(ADecFuncao node)
+    public void caseADecFuncaoDecFuncao(ADecFuncaoDecFuncao node)
     {
         defaultCase(node);
     }
@@ -223,7 +223,7 @@ public class AnalysisAdapter implements Analysis
     {
         defaultCase(node);
     }
-    public void caseAParametro(AParametro node)
+    public void caseAParametroParametro(AParametroParametro node)
     {
         defaultCase(node);
     }
@@ -279,7 +279,7 @@ public class AnalysisAdapter implements Analysis
     {
         defaultCase(node);
     }
-    public void caseABloco(ABloco node)
+    public void caseABlocoBloco(ABlocoBloco node)
     {
         defaultCase(node);
     }
@@ -403,7 +403,7 @@ public class AnalysisAdapter implements Analysis
     {
         defaultCase(node);
     }
-    public void caseABlocoExp(ABlocoExp node)
+    public void caseABlocoExpBlocoExp(ABlocoExpBlocoExp node)
     {
         defaultCase(node);
     }
@@ -415,7 +415,7 @@ public class AnalysisAdapter implements Analysis
     {
         defaultCase(node);
     }
-    public void caseAChamada(AChamada node)
+    public void caseAChamadaChamada(AChamadaChamada node)
     {
         defaultCase(node);
     }
