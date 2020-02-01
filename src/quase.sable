@@ -197,7 +197,7 @@ Productions
       {id_ponto} id ponto;
 
     bloco_exp =
-      {bloco_exp} comeca lista_dec_cons lista_comandos termina;
+      {bloco_exp} comeca lista_dec_cons exp termina;
     lista_dec_cons =
       {lista_dec_cons} dec_cons lista_dec_cons |
       {vazio} ;
