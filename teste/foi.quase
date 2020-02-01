@@ -11,10 +11,9 @@ classe _Cifra começa
 	função int Codificar(int t_mensagem) t_mensagem
 termina
 
-class _Chave começa
+classe _Chave começa
 	cons int SEED := 0b101001;
 	var real escala;
-
 
 	procedimento SetEscala() começa
 		se ((escala % 2e0 == 0E3) e true ou !false)
@@ -23,22 +22,21 @@ class _Chave começa
 			escala = 7E-5 + 1 - 2 * 3 / 4;
 	termina
 
-	função int Codificar(int t_mensagem) começa
+	função int Codificar(int t_mensagem)
 		se (false) então
 			t_mensagem + SEED
 		senão
 			t_mensagem
-	termina
 termina
 
-class _TelefoneDeLata começa
+classe _TelefoneDeLata começa
 	objeto _IO console;
 
 	=> procedimento Main() começa
 		var int x;
 		cons real y := 3.4;
 
-		se (true) x = console.read();
+		se (true) x = console.read();;
 		enquanto (false) console.print(123);
 	termina
 termina
