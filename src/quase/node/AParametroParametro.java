@@ -2,50 +2,54 @@
 
 package quase.node;
 
-import java.util.*;
 import quase.analysis.*;
 
+@SuppressWarnings("nls")
 public final class AParametroParametro extends PParametro
 {
     private PTipo _tipo_;
     private TId _id_;
 
-    public AParametroParametro ()
+    public AParametroParametro()
     {
+        // Constructor
     }
 
-    public AParametroParametro (
-            PTipo _tipo_,
-            TId _id_
-    )
+    public AParametroParametro(
+        @SuppressWarnings("hiding") PTipo _tipo_,
+        @SuppressWarnings("hiding") TId _id_)
     {
-        setTipo (_tipo_);
-        setId (_id_);
+        // Constructor
+        setTipo(_tipo_);
+
+        setId(_id_);
+
     }
 
+    @Override
     public Object clone()
     {
-        return new AParametroParametro (
-            (PTipo)cloneNode (_tipo_),
-            (TId)cloneNode (_id_)
-        );
+        return new AParametroParametro(
+            cloneNode(this._tipo_),
+            cloneNode(this._id_));
     }
 
+    @Override
     public void apply(Switch sw)
     {
         ((Analysis) sw).caseAParametroParametro(this);
     }
 
-    public PTipo getTipo ()
+    public PTipo getTipo()
     {
-        return _tipo_;
+        return this._tipo_;
     }
 
-    public void setTipo (PTipo node)
+    public void setTipo(PTipo node)
     {
-        if(_tipo_ != null)
+        if(this._tipo_ != null)
         {
-            _tipo_.parent(null);
+            this._tipo_.parent(null);
         }
 
         if(node != null)
@@ -58,18 +62,19 @@ public final class AParametroParametro extends PParametro
             node.parent(this);
         }
 
-        _tipo_ = node;
-    }
-    public TId getId ()
-    {
-        return _id_;
+        this._tipo_ = node;
     }
 
-    public void setId (TId node)
+    public TId getId()
     {
-        if(_id_ != null)
+        return this._id_;
+    }
+
+    public void setId(TId node)
+    {
+        if(this._id_ != null)
         {
-            _id_.parent(null);
+            this._id_.parent(null);
         }
 
         if(node != null)
@@ -82,43 +87,52 @@ public final class AParametroParametro extends PParametro
             node.parent(this);
         }
 
-        _id_ = node;
+        this._id_ = node;
     }
 
+    @Override
     public String toString()
     {
         return ""
-            + toString (_tipo_)
-            + toString (_id_)
-        ;
+            + toString(this._tipo_)
+            + toString(this._id_);
     }
 
-    void removeChild(Node child)
+    @Override
+    void removeChild(@SuppressWarnings("unused") Node child)
     {
-        if ( _tipo_ == child )
+        // Remove child
+        if(this._tipo_ == child)
         {
-            _tipo_ = null;
+            this._tipo_ = null;
             return;
         }
-        if ( _id_ == child )
+
+        if(this._id_ == child)
         {
-            _id_ = null;
+            this._id_ = null;
             return;
         }
+
+        throw new RuntimeException("Not a child.");
     }
 
-    void replaceChild(Node oldChild, Node newChild)
+    @Override
+    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
     {
-        if ( _tipo_ == oldChild )
+        // Replace child
+        if(this._tipo_ == oldChild)
         {
-            setTipo ((PTipo) newChild);
+            setTipo((PTipo) newChild);
             return;
         }
-        if ( _id_ == oldChild )
-        {
-            setId ((TId) newChild);
-            return;
-        }
-    }
 
+        if(this._id_ == oldChild)
+        {
+            setId((TId) newChild);
+            return;
+        }
+
+        throw new RuntimeException("Not a child.");
+    }
 }

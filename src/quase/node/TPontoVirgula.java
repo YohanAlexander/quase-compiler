@@ -4,6 +4,7 @@ package quase.node;
 
 import quase.analysis.*;
 
+@SuppressWarnings("nls")
 public final class TPontoVirgula extends Token
 {
     public TPontoVirgula()
@@ -18,17 +19,20 @@ public final class TPontoVirgula extends Token
         setPos(pos);
     }
 
+    @Override
     public Object clone()
     {
       return new TPontoVirgula(getLine(), getPos());
     }
 
+    @Override
     public void apply(Switch sw)
     {
         ((Analysis) sw).caseTPontoVirgula(this);
     }
 
-    public void setText(String text)
+    @Override
+    public void setText(@SuppressWarnings("unused") String text)
     {
         throw new RuntimeException("Cannot change TPontoVirgula text.");
     }

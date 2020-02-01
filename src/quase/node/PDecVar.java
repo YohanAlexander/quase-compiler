@@ -4,4 +4,5 @@ package quase.node;
 
 public abstract class PDecVar extends Node
 {
+    // Empty body
 }

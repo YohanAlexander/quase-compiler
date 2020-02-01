@@ -2,46 +2,49 @@
 
 package quase.node;
 
-import java.util.*;
 import quase.analysis.*;
 
+@SuppressWarnings("nls")
 public final class ARelacaoListaRelacao extends PListaRelacao
 {
     private PRelacao _relacao_;
 
-    public ARelacaoListaRelacao ()
+    public ARelacaoListaRelacao()
     {
+        // Constructor
     }
 
-    public ARelacaoListaRelacao (
-            PRelacao _relacao_
-    )
+    public ARelacaoListaRelacao(
+        @SuppressWarnings("hiding") PRelacao _relacao_)
     {
-        setRelacao (_relacao_);
+        // Constructor
+        setRelacao(_relacao_);
+
     }
 
+    @Override
     public Object clone()
     {
-        return new ARelacaoListaRelacao (
-            (PRelacao)cloneNode (_relacao_)
-        );
+        return new ARelacaoListaRelacao(
+            cloneNode(this._relacao_));
     }
 
+    @Override
     public void apply(Switch sw)
     {
         ((Analysis) sw).caseARelacaoListaRelacao(this);
     }
 
-    public PRelacao getRelacao ()
+    public PRelacao getRelacao()
     {
-        return _relacao_;
+        return this._relacao_;
     }
 
-    public void setRelacao (PRelacao node)
+    public void setRelacao(PRelacao node)
     {
-        if(_relacao_ != null)
+        if(this._relacao_ != null)
         {
-            _relacao_.parent(null);
+            this._relacao_.parent(null);
         }
 
         if(node != null)
@@ -54,32 +57,39 @@ public final class ARelacaoListaRelacao extends PListaRelacao
             node.parent(this);
         }
 
-        _relacao_ = node;
+        this._relacao_ = node;
     }
 
+    @Override
     public String toString()
     {
         return ""
-            + toString (_relacao_)
-        ;
+            + toString(this._relacao_);
     }
 
-    void removeChild(Node child)
+    @Override
+    void removeChild(@SuppressWarnings("unused") Node child)
     {
-        if ( _relacao_ == child )
+        // Remove child
+        if(this._relacao_ == child)
         {
-            _relacao_ = null;
+            this._relacao_ = null;
             return;
         }
+
+        throw new RuntimeException("Not a child.");
     }
 
-    void replaceChild(Node oldChild, Node newChild)
+    @Override
+    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
     {
-        if ( _relacao_ == oldChild )
+        // Replace child
+        if(this._relacao_ == oldChild)
         {
-            setRelacao ((PRelacao) newChild);
+            setRelacao((PRelacao) newChild);
             return;
         }
-    }
 
+        throw new RuntimeException("Not a child.");
+    }
 }

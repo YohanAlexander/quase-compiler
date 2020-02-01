@@ -2,54 +2,59 @@
 
 package quase.node;
 
-import java.util.*;
 import quase.analysis.*;
 
+@SuppressWarnings("nls")
 public final class AListaInicializacaoListaInicializacao extends PListaInicializacao
 {
     private PInicializacao _inicializacao_;
     private TVirgula _virgula_;
-    private PListaInicializacao _lista_inicializacao_;
+    private PListaInicializacao _listaInicializacao_;
 
-    public AListaInicializacaoListaInicializacao ()
+    public AListaInicializacaoListaInicializacao()
     {
+        // Constructor
     }
 
-    public AListaInicializacaoListaInicializacao (
-            PInicializacao _inicializacao_,
-            TVirgula _virgula_,
-            PListaInicializacao _lista_inicializacao_
-    )
+    public AListaInicializacaoListaInicializacao(
+        @SuppressWarnings("hiding") PInicializacao _inicializacao_,
+        @SuppressWarnings("hiding") TVirgula _virgula_,
+        @SuppressWarnings("hiding") PListaInicializacao _listaInicializacao_)
     {
-        setInicializacao (_inicializacao_);
-        setVirgula (_virgula_);
-        setListaInicializacao (_lista_inicializacao_);
+        // Constructor
+        setInicializacao(_inicializacao_);
+
+        setVirgula(_virgula_);
+
+        setListaInicializacao(_listaInicializacao_);
+
     }
 
+    @Override
     public Object clone()
     {
-        return new AListaInicializacaoListaInicializacao (
-            (PInicializacao)cloneNode (_inicializacao_),
-            (TVirgula)cloneNode (_virgula_),
-            (PListaInicializacao)cloneNode (_lista_inicializacao_)
-        );
+        return new AListaInicializacaoListaInicializacao(
+            cloneNode(this._inicializacao_),
+            cloneNode(this._virgula_),
+            cloneNode(this._listaInicializacao_));
     }
 
+    @Override
     public void apply(Switch sw)
     {
         ((Analysis) sw).caseAListaInicializacaoListaInicializacao(this);
     }
 
-    public PInicializacao getInicializacao ()
+    public PInicializacao getInicializacao()
     {
-        return _inicializacao_;
+        return this._inicializacao_;
     }
 
-    public void setInicializacao (PInicializacao node)
+    public void setInicializacao(PInicializacao node)
     {
-        if(_inicializacao_ != null)
+        if(this._inicializacao_ != null)
         {
-            _inicializacao_.parent(null);
+            this._inicializacao_.parent(null);
         }
 
         if(node != null)
@@ -62,18 +67,19 @@ public final class AListaInicializacaoListaInicializacao extends PListaInicializ
             node.parent(this);
         }
 
-        _inicializacao_ = node;
-    }
-    public TVirgula getVirgula ()
-    {
-        return _virgula_;
+        this._inicializacao_ = node;
     }
 
-    public void setVirgula (TVirgula node)
+    public TVirgula getVirgula()
     {
-        if(_virgula_ != null)
+        return this._virgula_;
+    }
+
+    public void setVirgula(TVirgula node)
+    {
+        if(this._virgula_ != null)
         {
-            _virgula_.parent(null);
+            this._virgula_.parent(null);
         }
 
         if(node != null)
@@ -86,18 +92,19 @@ public final class AListaInicializacaoListaInicializacao extends PListaInicializ
             node.parent(this);
         }
 
-        _virgula_ = node;
-    }
-    public PListaInicializacao getListaInicializacao ()
-    {
-        return _lista_inicializacao_;
+        this._virgula_ = node;
     }
 
-    public void setListaInicializacao (PListaInicializacao node)
+    public PListaInicializacao getListaInicializacao()
     {
-        if(_lista_inicializacao_ != null)
+        return this._listaInicializacao_;
+    }
+
+    public void setListaInicializacao(PListaInicializacao node)
+    {
+        if(this._listaInicializacao_ != null)
         {
-            _lista_inicializacao_.parent(null);
+            this._listaInicializacao_.parent(null);
         }
 
         if(node != null)
@@ -110,54 +117,65 @@ public final class AListaInicializacaoListaInicializacao extends PListaInicializ
             node.parent(this);
         }
 
-        _lista_inicializacao_ = node;
+        this._listaInicializacao_ = node;
     }
 
+    @Override
     public String toString()
     {
         return ""
-            + toString (_inicializacao_)
-            + toString (_virgula_)
-            + toString (_lista_inicializacao_)
-        ;
+            + toString(this._inicializacao_)
+            + toString(this._virgula_)
+            + toString(this._listaInicializacao_);
     }
 
-    void removeChild(Node child)
+    @Override
+    void removeChild(@SuppressWarnings("unused") Node child)
     {
-        if ( _inicializacao_ == child )
+        // Remove child
+        if(this._inicializacao_ == child)
         {
-            _inicializacao_ = null;
+            this._inicializacao_ = null;
             return;
         }
-        if ( _virgula_ == child )
+
+        if(this._virgula_ == child)
         {
-            _virgula_ = null;
+            this._virgula_ = null;
             return;
         }
-        if ( _lista_inicializacao_ == child )
+
+        if(this._listaInicializacao_ == child)
         {
-            _lista_inicializacao_ = null;
+            this._listaInicializacao_ = null;
             return;
         }
+
+        throw new RuntimeException("Not a child.");
     }
 
-    void replaceChild(Node oldChild, Node newChild)
+    @Override
+    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
     {
-        if ( _inicializacao_ == oldChild )
+        // Replace child
+        if(this._inicializacao_ == oldChild)
         {
-            setInicializacao ((PInicializacao) newChild);
+            setInicializacao((PInicializacao) newChild);
             return;
         }
-        if ( _virgula_ == oldChild )
-        {
-            setVirgula ((TVirgula) newChild);
-            return;
-        }
-        if ( _lista_inicializacao_ == oldChild )
-        {
-            setListaInicializacao ((PListaInicializacao) newChild);
-            return;
-        }
-    }
 
+        if(this._virgula_ == oldChild)
+        {
+            setVirgula((TVirgula) newChild);
+            return;
+        }
+
+        if(this._listaInicializacao_ == oldChild)
+        {
+            setListaInicializacao((PListaInicializacao) newChild);
+            return;
+        }
+
+        throw new RuntimeException("Not a child.");
+    }
 }

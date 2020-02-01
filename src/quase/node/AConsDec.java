@@ -2,46 +2,49 @@
 
 package quase.node;
 
-import java.util.*;
 import quase.analysis.*;
 
+@SuppressWarnings("nls")
 public final class AConsDec extends PDec
 {
-    private PDecCons _dec_cons_;
+    private PDecCons _decCons_;
 
-    public AConsDec ()
+    public AConsDec()
     {
+        // Constructor
     }
 
-    public AConsDec (
-            PDecCons _dec_cons_
-    )
+    public AConsDec(
+        @SuppressWarnings("hiding") PDecCons _decCons_)
     {
-        setDecCons (_dec_cons_);
+        // Constructor
+        setDecCons(_decCons_);
+
     }
 
+    @Override
     public Object clone()
     {
-        return new AConsDec (
-            (PDecCons)cloneNode (_dec_cons_)
-        );
+        return new AConsDec(
+            cloneNode(this._decCons_));
     }
 
+    @Override
     public void apply(Switch sw)
     {
         ((Analysis) sw).caseAConsDec(this);
     }
 
-    public PDecCons getDecCons ()
+    public PDecCons getDecCons()
     {
-        return _dec_cons_;
+        return this._decCons_;
     }
 
-    public void setDecCons (PDecCons node)
+    public void setDecCons(PDecCons node)
     {
-        if(_dec_cons_ != null)
+        if(this._decCons_ != null)
         {
-            _dec_cons_.parent(null);
+            this._decCons_.parent(null);
         }
 
         if(node != null)
@@ -54,32 +57,39 @@ public final class AConsDec extends PDec
             node.parent(this);
         }
 
-        _dec_cons_ = node;
+        this._decCons_ = node;
     }
 
+    @Override
     public String toString()
     {
         return ""
-            + toString (_dec_cons_)
-        ;
+            + toString(this._decCons_);
     }
 
-    void removeChild(Node child)
+    @Override
+    void removeChild(@SuppressWarnings("unused") Node child)
     {
-        if ( _dec_cons_ == child )
+        // Remove child
+        if(this._decCons_ == child)
         {
-            _dec_cons_ = null;
+            this._decCons_ = null;
             return;
         }
+
+        throw new RuntimeException("Not a child.");
     }
 
-    void replaceChild(Node oldChild, Node newChild)
+    @Override
+    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
     {
-        if ( _dec_cons_ == oldChild )
+        // Replace child
+        if(this._decCons_ == oldChild)
         {
-            setDecCons ((PDecCons) newChild);
+            setDecCons((PDecCons) newChild);
             return;
         }
-    }
 
+        throw new RuntimeException("Not a child.");
+    }
 }

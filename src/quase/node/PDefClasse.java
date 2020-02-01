@@ -4,4 +4,5 @@ package quase.node;
 
 public abstract class PDefClasse extends Node
 {
+    // Empty body
 }

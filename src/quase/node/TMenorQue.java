@@ -4,6 +4,7 @@ package quase.node;
 
 import quase.analysis.*;
 
+@SuppressWarnings("nls")
 public final class TMenorQue extends Token
 {
     public TMenorQue()
@@ -18,17 +19,20 @@ public final class TMenorQue extends Token
         setPos(pos);
     }
 
+    @Override
     public Object clone()
     {
       return new TMenorQue(getLine(), getPos());
     }
 
+    @Override
     public void apply(Switch sw)
     {
         ((Analysis) sw).caseTMenorQue(this);
     }
 
-    public void setText(String text)
+    @Override
+    public void setText(@SuppressWarnings("unused") String text)
     {
         throw new RuntimeException("Cannot change TMenorQue text.");
     }

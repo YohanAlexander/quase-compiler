@@ -2,54 +2,59 @@
 
 package quase.node;
 
-import java.util.*;
 import quase.analysis.*;
 
+@SuppressWarnings("nls")
 public final class AListaParametroListaParametro extends PListaParametro
 {
     private PParametro _parametro_;
     private TVirgula _virgula_;
-    private PListaParametro _lista_parametro_;
+    private PListaParametro _listaParametro_;
 
-    public AListaParametroListaParametro ()
+    public AListaParametroListaParametro()
     {
+        // Constructor
     }
 
-    public AListaParametroListaParametro (
-            PParametro _parametro_,
-            TVirgula _virgula_,
-            PListaParametro _lista_parametro_
-    )
+    public AListaParametroListaParametro(
+        @SuppressWarnings("hiding") PParametro _parametro_,
+        @SuppressWarnings("hiding") TVirgula _virgula_,
+        @SuppressWarnings("hiding") PListaParametro _listaParametro_)
     {
-        setParametro (_parametro_);
-        setVirgula (_virgula_);
-        setListaParametro (_lista_parametro_);
+        // Constructor
+        setParametro(_parametro_);
+
+        setVirgula(_virgula_);
+
+        setListaParametro(_listaParametro_);
+
     }
 
+    @Override
     public Object clone()
     {
-        return new AListaParametroListaParametro (
-            (PParametro)cloneNode (_parametro_),
-            (TVirgula)cloneNode (_virgula_),
-            (PListaParametro)cloneNode (_lista_parametro_)
-        );
+        return new AListaParametroListaParametro(
+            cloneNode(this._parametro_),
+            cloneNode(this._virgula_),
+            cloneNode(this._listaParametro_));
     }
 
+    @Override
     public void apply(Switch sw)
     {
         ((Analysis) sw).caseAListaParametroListaParametro(this);
     }
 
-    public PParametro getParametro ()
+    public PParametro getParametro()
     {
-        return _parametro_;
+        return this._parametro_;
     }
 
-    public void setParametro (PParametro node)
+    public void setParametro(PParametro node)
     {
-        if(_parametro_ != null)
+        if(this._parametro_ != null)
         {
-            _parametro_.parent(null);
+            this._parametro_.parent(null);
         }
 
         if(node != null)
@@ -62,18 +67,19 @@ public final class AListaParametroListaParametro extends PListaParametro
             node.parent(this);
         }
 
-        _parametro_ = node;
-    }
-    public TVirgula getVirgula ()
-    {
-        return _virgula_;
+        this._parametro_ = node;
     }
 
-    public void setVirgula (TVirgula node)
+    public TVirgula getVirgula()
     {
-        if(_virgula_ != null)
+        return this._virgula_;
+    }
+
+    public void setVirgula(TVirgula node)
+    {
+        if(this._virgula_ != null)
         {
-            _virgula_.parent(null);
+            this._virgula_.parent(null);
         }
 
         if(node != null)
@@ -86,18 +92,19 @@ public final class AListaParametroListaParametro extends PListaParametro
             node.parent(this);
         }
 
-        _virgula_ = node;
-    }
-    public PListaParametro getListaParametro ()
-    {
-        return _lista_parametro_;
+        this._virgula_ = node;
     }
 
-    public void setListaParametro (PListaParametro node)
+    public PListaParametro getListaParametro()
     {
-        if(_lista_parametro_ != null)
+        return this._listaParametro_;
+    }
+
+    public void setListaParametro(PListaParametro node)
+    {
+        if(this._listaParametro_ != null)
         {
-            _lista_parametro_.parent(null);
+            this._listaParametro_.parent(null);
         }
 
         if(node != null)
@@ -110,54 +117,65 @@ public final class AListaParametroListaParametro extends PListaParametro
             node.parent(this);
         }
 
-        _lista_parametro_ = node;
+        this._listaParametro_ = node;
     }
 
+    @Override
     public String toString()
     {
         return ""
-            + toString (_parametro_)
-            + toString (_virgula_)
-            + toString (_lista_parametro_)
-        ;
+            + toString(this._parametro_)
+            + toString(this._virgula_)
+            + toString(this._listaParametro_);
     }
 
-    void removeChild(Node child)
+    @Override
+    void removeChild(@SuppressWarnings("unused") Node child)
     {
-        if ( _parametro_ == child )
+        // Remove child
+        if(this._parametro_ == child)
         {
-            _parametro_ = null;
+            this._parametro_ = null;
             return;
         }
-        if ( _virgula_ == child )
+
+        if(this._virgula_ == child)
         {
-            _virgula_ = null;
+            this._virgula_ = null;
             return;
         }
-        if ( _lista_parametro_ == child )
+
+        if(this._listaParametro_ == child)
         {
-            _lista_parametro_ = null;
+            this._listaParametro_ = null;
             return;
         }
+
+        throw new RuntimeException("Not a child.");
     }
 
-    void replaceChild(Node oldChild, Node newChild)
+    @Override
+    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
     {
-        if ( _parametro_ == oldChild )
+        // Replace child
+        if(this._parametro_ == oldChild)
         {
-            setParametro ((PParametro) newChild);
+            setParametro((PParametro) newChild);
             return;
         }
-        if ( _virgula_ == oldChild )
-        {
-            setVirgula ((TVirgula) newChild);
-            return;
-        }
-        if ( _lista_parametro_ == oldChild )
-        {
-            setListaParametro ((PListaParametro) newChild);
-            return;
-        }
-    }
 
+        if(this._virgula_ == oldChild)
+        {
+            setVirgula((TVirgula) newChild);
+            return;
+        }
+
+        if(this._listaParametro_ == oldChild)
+        {
+            setListaParametro((PListaParametro) newChild);
+            return;
+        }
+
+        throw new RuntimeException("Not a child.");
+    }
 }

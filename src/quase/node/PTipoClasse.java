@@ -4,4 +4,5 @@ package quase.node;
 
 public abstract class PTipoClasse extends Node
 {
+    // Empty body
 }

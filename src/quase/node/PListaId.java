@@ -4,4 +4,5 @@ package quase.node;
 
 public abstract class PListaId extends Node
 {
+    // Empty body
 }

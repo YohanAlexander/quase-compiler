@@ -4,6 +4,7 @@ package quase.node;
 
 import quase.analysis.*;
 
+@SuppressWarnings("nls")
 public final class TE extends Token
 {
     public TE()
@@ -18,17 +19,20 @@ public final class TE extends Token
         setPos(pos);
     }
 
+    @Override
     public Object clone()
     {
       return new TE(getLine(), getPos());
     }
 
+    @Override
     public void apply(Switch sw)
     {
         ((Analysis) sw).caseTE(this);
     }
 
-    public void setText(String text)
+    @Override
+    public void setText(@SuppressWarnings("unused") String text)
     {
         throw new RuntimeException("Cannot change TE text.");
     }

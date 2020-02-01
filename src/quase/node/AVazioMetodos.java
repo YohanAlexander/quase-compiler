@@ -2,42 +2,46 @@
 
 package quase.node;
 
-import java.util.*;
 import quase.analysis.*;
 
+@SuppressWarnings("nls")
 public final class AVazioMetodos extends PMetodos
 {
 
-
-    public AVazioMetodos (
-    )
+    public AVazioMetodos()
     {
+        // Constructor
     }
 
+    @Override
     public Object clone()
     {
-        return new AVazioMetodos (
-        );
+        return new AVazioMetodos();
     }
 
+    @Override
     public void apply(Switch sw)
     {
         ((Analysis) sw).caseAVazioMetodos(this);
     }
 
-
+    @Override
     public String toString()
     {
-        return ""
-        ;
+        return "";
     }
 
-    void removeChild(Node child)
+    @Override
+    void removeChild(@SuppressWarnings("unused") Node child)
     {
+        // Remove child
+        throw new RuntimeException("Not a child.");
     }
 
-    void replaceChild(Node oldChild, Node newChild)
+    @Override
+    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
     {
+        // Replace child
+        throw new RuntimeException("Not a child.");
     }
-
 }

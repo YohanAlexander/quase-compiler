@@ -2,58 +2,64 @@
 
 package quase.node;
 
-import java.util.*;
 import quase.analysis.*;
 
+@SuppressWarnings("nls")
 public final class AChamadaChamada extends PChamada
 {
     private TId _id_;
-    private TParentesesEsquerdo _parenteses_esquerdo_;
-    private PListaExp _lista_exp_;
-    private TParentesesDireito _parenteses_direito_;
+    private TParentesesEsquerdo _parentesesEsquerdo_;
+    private PListaExp _listaExp_;
+    private TParentesesDireito _parentesesDireito_;
 
-    public AChamadaChamada ()
+    public AChamadaChamada()
     {
+        // Constructor
     }
 
-    public AChamadaChamada (
-            TId _id_,
-            TParentesesEsquerdo _parenteses_esquerdo_,
-            PListaExp _lista_exp_,
-            TParentesesDireito _parenteses_direito_
-    )
+    public AChamadaChamada(
+        @SuppressWarnings("hiding") TId _id_,
+        @SuppressWarnings("hiding") TParentesesEsquerdo _parentesesEsquerdo_,
+        @SuppressWarnings("hiding") PListaExp _listaExp_,
+        @SuppressWarnings("hiding") TParentesesDireito _parentesesDireito_)
     {
-        setId (_id_);
-        setParentesesEsquerdo (_parenteses_esquerdo_);
-        setListaExp (_lista_exp_);
-        setParentesesDireito (_parenteses_direito_);
+        // Constructor
+        setId(_id_);
+
+        setParentesesEsquerdo(_parentesesEsquerdo_);
+
+        setListaExp(_listaExp_);
+
+        setParentesesDireito(_parentesesDireito_);
+
     }
 
+    @Override
     public Object clone()
     {
-        return new AChamadaChamada (
-            (TId)cloneNode (_id_),
-            (TParentesesEsquerdo)cloneNode (_parenteses_esquerdo_),
-            (PListaExp)cloneNode (_lista_exp_),
-            (TParentesesDireito)cloneNode (_parenteses_direito_)
-        );
+        return new AChamadaChamada(
+            cloneNode(this._id_),
+            cloneNode(this._parentesesEsquerdo_),
+            cloneNode(this._listaExp_),
+            cloneNode(this._parentesesDireito_));
     }
 
+    @Override
     public void apply(Switch sw)
     {
         ((Analysis) sw).caseAChamadaChamada(this);
     }
 
-    public TId getId ()
+    public TId getId()
     {
-        return _id_;
+        return this._id_;
     }
 
-    public void setId (TId node)
+    public void setId(TId node)
     {
-        if(_id_ != null)
+        if(this._id_ != null)
         {
-            _id_.parent(null);
+            this._id_.parent(null);
         }
 
         if(node != null)
@@ -66,18 +72,19 @@ public final class AChamadaChamada extends PChamada
             node.parent(this);
         }
 
-        _id_ = node;
-    }
-    public TParentesesEsquerdo getParentesesEsquerdo ()
-    {
-        return _parenteses_esquerdo_;
+        this._id_ = node;
     }
 
-    public void setParentesesEsquerdo (TParentesesEsquerdo node)
+    public TParentesesEsquerdo getParentesesEsquerdo()
     {
-        if(_parenteses_esquerdo_ != null)
+        return this._parentesesEsquerdo_;
+    }
+
+    public void setParentesesEsquerdo(TParentesesEsquerdo node)
+    {
+        if(this._parentesesEsquerdo_ != null)
         {
-            _parenteses_esquerdo_.parent(null);
+            this._parentesesEsquerdo_.parent(null);
         }
 
         if(node != null)
@@ -90,18 +97,19 @@ public final class AChamadaChamada extends PChamada
             node.parent(this);
         }
 
-        _parenteses_esquerdo_ = node;
-    }
-    public PListaExp getListaExp ()
-    {
-        return _lista_exp_;
+        this._parentesesEsquerdo_ = node;
     }
 
-    public void setListaExp (PListaExp node)
+    public PListaExp getListaExp()
     {
-        if(_lista_exp_ != null)
+        return this._listaExp_;
+    }
+
+    public void setListaExp(PListaExp node)
+    {
+        if(this._listaExp_ != null)
         {
-            _lista_exp_.parent(null);
+            this._listaExp_.parent(null);
         }
 
         if(node != null)
@@ -114,18 +122,19 @@ public final class AChamadaChamada extends PChamada
             node.parent(this);
         }
 
-        _lista_exp_ = node;
-    }
-    public TParentesesDireito getParentesesDireito ()
-    {
-        return _parenteses_direito_;
+        this._listaExp_ = node;
     }
 
-    public void setParentesesDireito (TParentesesDireito node)
+    public TParentesesDireito getParentesesDireito()
     {
-        if(_parenteses_direito_ != null)
+        return this._parentesesDireito_;
+    }
+
+    public void setParentesesDireito(TParentesesDireito node)
+    {
+        if(this._parentesesDireito_ != null)
         {
-            _parenteses_direito_.parent(null);
+            this._parentesesDireito_.parent(null);
         }
 
         if(node != null)
@@ -138,65 +147,78 @@ public final class AChamadaChamada extends PChamada
             node.parent(this);
         }
 
-        _parenteses_direito_ = node;
+        this._parentesesDireito_ = node;
     }
 
+    @Override
     public String toString()
     {
         return ""
-            + toString (_id_)
-            + toString (_parenteses_esquerdo_)
-            + toString (_lista_exp_)
-            + toString (_parenteses_direito_)
-        ;
+            + toString(this._id_)
+            + toString(this._parentesesEsquerdo_)
+            + toString(this._listaExp_)
+            + toString(this._parentesesDireito_);
     }
 
-    void removeChild(Node child)
+    @Override
+    void removeChild(@SuppressWarnings("unused") Node child)
     {
-        if ( _id_ == child )
+        // Remove child
+        if(this._id_ == child)
         {
-            _id_ = null;
+            this._id_ = null;
             return;
         }
-        if ( _parenteses_esquerdo_ == child )
+
+        if(this._parentesesEsquerdo_ == child)
         {
-            _parenteses_esquerdo_ = null;
+            this._parentesesEsquerdo_ = null;
             return;
         }
-        if ( _lista_exp_ == child )
+
+        if(this._listaExp_ == child)
         {
-            _lista_exp_ = null;
+            this._listaExp_ = null;
             return;
         }
-        if ( _parenteses_direito_ == child )
+
+        if(this._parentesesDireito_ == child)
         {
-            _parenteses_direito_ = null;
+            this._parentesesDireito_ = null;
             return;
         }
+
+        throw new RuntimeException("Not a child.");
     }
 
-    void replaceChild(Node oldChild, Node newChild)
+    @Override
+    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
     {
-        if ( _id_ == oldChild )
+        // Replace child
+        if(this._id_ == oldChild)
         {
-            setId ((TId) newChild);
+            setId((TId) newChild);
             return;
         }
-        if ( _parenteses_esquerdo_ == oldChild )
-        {
-            setParentesesEsquerdo ((TParentesesEsquerdo) newChild);
-            return;
-        }
-        if ( _lista_exp_ == oldChild )
-        {
-            setListaExp ((PListaExp) newChild);
-            return;
-        }
-        if ( _parenteses_direito_ == oldChild )
-        {
-            setParentesesDireito ((TParentesesDireito) newChild);
-            return;
-        }
-    }
 
+        if(this._parentesesEsquerdo_ == oldChild)
+        {
+            setParentesesEsquerdo((TParentesesEsquerdo) newChild);
+            return;
+        }
+
+        if(this._listaExp_ == oldChild)
+        {
+            setListaExp((PListaExp) newChild);
+            return;
+        }
+
+        if(this._parentesesDireito_ == oldChild)
+        {
+            setParentesesDireito((TParentesesDireito) newChild);
+            return;
+        }
+
+        throw new RuntimeException("Not a child.");
+    }
 }

@@ -4,31 +4,35 @@ package quase.node;
 
 import quase.analysis.*;
 
+@SuppressWarnings("nls")
 public final class TFuncao extends Token
 {
     public TFuncao()
     {
-        super.setText("fun\u00e7\u00e3o");
+        super.setText("função");
     }
 
     public TFuncao(int line, int pos)
     {
-        super.setText("fun\u00e7\u00e3o");
+        super.setText("função");
         setLine(line);
         setPos(pos);
     }
 
+    @Override
     public Object clone()
     {
       return new TFuncao(getLine(), getPos());
     }
 
+    @Override
     public void apply(Switch sw)
     {
         ((Analysis) sw).caseTFuncao(this);
     }
 
-    public void setText(String text)
+    @Override
+    public void setText(@SuppressWarnings("unused") String text)
     {
         throw new RuntimeException("Cannot change TFuncao text.");
     }

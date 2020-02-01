@@ -2,58 +2,64 @@
 
 package quase.node;
 
-import java.util.*;
 import quase.analysis.*;
 
+@SuppressWarnings("nls")
 public final class AAtribComando extends PComando
 {
     private TId _id_;
     private TAtribuicao _atribuicao_;
     private PExp _exp_;
-    private TPontoVirgula _ponto_virgula_;
+    private TPontoVirgula _pontoVirgula_;
 
-    public AAtribComando ()
+    public AAtribComando()
     {
+        // Constructor
     }
 
-    public AAtribComando (
-            TId _id_,
-            TAtribuicao _atribuicao_,
-            PExp _exp_,
-            TPontoVirgula _ponto_virgula_
-    )
+    public AAtribComando(
+        @SuppressWarnings("hiding") TId _id_,
+        @SuppressWarnings("hiding") TAtribuicao _atribuicao_,
+        @SuppressWarnings("hiding") PExp _exp_,
+        @SuppressWarnings("hiding") TPontoVirgula _pontoVirgula_)
     {
-        setId (_id_);
-        setAtribuicao (_atribuicao_);
-        setExp (_exp_);
-        setPontoVirgula (_ponto_virgula_);
+        // Constructor
+        setId(_id_);
+
+        setAtribuicao(_atribuicao_);
+
+        setExp(_exp_);
+
+        setPontoVirgula(_pontoVirgula_);
+
     }
 
+    @Override
     public Object clone()
     {
-        return new AAtribComando (
-            (TId)cloneNode (_id_),
-            (TAtribuicao)cloneNode (_atribuicao_),
-            (PExp)cloneNode (_exp_),
-            (TPontoVirgula)cloneNode (_ponto_virgula_)
-        );
+        return new AAtribComando(
+            cloneNode(this._id_),
+            cloneNode(this._atribuicao_),
+            cloneNode(this._exp_),
+            cloneNode(this._pontoVirgula_));
     }
 
+    @Override
     public void apply(Switch sw)
     {
         ((Analysis) sw).caseAAtribComando(this);
     }
 
-    public TId getId ()
+    public TId getId()
     {
-        return _id_;
+        return this._id_;
     }
 
-    public void setId (TId node)
+    public void setId(TId node)
     {
-        if(_id_ != null)
+        if(this._id_ != null)
         {
-            _id_.parent(null);
+            this._id_.parent(null);
         }
 
         if(node != null)
@@ -66,18 +72,19 @@ public final class AAtribComando extends PComando
             node.parent(this);
         }
 
-        _id_ = node;
-    }
-    public TAtribuicao getAtribuicao ()
-    {
-        return _atribuicao_;
+        this._id_ = node;
     }
 
-    public void setAtribuicao (TAtribuicao node)
+    public TAtribuicao getAtribuicao()
     {
-        if(_atribuicao_ != null)
+        return this._atribuicao_;
+    }
+
+    public void setAtribuicao(TAtribuicao node)
+    {
+        if(this._atribuicao_ != null)
         {
-            _atribuicao_.parent(null);
+            this._atribuicao_.parent(null);
         }
 
         if(node != null)
@@ -90,18 +97,19 @@ public final class AAtribComando extends PComando
             node.parent(this);
         }
 
-        _atribuicao_ = node;
-    }
-    public PExp getExp ()
-    {
-        return _exp_;
+        this._atribuicao_ = node;
     }
 
-    public void setExp (PExp node)
+    public PExp getExp()
     {
-        if(_exp_ != null)
+        return this._exp_;
+    }
+
+    public void setExp(PExp node)
+    {
+        if(this._exp_ != null)
         {
-            _exp_.parent(null);
+            this._exp_.parent(null);
         }
 
         if(node != null)
@@ -114,18 +122,19 @@ public final class AAtribComando extends PComando
             node.parent(this);
         }
 
-        _exp_ = node;
-    }
-    public TPontoVirgula getPontoVirgula ()
-    {
-        return _ponto_virgula_;
+        this._exp_ = node;
     }
 
-    public void setPontoVirgula (TPontoVirgula node)
+    public TPontoVirgula getPontoVirgula()
     {
-        if(_ponto_virgula_ != null)
+        return this._pontoVirgula_;
+    }
+
+    public void setPontoVirgula(TPontoVirgula node)
+    {
+        if(this._pontoVirgula_ != null)
         {
-            _ponto_virgula_.parent(null);
+            this._pontoVirgula_.parent(null);
         }
 
         if(node != null)
@@ -138,65 +147,78 @@ public final class AAtribComando extends PComando
             node.parent(this);
         }
 
-        _ponto_virgula_ = node;
+        this._pontoVirgula_ = node;
     }
 
+    @Override
     public String toString()
     {
         return ""
-            + toString (_id_)
-            + toString (_atribuicao_)
-            + toString (_exp_)
-            + toString (_ponto_virgula_)
-        ;
+            + toString(this._id_)
+            + toString(this._atribuicao_)
+            + toString(this._exp_)
+            + toString(this._pontoVirgula_);
     }
 
-    void removeChild(Node child)
+    @Override
+    void removeChild(@SuppressWarnings("unused") Node child)
     {
-        if ( _id_ == child )
+        // Remove child
+        if(this._id_ == child)
         {
-            _id_ = null;
+            this._id_ = null;
             return;
         }
-        if ( _atribuicao_ == child )
+
+        if(this._atribuicao_ == child)
         {
-            _atribuicao_ = null;
+            this._atribuicao_ = null;
             return;
         }
-        if ( _exp_ == child )
+
+        if(this._exp_ == child)
         {
-            _exp_ = null;
+            this._exp_ = null;
             return;
         }
-        if ( _ponto_virgula_ == child )
+
+        if(this._pontoVirgula_ == child)
         {
-            _ponto_virgula_ = null;
+            this._pontoVirgula_ = null;
             return;
         }
+
+        throw new RuntimeException("Not a child.");
     }
 
-    void replaceChild(Node oldChild, Node newChild)
+    @Override
+    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
     {
-        if ( _id_ == oldChild )
+        // Replace child
+        if(this._id_ == oldChild)
         {
-            setId ((TId) newChild);
+            setId((TId) newChild);
             return;
         }
-        if ( _atribuicao_ == oldChild )
-        {
-            setAtribuicao ((TAtribuicao) newChild);
-            return;
-        }
-        if ( _exp_ == oldChild )
-        {
-            setExp ((PExp) newChild);
-            return;
-        }
-        if ( _ponto_virgula_ == oldChild )
-        {
-            setPontoVirgula ((TPontoVirgula) newChild);
-            return;
-        }
-    }
 
+        if(this._atribuicao_ == oldChild)
+        {
+            setAtribuicao((TAtribuicao) newChild);
+            return;
+        }
+
+        if(this._exp_ == oldChild)
+        {
+            setExp((PExp) newChild);
+            return;
+        }
+
+        if(this._pontoVirgula_ == oldChild)
+        {
+            setPontoVirgula((TPontoVirgula) newChild);
+            return;
+        }
+
+        throw new RuntimeException("Not a child.");
+    }
 }

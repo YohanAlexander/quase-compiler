@@ -4,4 +4,5 @@ package quase.node;
 
 public abstract class PRelacao extends Node
 {
+    // Empty body
 }

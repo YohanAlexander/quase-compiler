@@ -2,42 +2,46 @@
 
 package quase.node;
 
-import java.util.*;
 import quase.analysis.*;
 
+@SuppressWarnings("nls")
 public final class AVazioListaExp extends PListaExp
 {
 
-
-    public AVazioListaExp (
-    )
+    public AVazioListaExp()
     {
+        // Constructor
     }
 
+    @Override
     public Object clone()
     {
-        return new AVazioListaExp (
-        );
+        return new AVazioListaExp();
     }
 
+    @Override
     public void apply(Switch sw)
     {
         ((Analysis) sw).caseAVazioListaExp(this);
     }
 
-
+    @Override
     public String toString()
     {
-        return ""
-        ;
+        return "";
     }
 
-    void removeChild(Node child)
+    @Override
+    void removeChild(@SuppressWarnings("unused") Node child)
     {
+        // Remove child
+        throw new RuntimeException("Not a child.");
     }
 
-    void replaceChild(Node oldChild, Node newChild)
+    @Override
+    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
     {
+        // Replace child
+        throw new RuntimeException("Not a child.");
     }
-
 }

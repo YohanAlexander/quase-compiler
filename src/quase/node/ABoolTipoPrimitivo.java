@@ -2,46 +2,49 @@
 
 package quase.node;
 
-import java.util.*;
 import quase.analysis.*;
 
+@SuppressWarnings("nls")
 public final class ABoolTipoPrimitivo extends PTipoPrimitivo
 {
     private TBool _bool_;
 
-    public ABoolTipoPrimitivo ()
+    public ABoolTipoPrimitivo()
     {
+        // Constructor
     }
 
-    public ABoolTipoPrimitivo (
-            TBool _bool_
-    )
+    public ABoolTipoPrimitivo(
+        @SuppressWarnings("hiding") TBool _bool_)
     {
-        setBool (_bool_);
+        // Constructor
+        setBool(_bool_);
+
     }
 
+    @Override
     public Object clone()
     {
-        return new ABoolTipoPrimitivo (
-            (TBool)cloneNode (_bool_)
-        );
+        return new ABoolTipoPrimitivo(
+            cloneNode(this._bool_));
     }
 
+    @Override
     public void apply(Switch sw)
     {
         ((Analysis) sw).caseABoolTipoPrimitivo(this);
     }
 
-    public TBool getBool ()
+    public TBool getBool()
     {
-        return _bool_;
+        return this._bool_;
     }
 
-    public void setBool (TBool node)
+    public void setBool(TBool node)
     {
-        if(_bool_ != null)
+        if(this._bool_ != null)
         {
-            _bool_.parent(null);
+            this._bool_.parent(null);
         }
 
         if(node != null)
@@ -54,32 +57,39 @@ public final class ABoolTipoPrimitivo extends PTipoPrimitivo
             node.parent(this);
         }
 
-        _bool_ = node;
+        this._bool_ = node;
     }
 
+    @Override
     public String toString()
     {
         return ""
-            + toString (_bool_)
-        ;
+            + toString(this._bool_);
     }
 
-    void removeChild(Node child)
+    @Override
+    void removeChild(@SuppressWarnings("unused") Node child)
     {
-        if ( _bool_ == child )
+        // Remove child
+        if(this._bool_ == child)
         {
-            _bool_ = null;
+            this._bool_ = null;
             return;
         }
+
+        throw new RuntimeException("Not a child.");
     }
 
-    void replaceChild(Node oldChild, Node newChild)
+    @Override
+    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
     {
-        if ( _bool_ == oldChild )
+        // Replace child
+        if(this._bool_ == oldChild)
         {
-            setBool ((TBool) newChild);
+            setBool((TBool) newChild);
             return;
         }
-    }
 
+        throw new RuntimeException("Not a child.");
+    }
 }

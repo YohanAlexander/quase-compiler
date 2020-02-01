@@ -4,4 +4,5 @@ package quase.node;
 
 public abstract class PDecProcedimento extends Node
 {
+    // Empty body
 }

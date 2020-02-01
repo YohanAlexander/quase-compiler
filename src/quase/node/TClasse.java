@@ -4,6 +4,7 @@ package quase.node;
 
 import quase.analysis.*;
 
+@SuppressWarnings("nls")
 public final class TClasse extends Token
 {
     public TClasse()
@@ -18,17 +19,20 @@ public final class TClasse extends Token
         setPos(pos);
     }
 
+    @Override
     public Object clone()
     {
       return new TClasse(getLine(), getPos());
     }
 
+    @Override
     public void apply(Switch sw)
     {
         ((Analysis) sw).caseTClasse(this);
     }
 
-    public void setText(String text)
+    @Override
+    public void setText(@SuppressWarnings("unused") String text)
     {
         throw new RuntimeException("Cannot change TClasse text.");
     }

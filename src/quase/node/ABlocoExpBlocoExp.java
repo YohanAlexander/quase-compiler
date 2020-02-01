@@ -2,58 +2,64 @@
 
 package quase.node;
 
-import java.util.*;
 import quase.analysis.*;
 
+@SuppressWarnings("nls")
 public final class ABlocoExpBlocoExp extends PBlocoExp
 {
     private TComeca _comeca_;
-    private PListaDecCons _lista_dec_cons_;
+    private PListaDecCons _listaDecCons_;
     private PExp _exp_;
     private TTermina _termina_;
 
-    public ABlocoExpBlocoExp ()
+    public ABlocoExpBlocoExp()
     {
+        // Constructor
     }
 
-    public ABlocoExpBlocoExp (
-            TComeca _comeca_,
-            PListaDecCons _lista_dec_cons_,
-            PExp _exp_,
-            TTermina _termina_
-    )
+    public ABlocoExpBlocoExp(
+        @SuppressWarnings("hiding") TComeca _comeca_,
+        @SuppressWarnings("hiding") PListaDecCons _listaDecCons_,
+        @SuppressWarnings("hiding") PExp _exp_,
+        @SuppressWarnings("hiding") TTermina _termina_)
     {
-        setComeca (_comeca_);
-        setListaDecCons (_lista_dec_cons_);
-        setExp (_exp_);
-        setTermina (_termina_);
+        // Constructor
+        setComeca(_comeca_);
+
+        setListaDecCons(_listaDecCons_);
+
+        setExp(_exp_);
+
+        setTermina(_termina_);
+
     }
 
+    @Override
     public Object clone()
     {
-        return new ABlocoExpBlocoExp (
-            (TComeca)cloneNode (_comeca_),
-            (PListaDecCons)cloneNode (_lista_dec_cons_),
-            (PExp)cloneNode (_exp_),
-            (TTermina)cloneNode (_termina_)
-        );
+        return new ABlocoExpBlocoExp(
+            cloneNode(this._comeca_),
+            cloneNode(this._listaDecCons_),
+            cloneNode(this._exp_),
+            cloneNode(this._termina_));
     }
 
+    @Override
     public void apply(Switch sw)
     {
         ((Analysis) sw).caseABlocoExpBlocoExp(this);
     }
 
-    public TComeca getComeca ()
+    public TComeca getComeca()
     {
-        return _comeca_;
+        return this._comeca_;
     }
 
-    public void setComeca (TComeca node)
+    public void setComeca(TComeca node)
     {
-        if(_comeca_ != null)
+        if(this._comeca_ != null)
         {
-            _comeca_.parent(null);
+            this._comeca_.parent(null);
         }
 
         if(node != null)
@@ -66,18 +72,19 @@ public final class ABlocoExpBlocoExp extends PBlocoExp
             node.parent(this);
         }
 
-        _comeca_ = node;
-    }
-    public PListaDecCons getListaDecCons ()
-    {
-        return _lista_dec_cons_;
+        this._comeca_ = node;
     }
 
-    public void setListaDecCons (PListaDecCons node)
+    public PListaDecCons getListaDecCons()
     {
-        if(_lista_dec_cons_ != null)
+        return this._listaDecCons_;
+    }
+
+    public void setListaDecCons(PListaDecCons node)
+    {
+        if(this._listaDecCons_ != null)
         {
-            _lista_dec_cons_.parent(null);
+            this._listaDecCons_.parent(null);
         }
 
         if(node != null)
@@ -90,18 +97,19 @@ public final class ABlocoExpBlocoExp extends PBlocoExp
             node.parent(this);
         }
 
-        _lista_dec_cons_ = node;
-    }
-    public PExp getExp ()
-    {
-        return _exp_;
+        this._listaDecCons_ = node;
     }
 
-    public void setExp (PExp node)
+    public PExp getExp()
     {
-        if(_exp_ != null)
+        return this._exp_;
+    }
+
+    public void setExp(PExp node)
+    {
+        if(this._exp_ != null)
         {
-            _exp_.parent(null);
+            this._exp_.parent(null);
         }
 
         if(node != null)
@@ -114,18 +122,19 @@ public final class ABlocoExpBlocoExp extends PBlocoExp
             node.parent(this);
         }
 
-        _exp_ = node;
-    }
-    public TTermina getTermina ()
-    {
-        return _termina_;
+        this._exp_ = node;
     }
 
-    public void setTermina (TTermina node)
+    public TTermina getTermina()
     {
-        if(_termina_ != null)
+        return this._termina_;
+    }
+
+    public void setTermina(TTermina node)
+    {
+        if(this._termina_ != null)
         {
-            _termina_.parent(null);
+            this._termina_.parent(null);
         }
 
         if(node != null)
@@ -138,65 +147,78 @@ public final class ABlocoExpBlocoExp extends PBlocoExp
             node.parent(this);
         }
 
-        _termina_ = node;
+        this._termina_ = node;
     }
 
+    @Override
     public String toString()
     {
         return ""
-            + toString (_comeca_)
-            + toString (_lista_dec_cons_)
-            + toString (_exp_)
-            + toString (_termina_)
-        ;
+            + toString(this._comeca_)
+            + toString(this._listaDecCons_)
+            + toString(this._exp_)
+            + toString(this._termina_);
     }
 
-    void removeChild(Node child)
+    @Override
+    void removeChild(@SuppressWarnings("unused") Node child)
     {
-        if ( _comeca_ == child )
+        // Remove child
+        if(this._comeca_ == child)
         {
-            _comeca_ = null;
+            this._comeca_ = null;
             return;
         }
-        if ( _lista_dec_cons_ == child )
+
+        if(this._listaDecCons_ == child)
         {
-            _lista_dec_cons_ = null;
+            this._listaDecCons_ = null;
             return;
         }
-        if ( _exp_ == child )
+
+        if(this._exp_ == child)
         {
-            _exp_ = null;
+            this._exp_ = null;
             return;
         }
-        if ( _termina_ == child )
+
+        if(this._termina_ == child)
         {
-            _termina_ = null;
+            this._termina_ = null;
             return;
         }
+
+        throw new RuntimeException("Not a child.");
     }
 
-    void replaceChild(Node oldChild, Node newChild)
+    @Override
+    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
     {
-        if ( _comeca_ == oldChild )
+        // Replace child
+        if(this._comeca_ == oldChild)
         {
-            setComeca ((TComeca) newChild);
+            setComeca((TComeca) newChild);
             return;
         }
-        if ( _lista_dec_cons_ == oldChild )
-        {
-            setListaDecCons ((PListaDecCons) newChild);
-            return;
-        }
-        if ( _exp_ == oldChild )
-        {
-            setExp ((PExp) newChild);
-            return;
-        }
-        if ( _termina_ == oldChild )
-        {
-            setTermina ((TTermina) newChild);
-            return;
-        }
-    }
 
+        if(this._listaDecCons_ == oldChild)
+        {
+            setListaDecCons((PListaDecCons) newChild);
+            return;
+        }
+
+        if(this._exp_ == oldChild)
+        {
+            setExp((PExp) newChild);
+            return;
+        }
+
+        if(this._termina_ == oldChild)
+        {
+            setTermina((TTermina) newChild);
+            return;
+        }
+
+        throw new RuntimeException("Not a child.");
+    }
 }

@@ -9,7 +9,7 @@ Helpers
     inteiro_decimal = digito+;
     real_decimal = inteiro_decimal '.' inteiro_decimal;
     real_cientifico = ['1'..'9'] ('.' inteiro_decimal)? ('e' | 'E') '-'? inteiro_decimal;
- 
+
 Tokens
     e_comercial = '&';
     ponto_virgula = ';';
@@ -63,7 +63,8 @@ Ignored Tokens
     comentario, vazio;
 
 Productions
-    programa = {programa} familia lista_classe;
+    programa =
+      {programa} familia lista_classe;
     lista_classe =
       {lista_classe} def_classe lista_classe |
       {classe} def_classe;
@@ -72,16 +73,16 @@ Productions
       {familia} lista_relacao ponto_virgula |
       {vazio} ;
     lista_relacao =
-      {lista_relacao} relacao e_comercial |
+      {lista_relacao} relacao e_comercial lista_relacao |
       {relacao} relacao;
     relacao =
       {relacao} classe cid filha_relacao;
     filha_relacao =
       {filha_relacao} filha_da_classe cid;
-  
+
     def_classe =
       {def_classe} classe cid comeca atributos metodos termina;
-	
+
     atributos =
       {atributos} dec atributos |
       {vazio} ;
@@ -93,12 +94,15 @@ Productions
       {obj} dec_obj |
       {var} dec_var |
       {cons} dec_cons;
+    lista_decs =
+      {lista_dec} dec lista_decs |
+      {vazio} ;
     dec_obj =
       {dec_obj} objeto cid lista_id ponto_virgula;
     dec_var =
       {dec_var} variavel tipo lista_id ponto_virgula;
     dec_cons =
-      {dec_cons} constante tipo_primitivo lista_inicializacao;
+      {dec_cons} constante tipo_primitivo lista_inicializacao ponto_virgula;
     inicializacao =
       {inicializacao} id T.inicializacao exp;
     lista_id =
@@ -116,17 +120,15 @@ Productions
       {bool} bool |
       {real} real;
     tipo_classe =
-      {tipo_classe} cid;  
+      {tipo_classe} cid;
 
     dec2 =
       {proc} dec_procedimento |
       {func} dec_funcao;
     dec_procedimento =
-      {dec_procedimento} ponto_de_entrada? procedimento id parenteses_esquerdo parametros 
-        parenteses_direito comando;
+      {dec_procedimento} ponto_de_entrada? procedimento id parenteses_esquerdo parametros parenteses_direito comando;
     dec_funcao =
-      {dec_funcao} funcao tipo id parenteses_esquerdo parametros parenteses_direito
-        exp;
+      {dec_funcao} funcao tipo id parenteses_esquerdo parametros parenteses_direito exp;
     parametros =
       {parametros} lista_parametro |
       {vazio} ;
@@ -135,34 +137,32 @@ Productions
       {parametro} parametro;
     parametro =
       {parametro} tipo id;
-	  
-	  
+
     comando =
       {cond} se parenteses_esquerdo exp parenteses_direito comando |
-      {loop} enquanto parenteses_esquerdo exp parenteses_direito 
-        comando |
+      {cond_else} se parenteses_esquerdo exp parenteses_direito comando_else senao comando |
+      {loop} enquanto parenteses_esquerdo exp parenteses_direito comando |
       {atrib} id atribuicao exp ponto_virgula |
-      {call} chamada ponto_virgula |
-      {call_id} id ponto chamada ponto_virgula |
+      {call} id_ponto? chamada ponto_virgula |
       {bloco} bloco;
-    
-    comando_senao =
-      {cond} senao se parenteses_esquerdo exp parenteses_direito 
-        comando |
-      {cond_senao} senao se parenteses_esquerdo exp parenteses_direito
-        comando comando_senao |
-      {loop} senao enquanto parenteses_esquerdo exp parenteses_direito 
-        comando |
-      {atrib} senao id atribuicao exp ponto_virgula |
-      {call} senao chamada ponto_virgula |
-      {call_id} senao id ponto chamada ponto_virgula |
-      {bloco} senao bloco;
+    comando_else =
+      {cond} se parenteses_esquerdo exp parenteses_direito comando_else cont_comando_else |
+      {loop} enquanto parenteses_esquerdo exp parenteses_direito comando_else |
+      {atrib} id atribuicao exp ponto_virgula |
+      {call} id_ponto? chamada ponto_virgula |
+      {bloco} bloco;
+    cont_comando_else =
+      {cont_cond} senao comando_else;
+    lista_comandos =
+      {lista_comandos} comando lista_comandos |
+      {vazio} ;
 
     bloco =
-      {bloco} comeca dec comando termina;
-	
+      {bloco} comeca lista_decs lista_comandos termina;
+
     exp =
       {cond} se parenteses_esquerdo exp parenteses_direito entao cond_exp2 |
+      {negativo} subtracao exp |
       {soma} termo adicao exp |
       {subt} termo subtracao exp |
       {multi} termo multiplicacao exp |
@@ -175,34 +175,33 @@ Productions
       {or} termo ou exp |
       {bloco_exp} bloco_exp |
       {termo} termo;
-
     cond_exp2 =
-      {soma} termo adicao cond_exp2 |
-      {subt} termo subtracao cond_exp2 |
-      {multi} termo multiplicacao cond_exp2|
-      {div} termo divisao cond_exp2 |
-      {mod} termo modulo cond_exp2 |
-      {igual} termo igualdade cond_exp2 |
-      {menor} termo menor_que cond_exp2 |
-      {dif} negacao cond_exp2 |
-      {and} termo e cond_exp2 |
-      {or} termo ou cond_exp2 |
-      {fim} termo senao exp;
-	  
-    termo = 
+      {cont_cond} exp cond_exp3;
+    cond_exp3 =
+      {fim_cond} senao exp;
+
+    termo =
       {inteiro} numero_inteiro |
       {real} numero_real |
       {true} true |
       {false} false |
-      {id} id |
+      {id_call} id_call |
       {par} parenteses_esquerdo exp parenteses_direito;
+
+    id_call =
+      {id} id |
+      {call} id_ponto? chamada ponto_virgula |
+      {atrib} id_ponto? atributo ponto_virgula;
+
+    id_ponto =
+      {id_ponto} id ponto;
 
     bloco_exp =
       {bloco_exp} comeca lista_dec_cons exp termina;
     lista_dec_cons =
       {lista_dec_cons} dec_cons lista_dec_cons |
-      {dec_cons} dec_cons;
-    
+      {vazio} ;
+
     chamada =
       {chamada} id parenteses_esquerdo lista_exp parenteses_direito;
     lista_exp =
@@ -213,3 +212,5 @@ Productions
     /* todo */
     atributo =
       {vazio} ;
+
+Abstract Syntax Tree

@@ -2,50 +2,59 @@
 
 package quase.node;
 
-import java.util.*;
 import quase.analysis.*;
 
+@SuppressWarnings("nls")
 public final class AListaRelacaoListaRelacao extends PListaRelacao
 {
     private PRelacao _relacao_;
-    private TEComercial _e_comercial_;
+    private TEComercial _eComercial_;
+    private PListaRelacao _listaRelacao_;
 
-    public AListaRelacaoListaRelacao ()
+    public AListaRelacaoListaRelacao()
     {
+        // Constructor
     }
 
-    public AListaRelacaoListaRelacao (
-            PRelacao _relacao_,
-            TEComercial _e_comercial_
-    )
+    public AListaRelacaoListaRelacao(
+        @SuppressWarnings("hiding") PRelacao _relacao_,
+        @SuppressWarnings("hiding") TEComercial _eComercial_,
+        @SuppressWarnings("hiding") PListaRelacao _listaRelacao_)
     {
-        setRelacao (_relacao_);
-        setEComercial (_e_comercial_);
+        // Constructor
+        setRelacao(_relacao_);
+
+        setEComercial(_eComercial_);
+
+        setListaRelacao(_listaRelacao_);
+
     }
 
+    @Override
     public Object clone()
     {
-        return new AListaRelacaoListaRelacao (
-            (PRelacao)cloneNode (_relacao_),
-            (TEComercial)cloneNode (_e_comercial_)
-        );
+        return new AListaRelacaoListaRelacao(
+            cloneNode(this._relacao_),
+            cloneNode(this._eComercial_),
+            cloneNode(this._listaRelacao_));
     }
 
+    @Override
     public void apply(Switch sw)
     {
         ((Analysis) sw).caseAListaRelacaoListaRelacao(this);
     }
 
-    public PRelacao getRelacao ()
+    public PRelacao getRelacao()
     {
-        return _relacao_;
+        return this._relacao_;
     }
 
-    public void setRelacao (PRelacao node)
+    public void setRelacao(PRelacao node)
     {
-        if(_relacao_ != null)
+        if(this._relacao_ != null)
         {
-            _relacao_.parent(null);
+            this._relacao_.parent(null);
         }
 
         if(node != null)
@@ -58,18 +67,19 @@ public final class AListaRelacaoListaRelacao extends PListaRelacao
             node.parent(this);
         }
 
-        _relacao_ = node;
-    }
-    public TEComercial getEComercial ()
-    {
-        return _e_comercial_;
+        this._relacao_ = node;
     }
 
-    public void setEComercial (TEComercial node)
+    public TEComercial getEComercial()
     {
-        if(_e_comercial_ != null)
+        return this._eComercial_;
+    }
+
+    public void setEComercial(TEComercial node)
+    {
+        if(this._eComercial_ != null)
         {
-            _e_comercial_.parent(null);
+            this._eComercial_.parent(null);
         }
 
         if(node != null)
@@ -82,43 +92,90 @@ public final class AListaRelacaoListaRelacao extends PListaRelacao
             node.parent(this);
         }
 
-        _e_comercial_ = node;
+        this._eComercial_ = node;
     }
 
+    public PListaRelacao getListaRelacao()
+    {
+        return this._listaRelacao_;
+    }
+
+    public void setListaRelacao(PListaRelacao node)
+    {
+        if(this._listaRelacao_ != null)
+        {
+            this._listaRelacao_.parent(null);
+        }
+
+        if(node != null)
+        {
+            if(node.parent() != null)
+            {
+                node.parent().removeChild(node);
+            }
+
+            node.parent(this);
+        }
+
+        this._listaRelacao_ = node;
+    }
+
+    @Override
     public String toString()
     {
         return ""
-            + toString (_relacao_)
-            + toString (_e_comercial_)
-        ;
+            + toString(this._relacao_)
+            + toString(this._eComercial_)
+            + toString(this._listaRelacao_);
     }
 
-    void removeChild(Node child)
+    @Override
+    void removeChild(@SuppressWarnings("unused") Node child)
     {
-        if ( _relacao_ == child )
+        // Remove child
+        if(this._relacao_ == child)
         {
-            _relacao_ = null;
+            this._relacao_ = null;
             return;
         }
-        if ( _e_comercial_ == child )
+
+        if(this._eComercial_ == child)
         {
-            _e_comercial_ = null;
+            this._eComercial_ = null;
             return;
         }
+
+        if(this._listaRelacao_ == child)
+        {
+            this._listaRelacao_ = null;
+            return;
+        }
+
+        throw new RuntimeException("Not a child.");
     }
 
-    void replaceChild(Node oldChild, Node newChild)
+    @Override
+    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
     {
-        if ( _relacao_ == oldChild )
+        // Replace child
+        if(this._relacao_ == oldChild)
         {
-            setRelacao ((PRelacao) newChild);
+            setRelacao((PRelacao) newChild);
             return;
         }
-        if ( _e_comercial_ == oldChild )
-        {
-            setEComercial ((TEComercial) newChild);
-            return;
-        }
-    }
 
+        if(this._eComercial_ == oldChild)
+        {
+            setEComercial((TEComercial) newChild);
+            return;
+        }
+
+        if(this._listaRelacao_ == oldChild)
+        {
+            setListaRelacao((PListaRelacao) newChild);
+            return;
+        }
+
+        throw new RuntimeException("Not a child.");
+    }
 }

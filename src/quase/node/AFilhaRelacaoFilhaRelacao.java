@@ -2,50 +2,54 @@
 
 package quase.node;
 
-import java.util.*;
 import quase.analysis.*;
 
+@SuppressWarnings("nls")
 public final class AFilhaRelacaoFilhaRelacao extends PFilhaRelacao
 {
-    private TFilhaDaClasse _filha_da_classe_;
+    private TFilhaDaClasse _filhaDaClasse_;
     private TCid _cid_;
 
-    public AFilhaRelacaoFilhaRelacao ()
+    public AFilhaRelacaoFilhaRelacao()
     {
+        // Constructor
     }
 
-    public AFilhaRelacaoFilhaRelacao (
-            TFilhaDaClasse _filha_da_classe_,
-            TCid _cid_
-    )
+    public AFilhaRelacaoFilhaRelacao(
+        @SuppressWarnings("hiding") TFilhaDaClasse _filhaDaClasse_,
+        @SuppressWarnings("hiding") TCid _cid_)
     {
-        setFilhaDaClasse (_filha_da_classe_);
-        setCid (_cid_);
+        // Constructor
+        setFilhaDaClasse(_filhaDaClasse_);
+
+        setCid(_cid_);
+
     }
 
+    @Override
     public Object clone()
     {
-        return new AFilhaRelacaoFilhaRelacao (
-            (TFilhaDaClasse)cloneNode (_filha_da_classe_),
-            (TCid)cloneNode (_cid_)
-        );
+        return new AFilhaRelacaoFilhaRelacao(
+            cloneNode(this._filhaDaClasse_),
+            cloneNode(this._cid_));
     }
 
+    @Override
     public void apply(Switch sw)
     {
         ((Analysis) sw).caseAFilhaRelacaoFilhaRelacao(this);
     }
 
-    public TFilhaDaClasse getFilhaDaClasse ()
+    public TFilhaDaClasse getFilhaDaClasse()
     {
-        return _filha_da_classe_;
+        return this._filhaDaClasse_;
     }
 
-    public void setFilhaDaClasse (TFilhaDaClasse node)
+    public void setFilhaDaClasse(TFilhaDaClasse node)
     {
-        if(_filha_da_classe_ != null)
+        if(this._filhaDaClasse_ != null)
         {
-            _filha_da_classe_.parent(null);
+            this._filhaDaClasse_.parent(null);
         }
 
         if(node != null)
@@ -58,18 +62,19 @@ public final class AFilhaRelacaoFilhaRelacao extends PFilhaRelacao
             node.parent(this);
         }
 
-        _filha_da_classe_ = node;
-    }
-    public TCid getCid ()
-    {
-        return _cid_;
+        this._filhaDaClasse_ = node;
     }
 
-    public void setCid (TCid node)
+    public TCid getCid()
     {
-        if(_cid_ != null)
+        return this._cid_;
+    }
+
+    public void setCid(TCid node)
+    {
+        if(this._cid_ != null)
         {
-            _cid_.parent(null);
+            this._cid_.parent(null);
         }
 
         if(node != null)
@@ -82,43 +87,52 @@ public final class AFilhaRelacaoFilhaRelacao extends PFilhaRelacao
             node.parent(this);
         }
 
-        _cid_ = node;
+        this._cid_ = node;
     }
 
+    @Override
     public String toString()
     {
         return ""
-            + toString (_filha_da_classe_)
-            + toString (_cid_)
-        ;
+            + toString(this._filhaDaClasse_)
+            + toString(this._cid_);
     }
 
-    void removeChild(Node child)
+    @Override
+    void removeChild(@SuppressWarnings("unused") Node child)
     {
-        if ( _filha_da_classe_ == child )
+        // Remove child
+        if(this._filhaDaClasse_ == child)
         {
-            _filha_da_classe_ = null;
+            this._filhaDaClasse_ = null;
             return;
         }
-        if ( _cid_ == child )
+
+        if(this._cid_ == child)
         {
-            _cid_ = null;
+            this._cid_ = null;
             return;
         }
+
+        throw new RuntimeException("Not a child.");
     }
 
-    void replaceChild(Node oldChild, Node newChild)
+    @Override
+    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
     {
-        if ( _filha_da_classe_ == oldChild )
+        // Replace child
+        if(this._filhaDaClasse_ == oldChild)
         {
-            setFilhaDaClasse ((TFilhaDaClasse) newChild);
+            setFilhaDaClasse((TFilhaDaClasse) newChild);
             return;
         }
-        if ( _cid_ == oldChild )
-        {
-            setCid ((TCid) newChild);
-            return;
-        }
-    }
 
+        if(this._cid_ == oldChild)
+        {
+            setCid((TCid) newChild);
+            return;
+        }
+
+        throw new RuntimeException("Not a child.");
+    }
 }

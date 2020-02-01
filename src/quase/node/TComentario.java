@@ -4,6 +4,7 @@ package quase.node;
 
 import quase.analysis.*;
 
+@SuppressWarnings("nls")
 public final class TComentario extends Token
 {
     public TComentario(String text)
@@ -18,11 +19,13 @@ public final class TComentario extends Token
         setPos(pos);
     }
 
+    @Override
     public Object clone()
     {
       return new TComentario(getText(), getLine(), getPos());
     }
 
+    @Override
     public void apply(Switch sw)
     {
         ((Analysis) sw).caseTComentario(this);

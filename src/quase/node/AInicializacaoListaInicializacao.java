@@ -2,46 +2,49 @@
 
 package quase.node;
 
-import java.util.*;
 import quase.analysis.*;
 
+@SuppressWarnings("nls")
 public final class AInicializacaoListaInicializacao extends PListaInicializacao
 {
     private PInicializacao _inicializacao_;
 
-    public AInicializacaoListaInicializacao ()
+    public AInicializacaoListaInicializacao()
     {
+        // Constructor
     }
 
-    public AInicializacaoListaInicializacao (
-            PInicializacao _inicializacao_
-    )
+    public AInicializacaoListaInicializacao(
+        @SuppressWarnings("hiding") PInicializacao _inicializacao_)
     {
-        setInicializacao (_inicializacao_);
+        // Constructor
+        setInicializacao(_inicializacao_);
+
     }
 
+    @Override
     public Object clone()
     {
-        return new AInicializacaoListaInicializacao (
-            (PInicializacao)cloneNode (_inicializacao_)
-        );
+        return new AInicializacaoListaInicializacao(
+            cloneNode(this._inicializacao_));
     }
 
+    @Override
     public void apply(Switch sw)
     {
         ((Analysis) sw).caseAInicializacaoListaInicializacao(this);
     }
 
-    public PInicializacao getInicializacao ()
+    public PInicializacao getInicializacao()
     {
-        return _inicializacao_;
+        return this._inicializacao_;
     }
 
-    public void setInicializacao (PInicializacao node)
+    public void setInicializacao(PInicializacao node)
     {
-        if(_inicializacao_ != null)
+        if(this._inicializacao_ != null)
         {
-            _inicializacao_.parent(null);
+            this._inicializacao_.parent(null);
         }
 
         if(node != null)
@@ -54,32 +57,39 @@ public final class AInicializacaoListaInicializacao extends PListaInicializacao
             node.parent(this);
         }
 
-        _inicializacao_ = node;
+        this._inicializacao_ = node;
     }
 
+    @Override
     public String toString()
     {
         return ""
-            + toString (_inicializacao_)
-        ;
+            + toString(this._inicializacao_);
     }
 
-    void removeChild(Node child)
+    @Override
+    void removeChild(@SuppressWarnings("unused") Node child)
     {
-        if ( _inicializacao_ == child )
+        // Remove child
+        if(this._inicializacao_ == child)
         {
-            _inicializacao_ = null;
+            this._inicializacao_ = null;
             return;
         }
+
+        throw new RuntimeException("Not a child.");
     }
 
-    void replaceChild(Node oldChild, Node newChild)
+    @Override
+    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
     {
-        if ( _inicializacao_ == oldChild )
+        // Replace child
+        if(this._inicializacao_ == oldChild)
         {
-            setInicializacao ((PInicializacao) newChild);
+            setInicializacao((PInicializacao) newChild);
             return;
         }
-    }
 
+        throw new RuntimeException("Not a child.");
+    }
 }

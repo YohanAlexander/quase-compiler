@@ -4,4 +4,5 @@ package quase.node;
 
 public abstract class PListaParametro extends Node
 {
+    // Empty body
 }

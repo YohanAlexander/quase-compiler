@@ -4,4 +4,5 @@ package quase.node;
 
 public abstract class PExp extends Node
 {
+    // Empty body
 }

@@ -2,54 +2,59 @@
 
 package quase.node;
 
-import java.util.*;
 import quase.analysis.*;
 
+@SuppressWarnings("nls")
 public final class AInicializacaoInicializacao extends PInicializacao
 {
     private TId _id_;
     private TInicializacao _inicializacao_;
     private PExp _exp_;
 
-    public AInicializacaoInicializacao ()
+    public AInicializacaoInicializacao()
     {
+        // Constructor
     }
 
-    public AInicializacaoInicializacao (
-            TId _id_,
-            TInicializacao _inicializacao_,
-            PExp _exp_
-    )
+    public AInicializacaoInicializacao(
+        @SuppressWarnings("hiding") TId _id_,
+        @SuppressWarnings("hiding") TInicializacao _inicializacao_,
+        @SuppressWarnings("hiding") PExp _exp_)
     {
-        setId (_id_);
-        setInicializacao (_inicializacao_);
-        setExp (_exp_);
+        // Constructor
+        setId(_id_);
+
+        setInicializacao(_inicializacao_);
+
+        setExp(_exp_);
+
     }
 
+    @Override
     public Object clone()
     {
-        return new AInicializacaoInicializacao (
-            (TId)cloneNode (_id_),
-            (TInicializacao)cloneNode (_inicializacao_),
-            (PExp)cloneNode (_exp_)
-        );
+        return new AInicializacaoInicializacao(
+            cloneNode(this._id_),
+            cloneNode(this._inicializacao_),
+            cloneNode(this._exp_));
     }
 
+    @Override
     public void apply(Switch sw)
     {
         ((Analysis) sw).caseAInicializacaoInicializacao(this);
     }
 
-    public TId getId ()
+    public TId getId()
     {
-        return _id_;
+        return this._id_;
     }
 
-    public void setId (TId node)
+    public void setId(TId node)
     {
-        if(_id_ != null)
+        if(this._id_ != null)
         {
-            _id_.parent(null);
+            this._id_.parent(null);
         }
 
         if(node != null)
@@ -62,18 +67,19 @@ public final class AInicializacaoInicializacao extends PInicializacao
             node.parent(this);
         }
 
-        _id_ = node;
-    }
-    public TInicializacao getInicializacao ()
-    {
-        return _inicializacao_;
+        this._id_ = node;
     }
 
-    public void setInicializacao (TInicializacao node)
+    public TInicializacao getInicializacao()
     {
-        if(_inicializacao_ != null)
+        return this._inicializacao_;
+    }
+
+    public void setInicializacao(TInicializacao node)
+    {
+        if(this._inicializacao_ != null)
         {
-            _inicializacao_.parent(null);
+            this._inicializacao_.parent(null);
         }
 
         if(node != null)
@@ -86,18 +92,19 @@ public final class AInicializacaoInicializacao extends PInicializacao
             node.parent(this);
         }
 
-        _inicializacao_ = node;
-    }
-    public PExp getExp ()
-    {
-        return _exp_;
+        this._inicializacao_ = node;
     }
 
-    public void setExp (PExp node)
+    public PExp getExp()
     {
-        if(_exp_ != null)
+        return this._exp_;
+    }
+
+    public void setExp(PExp node)
+    {
+        if(this._exp_ != null)
         {
-            _exp_.parent(null);
+            this._exp_.parent(null);
         }
 
         if(node != null)
@@ -110,54 +117,65 @@ public final class AInicializacaoInicializacao extends PInicializacao
             node.parent(this);
         }
 
-        _exp_ = node;
+        this._exp_ = node;
     }
 
+    @Override
     public String toString()
     {
         return ""
-            + toString (_id_)
-            + toString (_inicializacao_)
-            + toString (_exp_)
-        ;
+            + toString(this._id_)
+            + toString(this._inicializacao_)
+            + toString(this._exp_);
     }
 
-    void removeChild(Node child)
+    @Override
+    void removeChild(@SuppressWarnings("unused") Node child)
     {
-        if ( _id_ == child )
+        // Remove child
+        if(this._id_ == child)
         {
-            _id_ = null;
+            this._id_ = null;
             return;
         }
-        if ( _inicializacao_ == child )
+
+        if(this._inicializacao_ == child)
         {
-            _inicializacao_ = null;
+            this._inicializacao_ = null;
             return;
         }
-        if ( _exp_ == child )
+
+        if(this._exp_ == child)
         {
-            _exp_ = null;
+            this._exp_ = null;
             return;
         }
+
+        throw new RuntimeException("Not a child.");
     }
 
-    void replaceChild(Node oldChild, Node newChild)
+    @Override
+    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
     {
-        if ( _id_ == oldChild )
+        // Replace child
+        if(this._id_ == oldChild)
         {
-            setId ((TId) newChild);
+            setId((TId) newChild);
             return;
         }
-        if ( _inicializacao_ == oldChild )
-        {
-            setInicializacao ((TInicializacao) newChild);
-            return;
-        }
-        if ( _exp_ == oldChild )
-        {
-            setExp ((PExp) newChild);
-            return;
-        }
-    }
 
+        if(this._inicializacao_ == oldChild)
+        {
+            setInicializacao((TInicializacao) newChild);
+            return;
+        }
+
+        if(this._exp_ == oldChild)
+        {
+            setExp((PExp) newChild);
+            return;
+        }
+
+        throw new RuntimeException("Not a child.");
+    }
 }

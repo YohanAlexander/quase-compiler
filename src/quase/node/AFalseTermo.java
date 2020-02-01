@@ -2,46 +2,49 @@
 
 package quase.node;
 
-import java.util.*;
 import quase.analysis.*;
 
+@SuppressWarnings("nls")
 public final class AFalseTermo extends PTermo
 {
     private TFalse _false_;
 
-    public AFalseTermo ()
+    public AFalseTermo()
     {
+        // Constructor
     }
 
-    public AFalseTermo (
-            TFalse _false_
-    )
+    public AFalseTermo(
+        @SuppressWarnings("hiding") TFalse _false_)
     {
-        setFalse (_false_);
+        // Constructor
+        setFalse(_false_);
+
     }
 
+    @Override
     public Object clone()
     {
-        return new AFalseTermo (
-            (TFalse)cloneNode (_false_)
-        );
+        return new AFalseTermo(
+            cloneNode(this._false_));
     }
 
+    @Override
     public void apply(Switch sw)
     {
         ((Analysis) sw).caseAFalseTermo(this);
     }
 
-    public TFalse getFalse ()
+    public TFalse getFalse()
     {
-        return _false_;
+        return this._false_;
     }
 
-    public void setFalse (TFalse node)
+    public void setFalse(TFalse node)
     {
-        if(_false_ != null)
+        if(this._false_ != null)
         {
-            _false_.parent(null);
+            this._false_.parent(null);
         }
 
         if(node != null)
@@ -54,32 +57,39 @@ public final class AFalseTermo extends PTermo
             node.parent(this);
         }
 
-        _false_ = node;
+        this._false_ = node;
     }
 
+    @Override
     public String toString()
     {
         return ""
-            + toString (_false_)
-        ;
+            + toString(this._false_);
     }
 
-    void removeChild(Node child)
+    @Override
+    void removeChild(@SuppressWarnings("unused") Node child)
     {
-        if ( _false_ == child )
+        // Remove child
+        if(this._false_ == child)
         {
-            _false_ = null;
+            this._false_ = null;
             return;
         }
+
+        throw new RuntimeException("Not a child.");
     }
 
-    void replaceChild(Node oldChild, Node newChild)
+    @Override
+    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
     {
-        if ( _false_ == oldChild )
+        // Replace child
+        if(this._false_ == oldChild)
         {
-            setFalse ((TFalse) newChild);
+            setFalse((TFalse) newChild);
             return;
         }
-    }
 
+        throw new RuntimeException("Not a child.");
+    }
 }

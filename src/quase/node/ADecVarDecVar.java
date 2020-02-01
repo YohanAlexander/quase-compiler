@@ -2,58 +2,64 @@
 
 package quase.node;
 
-import java.util.*;
 import quase.analysis.*;
 
+@SuppressWarnings("nls")
 public final class ADecVarDecVar extends PDecVar
 {
     private TVariavel _variavel_;
     private PTipo _tipo_;
-    private PListaId _lista_id_;
-    private TPontoVirgula _ponto_virgula_;
+    private PListaId _listaId_;
+    private TPontoVirgula _pontoVirgula_;
 
-    public ADecVarDecVar ()
+    public ADecVarDecVar()
     {
+        // Constructor
     }
 
-    public ADecVarDecVar (
-            TVariavel _variavel_,
-            PTipo _tipo_,
-            PListaId _lista_id_,
-            TPontoVirgula _ponto_virgula_
-    )
+    public ADecVarDecVar(
+        @SuppressWarnings("hiding") TVariavel _variavel_,
+        @SuppressWarnings("hiding") PTipo _tipo_,
+        @SuppressWarnings("hiding") PListaId _listaId_,
+        @SuppressWarnings("hiding") TPontoVirgula _pontoVirgula_)
     {
-        setVariavel (_variavel_);
-        setTipo (_tipo_);
-        setListaId (_lista_id_);
-        setPontoVirgula (_ponto_virgula_);
+        // Constructor
+        setVariavel(_variavel_);
+
+        setTipo(_tipo_);
+
+        setListaId(_listaId_);
+
+        setPontoVirgula(_pontoVirgula_);
+
     }
 
+    @Override
     public Object clone()
     {
-        return new ADecVarDecVar (
-            (TVariavel)cloneNode (_variavel_),
-            (PTipo)cloneNode (_tipo_),
-            (PListaId)cloneNode (_lista_id_),
-            (TPontoVirgula)cloneNode (_ponto_virgula_)
-        );
+        return new ADecVarDecVar(
+            cloneNode(this._variavel_),
+            cloneNode(this._tipo_),
+            cloneNode(this._listaId_),
+            cloneNode(this._pontoVirgula_));
     }
 
+    @Override
     public void apply(Switch sw)
     {
         ((Analysis) sw).caseADecVarDecVar(this);
     }
 
-    public TVariavel getVariavel ()
+    public TVariavel getVariavel()
     {
-        return _variavel_;
+        return this._variavel_;
     }
 
-    public void setVariavel (TVariavel node)
+    public void setVariavel(TVariavel node)
     {
-        if(_variavel_ != null)
+        if(this._variavel_ != null)
         {
-            _variavel_.parent(null);
+            this._variavel_.parent(null);
         }
 
         if(node != null)
@@ -66,18 +72,19 @@ public final class ADecVarDecVar extends PDecVar
             node.parent(this);
         }
 
-        _variavel_ = node;
-    }
-    public PTipo getTipo ()
-    {
-        return _tipo_;
+        this._variavel_ = node;
     }
 
-    public void setTipo (PTipo node)
+    public PTipo getTipo()
     {
-        if(_tipo_ != null)
+        return this._tipo_;
+    }
+
+    public void setTipo(PTipo node)
+    {
+        if(this._tipo_ != null)
         {
-            _tipo_.parent(null);
+            this._tipo_.parent(null);
         }
 
         if(node != null)
@@ -90,18 +97,19 @@ public final class ADecVarDecVar extends PDecVar
             node.parent(this);
         }
 
-        _tipo_ = node;
-    }
-    public PListaId getListaId ()
-    {
-        return _lista_id_;
+        this._tipo_ = node;
     }
 
-    public void setListaId (PListaId node)
+    public PListaId getListaId()
     {
-        if(_lista_id_ != null)
+        return this._listaId_;
+    }
+
+    public void setListaId(PListaId node)
+    {
+        if(this._listaId_ != null)
         {
-            _lista_id_.parent(null);
+            this._listaId_.parent(null);
         }
 
         if(node != null)
@@ -114,18 +122,19 @@ public final class ADecVarDecVar extends PDecVar
             node.parent(this);
         }
 
-        _lista_id_ = node;
-    }
-    public TPontoVirgula getPontoVirgula ()
-    {
-        return _ponto_virgula_;
+        this._listaId_ = node;
     }
 
-    public void setPontoVirgula (TPontoVirgula node)
+    public TPontoVirgula getPontoVirgula()
     {
-        if(_ponto_virgula_ != null)
+        return this._pontoVirgula_;
+    }
+
+    public void setPontoVirgula(TPontoVirgula node)
+    {
+        if(this._pontoVirgula_ != null)
         {
-            _ponto_virgula_.parent(null);
+            this._pontoVirgula_.parent(null);
         }
 
         if(node != null)
@@ -138,65 +147,78 @@ public final class ADecVarDecVar extends PDecVar
             node.parent(this);
         }
 
-        _ponto_virgula_ = node;
+        this._pontoVirgula_ = node;
     }
 
+    @Override
     public String toString()
     {
         return ""
-            + toString (_variavel_)
-            + toString (_tipo_)
-            + toString (_lista_id_)
-            + toString (_ponto_virgula_)
-        ;
+            + toString(this._variavel_)
+            + toString(this._tipo_)
+            + toString(this._listaId_)
+            + toString(this._pontoVirgula_);
     }
 
-    void removeChild(Node child)
+    @Override
+    void removeChild(@SuppressWarnings("unused") Node child)
     {
-        if ( _variavel_ == child )
+        // Remove child
+        if(this._variavel_ == child)
         {
-            _variavel_ = null;
+            this._variavel_ = null;
             return;
         }
-        if ( _tipo_ == child )
+
+        if(this._tipo_ == child)
         {
-            _tipo_ = null;
+            this._tipo_ = null;
             return;
         }
-        if ( _lista_id_ == child )
+
+        if(this._listaId_ == child)
         {
-            _lista_id_ = null;
+            this._listaId_ = null;
             return;
         }
-        if ( _ponto_virgula_ == child )
+
+        if(this._pontoVirgula_ == child)
         {
-            _ponto_virgula_ = null;
+            this._pontoVirgula_ = null;
             return;
         }
+
+        throw new RuntimeException("Not a child.");
     }
 
-    void replaceChild(Node oldChild, Node newChild)
+    @Override
+    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
     {
-        if ( _variavel_ == oldChild )
+        // Replace child
+        if(this._variavel_ == oldChild)
         {
-            setVariavel ((TVariavel) newChild);
+            setVariavel((TVariavel) newChild);
             return;
         }
-        if ( _tipo_ == oldChild )
-        {
-            setTipo ((PTipo) newChild);
-            return;
-        }
-        if ( _lista_id_ == oldChild )
-        {
-            setListaId ((PListaId) newChild);
-            return;
-        }
-        if ( _ponto_virgula_ == oldChild )
-        {
-            setPontoVirgula ((TPontoVirgula) newChild);
-            return;
-        }
-    }
 
+        if(this._tipo_ == oldChild)
+        {
+            setTipo((PTipo) newChild);
+            return;
+        }
+
+        if(this._listaId_ == oldChild)
+        {
+            setListaId((PListaId) newChild);
+            return;
+        }
+
+        if(this._pontoVirgula_ == oldChild)
+        {
+            setPontoVirgula((TPontoVirgula) newChild);
+            return;
+        }
+
+        throw new RuntimeException("Not a child.");
+    }
 }

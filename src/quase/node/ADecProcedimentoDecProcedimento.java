@@ -2,70 +2,79 @@
 
 package quase.node;
 
-import java.util.*;
 import quase.analysis.*;
 
+@SuppressWarnings("nls")
 public final class ADecProcedimentoDecProcedimento extends PDecProcedimento
 {
-    private TPontoDeEntrada _ponto_de_entrada_;
+    private TPontoDeEntrada _pontoDeEntrada_;
     private TProcedimento _procedimento_;
     private TId _id_;
-    private TParentesesEsquerdo _parenteses_esquerdo_;
+    private TParentesesEsquerdo _parentesesEsquerdo_;
     private PParametros _parametros_;
-    private TParentesesDireito _parenteses_direito_;
+    private TParentesesDireito _parentesesDireito_;
     private PComando _comando_;
 
-    public ADecProcedimentoDecProcedimento ()
+    public ADecProcedimentoDecProcedimento()
     {
+        // Constructor
     }
 
-    public ADecProcedimentoDecProcedimento (
-            TPontoDeEntrada _ponto_de_entrada_,
-            TProcedimento _procedimento_,
-            TId _id_,
-            TParentesesEsquerdo _parenteses_esquerdo_,
-            PParametros _parametros_,
-            TParentesesDireito _parenteses_direito_,
-            PComando _comando_
-    )
+    public ADecProcedimentoDecProcedimento(
+        @SuppressWarnings("hiding") TPontoDeEntrada _pontoDeEntrada_,
+        @SuppressWarnings("hiding") TProcedimento _procedimento_,
+        @SuppressWarnings("hiding") TId _id_,
+        @SuppressWarnings("hiding") TParentesesEsquerdo _parentesesEsquerdo_,
+        @SuppressWarnings("hiding") PParametros _parametros_,
+        @SuppressWarnings("hiding") TParentesesDireito _parentesesDireito_,
+        @SuppressWarnings("hiding") PComando _comando_)
     {
-        setPontoDeEntrada (_ponto_de_entrada_);
-        setProcedimento (_procedimento_);
-        setId (_id_);
-        setParentesesEsquerdo (_parenteses_esquerdo_);
-        setParametros (_parametros_);
-        setParentesesDireito (_parenteses_direito_);
-        setComando (_comando_);
+        // Constructor
+        setPontoDeEntrada(_pontoDeEntrada_);
+
+        setProcedimento(_procedimento_);
+
+        setId(_id_);
+
+        setParentesesEsquerdo(_parentesesEsquerdo_);
+
+        setParametros(_parametros_);
+
+        setParentesesDireito(_parentesesDireito_);
+
+        setComando(_comando_);
+
     }
 
+    @Override
     public Object clone()
     {
-        return new ADecProcedimentoDecProcedimento (
-            (TPontoDeEntrada)cloneNode (_ponto_de_entrada_),
-            (TProcedimento)cloneNode (_procedimento_),
-            (TId)cloneNode (_id_),
-            (TParentesesEsquerdo)cloneNode (_parenteses_esquerdo_),
-            (PParametros)cloneNode (_parametros_),
-            (TParentesesDireito)cloneNode (_parenteses_direito_),
-            (PComando)cloneNode (_comando_)
-        );
+        return new ADecProcedimentoDecProcedimento(
+            cloneNode(this._pontoDeEntrada_),
+            cloneNode(this._procedimento_),
+            cloneNode(this._id_),
+            cloneNode(this._parentesesEsquerdo_),
+            cloneNode(this._parametros_),
+            cloneNode(this._parentesesDireito_),
+            cloneNode(this._comando_));
     }
 
+    @Override
     public void apply(Switch sw)
     {
         ((Analysis) sw).caseADecProcedimentoDecProcedimento(this);
     }
 
-    public TPontoDeEntrada getPontoDeEntrada ()
+    public TPontoDeEntrada getPontoDeEntrada()
     {
-        return _ponto_de_entrada_;
+        return this._pontoDeEntrada_;
     }
 
-    public void setPontoDeEntrada (TPontoDeEntrada node)
+    public void setPontoDeEntrada(TPontoDeEntrada node)
     {
-        if(_ponto_de_entrada_ != null)
+        if(this._pontoDeEntrada_ != null)
         {
-            _ponto_de_entrada_.parent(null);
+            this._pontoDeEntrada_.parent(null);
         }
 
         if(node != null)
@@ -78,18 +87,19 @@ public final class ADecProcedimentoDecProcedimento extends PDecProcedimento
             node.parent(this);
         }
 
-        _ponto_de_entrada_ = node;
-    }
-    public TProcedimento getProcedimento ()
-    {
-        return _procedimento_;
+        this._pontoDeEntrada_ = node;
     }
 
-    public void setProcedimento (TProcedimento node)
+    public TProcedimento getProcedimento()
     {
-        if(_procedimento_ != null)
+        return this._procedimento_;
+    }
+
+    public void setProcedimento(TProcedimento node)
+    {
+        if(this._procedimento_ != null)
         {
-            _procedimento_.parent(null);
+            this._procedimento_.parent(null);
         }
 
         if(node != null)
@@ -102,18 +112,19 @@ public final class ADecProcedimentoDecProcedimento extends PDecProcedimento
             node.parent(this);
         }
 
-        _procedimento_ = node;
-    }
-    public TId getId ()
-    {
-        return _id_;
+        this._procedimento_ = node;
     }
 
-    public void setId (TId node)
+    public TId getId()
     {
-        if(_id_ != null)
+        return this._id_;
+    }
+
+    public void setId(TId node)
+    {
+        if(this._id_ != null)
         {
-            _id_.parent(null);
+            this._id_.parent(null);
         }
 
         if(node != null)
@@ -126,18 +137,19 @@ public final class ADecProcedimentoDecProcedimento extends PDecProcedimento
             node.parent(this);
         }
 
-        _id_ = node;
-    }
-    public TParentesesEsquerdo getParentesesEsquerdo ()
-    {
-        return _parenteses_esquerdo_;
+        this._id_ = node;
     }
 
-    public void setParentesesEsquerdo (TParentesesEsquerdo node)
+    public TParentesesEsquerdo getParentesesEsquerdo()
     {
-        if(_parenteses_esquerdo_ != null)
+        return this._parentesesEsquerdo_;
+    }
+
+    public void setParentesesEsquerdo(TParentesesEsquerdo node)
+    {
+        if(this._parentesesEsquerdo_ != null)
         {
-            _parenteses_esquerdo_.parent(null);
+            this._parentesesEsquerdo_.parent(null);
         }
 
         if(node != null)
@@ -150,18 +162,19 @@ public final class ADecProcedimentoDecProcedimento extends PDecProcedimento
             node.parent(this);
         }
 
-        _parenteses_esquerdo_ = node;
-    }
-    public PParametros getParametros ()
-    {
-        return _parametros_;
+        this._parentesesEsquerdo_ = node;
     }
 
-    public void setParametros (PParametros node)
+    public PParametros getParametros()
     {
-        if(_parametros_ != null)
+        return this._parametros_;
+    }
+
+    public void setParametros(PParametros node)
+    {
+        if(this._parametros_ != null)
         {
-            _parametros_.parent(null);
+            this._parametros_.parent(null);
         }
 
         if(node != null)
@@ -174,18 +187,19 @@ public final class ADecProcedimentoDecProcedimento extends PDecProcedimento
             node.parent(this);
         }
 
-        _parametros_ = node;
-    }
-    public TParentesesDireito getParentesesDireito ()
-    {
-        return _parenteses_direito_;
+        this._parametros_ = node;
     }
 
-    public void setParentesesDireito (TParentesesDireito node)
+    public TParentesesDireito getParentesesDireito()
     {
-        if(_parenteses_direito_ != null)
+        return this._parentesesDireito_;
+    }
+
+    public void setParentesesDireito(TParentesesDireito node)
+    {
+        if(this._parentesesDireito_ != null)
         {
-            _parenteses_direito_.parent(null);
+            this._parentesesDireito_.parent(null);
         }
 
         if(node != null)
@@ -198,18 +212,19 @@ public final class ADecProcedimentoDecProcedimento extends PDecProcedimento
             node.parent(this);
         }
 
-        _parenteses_direito_ = node;
-    }
-    public PComando getComando ()
-    {
-        return _comando_;
+        this._parentesesDireito_ = node;
     }
 
-    public void setComando (PComando node)
+    public PComando getComando()
     {
-        if(_comando_ != null)
+        return this._comando_;
+    }
+
+    public void setComando(PComando node)
+    {
+        if(this._comando_ != null)
         {
-            _comando_.parent(null);
+            this._comando_.parent(null);
         }
 
         if(node != null)
@@ -222,98 +237,117 @@ public final class ADecProcedimentoDecProcedimento extends PDecProcedimento
             node.parent(this);
         }
 
-        _comando_ = node;
+        this._comando_ = node;
     }
 
+    @Override
     public String toString()
     {
         return ""
-            + toString (_ponto_de_entrada_)
-            + toString (_procedimento_)
-            + toString (_id_)
-            + toString (_parenteses_esquerdo_)
-            + toString (_parametros_)
-            + toString (_parenteses_direito_)
-            + toString (_comando_)
-        ;
+            + toString(this._pontoDeEntrada_)
+            + toString(this._procedimento_)
+            + toString(this._id_)
+            + toString(this._parentesesEsquerdo_)
+            + toString(this._parametros_)
+            + toString(this._parentesesDireito_)
+            + toString(this._comando_);
     }
 
-    void removeChild(Node child)
+    @Override
+    void removeChild(@SuppressWarnings("unused") Node child)
     {
-        if ( _ponto_de_entrada_ == child )
+        // Remove child
+        if(this._pontoDeEntrada_ == child)
         {
-            _ponto_de_entrada_ = null;
+            this._pontoDeEntrada_ = null;
             return;
         }
-        if ( _procedimento_ == child )
+
+        if(this._procedimento_ == child)
         {
-            _procedimento_ = null;
+            this._procedimento_ = null;
             return;
         }
-        if ( _id_ == child )
+
+        if(this._id_ == child)
         {
-            _id_ = null;
+            this._id_ = null;
             return;
         }
-        if ( _parenteses_esquerdo_ == child )
+
+        if(this._parentesesEsquerdo_ == child)
         {
-            _parenteses_esquerdo_ = null;
+            this._parentesesEsquerdo_ = null;
             return;
         }
-        if ( _parametros_ == child )
+
+        if(this._parametros_ == child)
         {
-            _parametros_ = null;
+            this._parametros_ = null;
             return;
         }
-        if ( _parenteses_direito_ == child )
+
+        if(this._parentesesDireito_ == child)
         {
-            _parenteses_direito_ = null;
+            this._parentesesDireito_ = null;
             return;
         }
-        if ( _comando_ == child )
+
+        if(this._comando_ == child)
         {
-            _comando_ = null;
+            this._comando_ = null;
             return;
         }
+
+        throw new RuntimeException("Not a child.");
     }
 
-    void replaceChild(Node oldChild, Node newChild)
+    @Override
+    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
     {
-        if ( _ponto_de_entrada_ == oldChild )
+        // Replace child
+        if(this._pontoDeEntrada_ == oldChild)
         {
-            setPontoDeEntrada ((TPontoDeEntrada) newChild);
+            setPontoDeEntrada((TPontoDeEntrada) newChild);
             return;
         }
-        if ( _procedimento_ == oldChild )
-        {
-            setProcedimento ((TProcedimento) newChild);
-            return;
-        }
-        if ( _id_ == oldChild )
-        {
-            setId ((TId) newChild);
-            return;
-        }
-        if ( _parenteses_esquerdo_ == oldChild )
-        {
-            setParentesesEsquerdo ((TParentesesEsquerdo) newChild);
-            return;
-        }
-        if ( _parametros_ == oldChild )
-        {
-            setParametros ((PParametros) newChild);
-            return;
-        }
-        if ( _parenteses_direito_ == oldChild )
-        {
-            setParentesesDireito ((TParentesesDireito) newChild);
-            return;
-        }
-        if ( _comando_ == oldChild )
-        {
-            setComando ((PComando) newChild);
-            return;
-        }
-    }
 
+        if(this._procedimento_ == oldChild)
+        {
+            setProcedimento((TProcedimento) newChild);
+            return;
+        }
+
+        if(this._id_ == oldChild)
+        {
+            setId((TId) newChild);
+            return;
+        }
+
+        if(this._parentesesEsquerdo_ == oldChild)
+        {
+            setParentesesEsquerdo((TParentesesEsquerdo) newChild);
+            return;
+        }
+
+        if(this._parametros_ == oldChild)
+        {
+            setParametros((PParametros) newChild);
+            return;
+        }
+
+        if(this._parentesesDireito_ == oldChild)
+        {
+            setParentesesDireito((TParentesesDireito) newChild);
+            return;
+        }
+
+        if(this._comando_ == oldChild)
+        {
+            setComando((PComando) newChild);
+            return;
+        }
+
+        throw new RuntimeException("Not a child.");
+    }
 }

@@ -2,46 +2,49 @@
 
 package quase.node;
 
-import java.util.*;
 import quase.analysis.*;
 
+@SuppressWarnings("nls")
 public final class AExpListaExp extends PListaExp
 {
     private PExp _exp_;
 
-    public AExpListaExp ()
+    public AExpListaExp()
     {
+        // Constructor
     }
 
-    public AExpListaExp (
-            PExp _exp_
-    )
+    public AExpListaExp(
+        @SuppressWarnings("hiding") PExp _exp_)
     {
-        setExp (_exp_);
+        // Constructor
+        setExp(_exp_);
+
     }
 
+    @Override
     public Object clone()
     {
-        return new AExpListaExp (
-            (PExp)cloneNode (_exp_)
-        );
+        return new AExpListaExp(
+            cloneNode(this._exp_));
     }
 
+    @Override
     public void apply(Switch sw)
     {
         ((Analysis) sw).caseAExpListaExp(this);
     }
 
-    public PExp getExp ()
+    public PExp getExp()
     {
-        return _exp_;
+        return this._exp_;
     }
 
-    public void setExp (PExp node)
+    public void setExp(PExp node)
     {
-        if(_exp_ != null)
+        if(this._exp_ != null)
         {
-            _exp_.parent(null);
+            this._exp_.parent(null);
         }
 
         if(node != null)
@@ -54,32 +57,39 @@ public final class AExpListaExp extends PListaExp
             node.parent(this);
         }
 
-        _exp_ = node;
+        this._exp_ = node;
     }
 
+    @Override
     public String toString()
     {
         return ""
-            + toString (_exp_)
-        ;
+            + toString(this._exp_);
     }
 
-    void removeChild(Node child)
+    @Override
+    void removeChild(@SuppressWarnings("unused") Node child)
     {
-        if ( _exp_ == child )
+        // Remove child
+        if(this._exp_ == child)
         {
-            _exp_ = null;
+            this._exp_ = null;
             return;
         }
+
+        throw new RuntimeException("Not a child.");
     }
 
-    void replaceChild(Node oldChild, Node newChild)
+    @Override
+    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
     {
-        if ( _exp_ == oldChild )
+        // Replace child
+        if(this._exp_ == oldChild)
         {
-            setExp ((PExp) newChild);
+            setExp((PExp) newChild);
             return;
         }
-    }
 
+        throw new RuntimeException("Not a child.");
+    }
 }

@@ -2,46 +2,49 @@
 
 package quase.node;
 
-import java.util.*;
 import quase.analysis.*;
 
+@SuppressWarnings("nls")
 public final class ARealTermo extends PTermo
 {
-    private TNumeroReal _numero_real_;
+    private TNumeroReal _numeroReal_;
 
-    public ARealTermo ()
+    public ARealTermo()
     {
+        // Constructor
     }
 
-    public ARealTermo (
-            TNumeroReal _numero_real_
-    )
+    public ARealTermo(
+        @SuppressWarnings("hiding") TNumeroReal _numeroReal_)
     {
-        setNumeroReal (_numero_real_);
+        // Constructor
+        setNumeroReal(_numeroReal_);
+
     }
 
+    @Override
     public Object clone()
     {
-        return new ARealTermo (
-            (TNumeroReal)cloneNode (_numero_real_)
-        );
+        return new ARealTermo(
+            cloneNode(this._numeroReal_));
     }
 
+    @Override
     public void apply(Switch sw)
     {
         ((Analysis) sw).caseARealTermo(this);
     }
 
-    public TNumeroReal getNumeroReal ()
+    public TNumeroReal getNumeroReal()
     {
-        return _numero_real_;
+        return this._numeroReal_;
     }
 
-    public void setNumeroReal (TNumeroReal node)
+    public void setNumeroReal(TNumeroReal node)
     {
-        if(_numero_real_ != null)
+        if(this._numeroReal_ != null)
         {
-            _numero_real_.parent(null);
+            this._numeroReal_.parent(null);
         }
 
         if(node != null)
@@ -54,32 +57,39 @@ public final class ARealTermo extends PTermo
             node.parent(this);
         }
 
-        _numero_real_ = node;
+        this._numeroReal_ = node;
     }
 
+    @Override
     public String toString()
     {
         return ""
-            + toString (_numero_real_)
-        ;
+            + toString(this._numeroReal_);
     }
 
-    void removeChild(Node child)
+    @Override
+    void removeChild(@SuppressWarnings("unused") Node child)
     {
-        if ( _numero_real_ == child )
+        // Remove child
+        if(this._numeroReal_ == child)
         {
-            _numero_real_ = null;
+            this._numeroReal_ = null;
             return;
         }
+
+        throw new RuntimeException("Not a child.");
     }
 
-    void replaceChild(Node oldChild, Node newChild)
+    @Override
+    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
     {
-        if ( _numero_real_ == oldChild )
+        // Replace child
+        if(this._numeroReal_ == oldChild)
         {
-            setNumeroReal ((TNumeroReal) newChild);
+            setNumeroReal((TNumeroReal) newChild);
             return;
         }
-    }
 
+        throw new RuntimeException("Not a child.");
+    }
 }

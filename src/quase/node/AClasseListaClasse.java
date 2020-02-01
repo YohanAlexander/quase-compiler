@@ -2,46 +2,49 @@
 
 package quase.node;
 
-import java.util.*;
 import quase.analysis.*;
 
+@SuppressWarnings("nls")
 public final class AClasseListaClasse extends PListaClasse
 {
-    private PDefClasse _def_classe_;
+    private PDefClasse _defClasse_;
 
-    public AClasseListaClasse ()
+    public AClasseListaClasse()
     {
+        // Constructor
     }
 
-    public AClasseListaClasse (
-            PDefClasse _def_classe_
-    )
+    public AClasseListaClasse(
+        @SuppressWarnings("hiding") PDefClasse _defClasse_)
     {
-        setDefClasse (_def_classe_);
+        // Constructor
+        setDefClasse(_defClasse_);
+
     }
 
+    @Override
     public Object clone()
     {
-        return new AClasseListaClasse (
-            (PDefClasse)cloneNode (_def_classe_)
-        );
+        return new AClasseListaClasse(
+            cloneNode(this._defClasse_));
     }
 
+    @Override
     public void apply(Switch sw)
     {
         ((Analysis) sw).caseAClasseListaClasse(this);
     }
 
-    public PDefClasse getDefClasse ()
+    public PDefClasse getDefClasse()
     {
-        return _def_classe_;
+        return this._defClasse_;
     }
 
-    public void setDefClasse (PDefClasse node)
+    public void setDefClasse(PDefClasse node)
     {
-        if(_def_classe_ != null)
+        if(this._defClasse_ != null)
         {
-            _def_classe_.parent(null);
+            this._defClasse_.parent(null);
         }
 
         if(node != null)
@@ -54,32 +57,39 @@ public final class AClasseListaClasse extends PListaClasse
             node.parent(this);
         }
 
-        _def_classe_ = node;
+        this._defClasse_ = node;
     }
 
+    @Override
     public String toString()
     {
         return ""
-            + toString (_def_classe_)
-        ;
+            + toString(this._defClasse_);
     }
 
-    void removeChild(Node child)
+    @Override
+    void removeChild(@SuppressWarnings("unused") Node child)
     {
-        if ( _def_classe_ == child )
+        // Remove child
+        if(this._defClasse_ == child)
         {
-            _def_classe_ = null;
+            this._defClasse_ = null;
             return;
         }
+
+        throw new RuntimeException("Not a child.");
     }
 
-    void replaceChild(Node oldChild, Node newChild)
+    @Override
+    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
     {
-        if ( _def_classe_ == oldChild )
+        // Replace child
+        if(this._defClasse_ == oldChild)
         {
-            setDefClasse ((PDefClasse) newChild);
+            setDefClasse((PDefClasse) newChild);
             return;
         }
-    }
 
+        throw new RuntimeException("Not a child.");
+    }
 }

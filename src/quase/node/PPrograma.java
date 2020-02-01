@@ -4,4 +4,5 @@ package quase.node;
 
 public abstract class PPrograma extends Node
 {
+    // Empty body
 }

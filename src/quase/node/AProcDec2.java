@@ -2,46 +2,49 @@
 
 package quase.node;
 
-import java.util.*;
 import quase.analysis.*;
 
+@SuppressWarnings("nls")
 public final class AProcDec2 extends PDec2
 {
-    private PDecProcedimento _dec_procedimento_;
+    private PDecProcedimento _decProcedimento_;
 
-    public AProcDec2 ()
+    public AProcDec2()
     {
+        // Constructor
     }
 
-    public AProcDec2 (
-            PDecProcedimento _dec_procedimento_
-    )
+    public AProcDec2(
+        @SuppressWarnings("hiding") PDecProcedimento _decProcedimento_)
     {
-        setDecProcedimento (_dec_procedimento_);
+        // Constructor
+        setDecProcedimento(_decProcedimento_);
+
     }
 
+    @Override
     public Object clone()
     {
-        return new AProcDec2 (
-            (PDecProcedimento)cloneNode (_dec_procedimento_)
-        );
+        return new AProcDec2(
+            cloneNode(this._decProcedimento_));
     }
 
+    @Override
     public void apply(Switch sw)
     {
         ((Analysis) sw).caseAProcDec2(this);
     }
 
-    public PDecProcedimento getDecProcedimento ()
+    public PDecProcedimento getDecProcedimento()
     {
-        return _dec_procedimento_;
+        return this._decProcedimento_;
     }
 
-    public void setDecProcedimento (PDecProcedimento node)
+    public void setDecProcedimento(PDecProcedimento node)
     {
-        if(_dec_procedimento_ != null)
+        if(this._decProcedimento_ != null)
         {
-            _dec_procedimento_.parent(null);
+            this._decProcedimento_.parent(null);
         }
 
         if(node != null)
@@ -54,32 +57,39 @@ public final class AProcDec2 extends PDec2
             node.parent(this);
         }
 
-        _dec_procedimento_ = node;
+        this._decProcedimento_ = node;
     }
 
+    @Override
     public String toString()
     {
         return ""
-            + toString (_dec_procedimento_)
-        ;
+            + toString(this._decProcedimento_);
     }
 
-    void removeChild(Node child)
+    @Override
+    void removeChild(@SuppressWarnings("unused") Node child)
     {
-        if ( _dec_procedimento_ == child )
+        // Remove child
+        if(this._decProcedimento_ == child)
         {
-            _dec_procedimento_ = null;
+            this._decProcedimento_ = null;
             return;
         }
+
+        throw new RuntimeException("Not a child.");
     }
 
-    void replaceChild(Node oldChild, Node newChild)
+    @Override
+    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
     {
-        if ( _dec_procedimento_ == oldChild )
+        // Replace child
+        if(this._decProcedimento_ == oldChild)
         {
-            setDecProcedimento ((PDecProcedimento) newChild);
+            setDecProcedimento((PDecProcedimento) newChild);
             return;
         }
-    }
 
+        throw new RuntimeException("Not a child.");
+    }
 }

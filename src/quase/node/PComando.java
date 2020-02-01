@@ -4,4 +4,5 @@ package quase.node;
 
 public abstract class PComando extends Node
 {
+    // Empty body
 }

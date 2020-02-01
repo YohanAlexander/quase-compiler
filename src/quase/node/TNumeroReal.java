@@ -4,6 +4,7 @@ package quase.node;
 
 import quase.analysis.*;
 
+@SuppressWarnings("nls")
 public final class TNumeroReal extends Token
 {
     public TNumeroReal(String text)
@@ -18,11 +19,13 @@ public final class TNumeroReal extends Token
         setPos(pos);
     }
 
+    @Override
     public Object clone()
     {
       return new TNumeroReal(getText(), getLine(), getPos());
     }
 
+    @Override
     public void apply(Switch sw)
     {
         ((Analysis) sw).caseTNumeroReal(this);

@@ -2,46 +2,49 @@
 
 package quase.node;
 
-import java.util.*;
 import quase.analysis.*;
 
+@SuppressWarnings("nls")
 public final class ATipoClasseTipoClasse extends PTipoClasse
 {
     private TCid _cid_;
 
-    public ATipoClasseTipoClasse ()
+    public ATipoClasseTipoClasse()
     {
+        // Constructor
     }
 
-    public ATipoClasseTipoClasse (
-            TCid _cid_
-    )
+    public ATipoClasseTipoClasse(
+        @SuppressWarnings("hiding") TCid _cid_)
     {
-        setCid (_cid_);
+        // Constructor
+        setCid(_cid_);
+
     }
 
+    @Override
     public Object clone()
     {
-        return new ATipoClasseTipoClasse (
-            (TCid)cloneNode (_cid_)
-        );
+        return new ATipoClasseTipoClasse(
+            cloneNode(this._cid_));
     }
 
+    @Override
     public void apply(Switch sw)
     {
         ((Analysis) sw).caseATipoClasseTipoClasse(this);
     }
 
-    public TCid getCid ()
+    public TCid getCid()
     {
-        return _cid_;
+        return this._cid_;
     }
 
-    public void setCid (TCid node)
+    public void setCid(TCid node)
     {
-        if(_cid_ != null)
+        if(this._cid_ != null)
         {
-            _cid_.parent(null);
+            this._cid_.parent(null);
         }
 
         if(node != null)
@@ -54,32 +57,39 @@ public final class ATipoClasseTipoClasse extends PTipoClasse
             node.parent(this);
         }
 
-        _cid_ = node;
+        this._cid_ = node;
     }
 
+    @Override
     public String toString()
     {
         return ""
-            + toString (_cid_)
-        ;
+            + toString(this._cid_);
     }
 
-    void removeChild(Node child)
+    @Override
+    void removeChild(@SuppressWarnings("unused") Node child)
     {
-        if ( _cid_ == child )
+        // Remove child
+        if(this._cid_ == child)
         {
-            _cid_ = null;
+            this._cid_ = null;
             return;
         }
+
+        throw new RuntimeException("Not a child.");
     }
 
-    void replaceChild(Node oldChild, Node newChild)
+    @Override
+    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
     {
-        if ( _cid_ == oldChild )
+        // Replace child
+        if(this._cid_ == oldChild)
         {
-            setCid ((TCid) newChild);
+            setCid((TCid) newChild);
             return;
         }
-    }
 
+        throw new RuntimeException("Not a child.");
+    }
 }

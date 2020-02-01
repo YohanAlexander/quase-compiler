@@ -2,46 +2,49 @@
 
 package quase.node;
 
-import java.util.*;
 import quase.analysis.*;
 
+@SuppressWarnings("nls")
 public final class AObjDec extends PDec
 {
-    private PDecObj _dec_obj_;
+    private PDecObj _decObj_;
 
-    public AObjDec ()
+    public AObjDec()
     {
+        // Constructor
     }
 
-    public AObjDec (
-            PDecObj _dec_obj_
-    )
+    public AObjDec(
+        @SuppressWarnings("hiding") PDecObj _decObj_)
     {
-        setDecObj (_dec_obj_);
+        // Constructor
+        setDecObj(_decObj_);
+
     }
 
+    @Override
     public Object clone()
     {
-        return new AObjDec (
-            (PDecObj)cloneNode (_dec_obj_)
-        );
+        return new AObjDec(
+            cloneNode(this._decObj_));
     }
 
+    @Override
     public void apply(Switch sw)
     {
         ((Analysis) sw).caseAObjDec(this);
     }
 
-    public PDecObj getDecObj ()
+    public PDecObj getDecObj()
     {
-        return _dec_obj_;
+        return this._decObj_;
     }
 
-    public void setDecObj (PDecObj node)
+    public void setDecObj(PDecObj node)
     {
-        if(_dec_obj_ != null)
+        if(this._decObj_ != null)
         {
-            _dec_obj_.parent(null);
+            this._decObj_.parent(null);
         }
 
         if(node != null)
@@ -54,32 +57,39 @@ public final class AObjDec extends PDec
             node.parent(this);
         }
 
-        _dec_obj_ = node;
+        this._decObj_ = node;
     }
 
+    @Override
     public String toString()
     {
         return ""
-            + toString (_dec_obj_)
-        ;
+            + toString(this._decObj_);
     }
 
-    void removeChild(Node child)
+    @Override
+    void removeChild(@SuppressWarnings("unused") Node child)
     {
-        if ( _dec_obj_ == child )
+        // Remove child
+        if(this._decObj_ == child)
         {
-            _dec_obj_ = null;
+            this._decObj_ = null;
             return;
         }
+
+        throw new RuntimeException("Not a child.");
     }
 
-    void replaceChild(Node oldChild, Node newChild)
+    @Override
+    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
     {
-        if ( _dec_obj_ == oldChild )
+        // Replace child
+        if(this._decObj_ == oldChild)
         {
-            setDecObj ((PDecObj) newChild);
+            setDecObj((PDecObj) newChild);
             return;
         }
-    }
 
+        throw new RuntimeException("Not a child.");
+    }
 }
