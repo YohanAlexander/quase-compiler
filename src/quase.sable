@@ -73,7 +73,7 @@ Productions
       {familia} lista_relacao ponto_virgula |
       {vazio} ;
     lista_relacao =
-      {lista_relacao} relacao e_comercial |
+      {lista_relacao} relacao e_comercial lista_relacao |
       {relacao} relacao;
     relacao =
       {relacao} classe cid filha_relacao;
