@@ -152,7 +152,7 @@ Productions
       {call} id_ponto? chamada ponto_virgula |
       {bloco} bloco;
     cont_comando_else =
-	  {cont_cond} senao comando_else;
+      {cont_cond} senao comando_else;
     lista_comandos =
       {lista_comandos} comando lista_comandos |
       {vazio} ;
@@ -177,7 +177,7 @@ Productions
     cond_exp2 =
       {cont_cond} exp cond_exp3;
     cond_exp3 =
-	  {fim_cond} senao exp;
+      {fim_cond} senao exp;
 
     termo =
       {inteiro} numero_inteiro |
@@ -187,13 +187,13 @@ Productions
       {id_call} id_call |
       {par} parenteses_esquerdo exp parenteses_direito;
 
-	id_call =
-	  {id} id |
-	  {call} id_ponto? chamada ponto_virgula |
-	  {atrib} id_ponto? atributo ponto_virgula;
+    id_call =
+      {id} id |
+      {call} id_ponto? chamada ponto_virgula |
+      {atrib} id_ponto? atributo ponto_virgula;
 
-	id_ponto =
-	  {id_ponto} id ponto;
+    id_ponto =
+      {id_ponto} id ponto;
 
     bloco_exp =
       {bloco_exp} comeca lista_dec_cons lista_comandos termina;
