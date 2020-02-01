@@ -126,11 +126,9 @@ Productions
       {proc} dec_procedimento |
       {func} dec_funcao;
     dec_procedimento =
-      {dec_procedimento} ponto_de_entrada? procedimento id parenteses_esquerdo parametros
-        parenteses_direito comando;
+      {dec_procedimento} ponto_de_entrada? procedimento id parenteses_esquerdo parametros parenteses_direito comando;
     dec_funcao =
-      {dec_funcao} funcao tipo id parenteses_esquerdo parametros parenteses_direito
-        exp;
+      {dec_funcao} funcao tipo id parenteses_esquerdo parametros parenteses_direito exp;
     parametros =
       {parametros} lista_parametro |
       {vazio} ;
@@ -143,15 +141,13 @@ Productions
     comando =
       {cond} se parenteses_esquerdo exp parenteses_direito comando |
       {cond_else} se parenteses_esquerdo exp parenteses_direito comando_else senao comando |
-      {loop} enquanto parenteses_esquerdo exp parenteses_direito
-        comando |
+      {loop} enquanto parenteses_esquerdo exp parenteses_direito comando |
       {atrib} id atribuicao exp ponto_virgula |
       {call} id_ponto? chamada ponto_virgula |
       {bloco} bloco;
     comando_else =
       {cond} se parenteses_esquerdo exp parenteses_direito comando_else cont_comando_else |
-      {loop} enquanto parenteses_esquerdo exp parenteses_direito
-        comando_else |
+      {loop} enquanto parenteses_esquerdo exp parenteses_direito comando_else |
       {atrib} id atribuicao exp ponto_virgula |
       {call} id_ponto? chamada ponto_virgula |
       {bloco} bloco;
