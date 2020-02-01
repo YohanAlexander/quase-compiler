@@ -2,46 +2,49 @@
 
 package quase.node;
 
-import java.util.*;
 import quase.analysis.*;
 
+@SuppressWarnings("nls")
 public final class ARealTipoPrimitivo extends PTipoPrimitivo
 {
     private TReal _real_;
 
-    public ARealTipoPrimitivo ()
+    public ARealTipoPrimitivo()
     {
+        // Constructor
     }
 
-    public ARealTipoPrimitivo (
-            TReal _real_
-    )
+    public ARealTipoPrimitivo(
+        @SuppressWarnings("hiding") TReal _real_)
     {
-        setReal (_real_);
+        // Constructor
+        setReal(_real_);
+
     }
 
+    @Override
     public Object clone()
     {
-        return new ARealTipoPrimitivo (
-            (TReal)cloneNode (_real_)
-        );
+        return new ARealTipoPrimitivo(
+            cloneNode(this._real_));
     }
 
+    @Override
     public void apply(Switch sw)
     {
         ((Analysis) sw).caseARealTipoPrimitivo(this);
     }
 
-    public TReal getReal ()
+    public TReal getReal()
     {
-        return _real_;
+        return this._real_;
     }
 
-    public void setReal (TReal node)
+    public void setReal(TReal node)
     {
-        if(_real_ != null)
+        if(this._real_ != null)
         {
-            _real_.parent(null);
+            this._real_.parent(null);
         }
 
         if(node != null)
@@ -54,32 +57,39 @@ public final class ARealTipoPrimitivo extends PTipoPrimitivo
             node.parent(this);
         }
 
-        _real_ = node;
+        this._real_ = node;
     }
 
+    @Override
     public String toString()
     {
         return ""
-            + toString (_real_)
-        ;
+            + toString(this._real_);
     }
 
-    void removeChild(Node child)
+    @Override
+    void removeChild(@SuppressWarnings("unused") Node child)
     {
-        if ( _real_ == child )
+        // Remove child
+        if(this._real_ == child)
         {
-            _real_ = null;
+            this._real_ = null;
             return;
         }
+
+        throw new RuntimeException("Not a child.");
     }
 
-    void replaceChild(Node oldChild, Node newChild)
+    @Override
+    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
     {
-        if ( _real_ == oldChild )
+        // Replace child
+        if(this._real_ == oldChild)
         {
-            setReal ((TReal) newChild);
+            setReal((TReal) newChild);
             return;
         }
-    }
 
+        throw new RuntimeException("Not a child.");
+    }
 }

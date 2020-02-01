@@ -2,54 +2,59 @@
 
 package quase.node;
 
-import java.util.*;
 import quase.analysis.*;
 
+@SuppressWarnings("nls")
 public final class AModExp extends PExp
 {
     private PTermo _termo_;
     private TModulo _modulo_;
     private PExp _exp_;
 
-    public AModExp ()
+    public AModExp()
     {
+        // Constructor
     }
 
-    public AModExp (
-            PTermo _termo_,
-            TModulo _modulo_,
-            PExp _exp_
-    )
+    public AModExp(
+        @SuppressWarnings("hiding") PTermo _termo_,
+        @SuppressWarnings("hiding") TModulo _modulo_,
+        @SuppressWarnings("hiding") PExp _exp_)
     {
-        setTermo (_termo_);
-        setModulo (_modulo_);
-        setExp (_exp_);
+        // Constructor
+        setTermo(_termo_);
+
+        setModulo(_modulo_);
+
+        setExp(_exp_);
+
     }
 
+    @Override
     public Object clone()
     {
-        return new AModExp (
-            (PTermo)cloneNode (_termo_),
-            (TModulo)cloneNode (_modulo_),
-            (PExp)cloneNode (_exp_)
-        );
+        return new AModExp(
+            cloneNode(this._termo_),
+            cloneNode(this._modulo_),
+            cloneNode(this._exp_));
     }
 
+    @Override
     public void apply(Switch sw)
     {
         ((Analysis) sw).caseAModExp(this);
     }
 
-    public PTermo getTermo ()
+    public PTermo getTermo()
     {
-        return _termo_;
+        return this._termo_;
     }
 
-    public void setTermo (PTermo node)
+    public void setTermo(PTermo node)
     {
-        if(_termo_ != null)
+        if(this._termo_ != null)
         {
-            _termo_.parent(null);
+            this._termo_.parent(null);
         }
 
         if(node != null)
@@ -62,18 +67,19 @@ public final class AModExp extends PExp
             node.parent(this);
         }
 
-        _termo_ = node;
-    }
-    public TModulo getModulo ()
-    {
-        return _modulo_;
+        this._termo_ = node;
     }
 
-    public void setModulo (TModulo node)
+    public TModulo getModulo()
     {
-        if(_modulo_ != null)
+        return this._modulo_;
+    }
+
+    public void setModulo(TModulo node)
+    {
+        if(this._modulo_ != null)
         {
-            _modulo_.parent(null);
+            this._modulo_.parent(null);
         }
 
         if(node != null)
@@ -86,18 +92,19 @@ public final class AModExp extends PExp
             node.parent(this);
         }
 
-        _modulo_ = node;
-    }
-    public PExp getExp ()
-    {
-        return _exp_;
+        this._modulo_ = node;
     }
 
-    public void setExp (PExp node)
+    public PExp getExp()
     {
-        if(_exp_ != null)
+        return this._exp_;
+    }
+
+    public void setExp(PExp node)
+    {
+        if(this._exp_ != null)
         {
-            _exp_.parent(null);
+            this._exp_.parent(null);
         }
 
         if(node != null)
@@ -110,54 +117,65 @@ public final class AModExp extends PExp
             node.parent(this);
         }
 
-        _exp_ = node;
+        this._exp_ = node;
     }
 
+    @Override
     public String toString()
     {
         return ""
-            + toString (_termo_)
-            + toString (_modulo_)
-            + toString (_exp_)
-        ;
+            + toString(this._termo_)
+            + toString(this._modulo_)
+            + toString(this._exp_);
     }
 
-    void removeChild(Node child)
+    @Override
+    void removeChild(@SuppressWarnings("unused") Node child)
     {
-        if ( _termo_ == child )
+        // Remove child
+        if(this._termo_ == child)
         {
-            _termo_ = null;
+            this._termo_ = null;
             return;
         }
-        if ( _modulo_ == child )
+
+        if(this._modulo_ == child)
         {
-            _modulo_ = null;
+            this._modulo_ = null;
             return;
         }
-        if ( _exp_ == child )
+
+        if(this._exp_ == child)
         {
-            _exp_ = null;
+            this._exp_ = null;
             return;
         }
+
+        throw new RuntimeException("Not a child.");
     }
 
-    void replaceChild(Node oldChild, Node newChild)
+    @Override
+    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
     {
-        if ( _termo_ == oldChild )
+        // Replace child
+        if(this._termo_ == oldChild)
         {
-            setTermo ((PTermo) newChild);
+            setTermo((PTermo) newChild);
             return;
         }
-        if ( _modulo_ == oldChild )
-        {
-            setModulo ((TModulo) newChild);
-            return;
-        }
-        if ( _exp_ == oldChild )
-        {
-            setExp ((PExp) newChild);
-            return;
-        }
-    }
 
+        if(this._modulo_ == oldChild)
+        {
+            setModulo((TModulo) newChild);
+            return;
+        }
+
+        if(this._exp_ == oldChild)
+        {
+            setExp((PExp) newChild);
+            return;
+        }
+
+        throw new RuntimeException("Not a child.");
+    }
 }

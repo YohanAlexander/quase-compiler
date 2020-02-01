@@ -2,46 +2,49 @@
 
 package quase.node;
 
-import java.util.*;
 import quase.analysis.*;
 
+@SuppressWarnings("nls")
 public final class AClasseTipo extends PTipo
 {
-    private PTipoClasse _tipo_classe_;
+    private PTipoClasse _tipoClasse_;
 
-    public AClasseTipo ()
+    public AClasseTipo()
     {
+        // Constructor
     }
 
-    public AClasseTipo (
-            PTipoClasse _tipo_classe_
-    )
+    public AClasseTipo(
+        @SuppressWarnings("hiding") PTipoClasse _tipoClasse_)
     {
-        setTipoClasse (_tipo_classe_);
+        // Constructor
+        setTipoClasse(_tipoClasse_);
+
     }
 
+    @Override
     public Object clone()
     {
-        return new AClasseTipo (
-            (PTipoClasse)cloneNode (_tipo_classe_)
-        );
+        return new AClasseTipo(
+            cloneNode(this._tipoClasse_));
     }
 
+    @Override
     public void apply(Switch sw)
     {
         ((Analysis) sw).caseAClasseTipo(this);
     }
 
-    public PTipoClasse getTipoClasse ()
+    public PTipoClasse getTipoClasse()
     {
-        return _tipo_classe_;
+        return this._tipoClasse_;
     }
 
-    public void setTipoClasse (PTipoClasse node)
+    public void setTipoClasse(PTipoClasse node)
     {
-        if(_tipo_classe_ != null)
+        if(this._tipoClasse_ != null)
         {
-            _tipo_classe_.parent(null);
+            this._tipoClasse_.parent(null);
         }
 
         if(node != null)
@@ -54,32 +57,39 @@ public final class AClasseTipo extends PTipo
             node.parent(this);
         }
 
-        _tipo_classe_ = node;
+        this._tipoClasse_ = node;
     }
 
+    @Override
     public String toString()
     {
         return ""
-            + toString (_tipo_classe_)
-        ;
+            + toString(this._tipoClasse_);
     }
 
-    void removeChild(Node child)
+    @Override
+    void removeChild(@SuppressWarnings("unused") Node child)
     {
-        if ( _tipo_classe_ == child )
+        // Remove child
+        if(this._tipoClasse_ == child)
         {
-            _tipo_classe_ = null;
+            this._tipoClasse_ = null;
             return;
         }
+
+        throw new RuntimeException("Not a child.");
     }
 
-    void replaceChild(Node oldChild, Node newChild)
+    @Override
+    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
     {
-        if ( _tipo_classe_ == oldChild )
+        // Replace child
+        if(this._tipoClasse_ == oldChild)
         {
-            setTipoClasse ((PTipoClasse) newChild);
+            setTipoClasse((PTipoClasse) newChild);
             return;
         }
-    }
 
+        throw new RuntimeException("Not a child.");
+    }
 }

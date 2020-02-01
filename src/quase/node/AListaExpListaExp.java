@@ -2,54 +2,59 @@
 
 package quase.node;
 
-import java.util.*;
 import quase.analysis.*;
 
+@SuppressWarnings("nls")
 public final class AListaExpListaExp extends PListaExp
 {
     private PExp _exp_;
     private TVirgula _virgula_;
-    private PListaExp _lista_exp_;
+    private PListaExp _listaExp_;
 
-    public AListaExpListaExp ()
+    public AListaExpListaExp()
     {
+        // Constructor
     }
 
-    public AListaExpListaExp (
-            PExp _exp_,
-            TVirgula _virgula_,
-            PListaExp _lista_exp_
-    )
+    public AListaExpListaExp(
+        @SuppressWarnings("hiding") PExp _exp_,
+        @SuppressWarnings("hiding") TVirgula _virgula_,
+        @SuppressWarnings("hiding") PListaExp _listaExp_)
     {
-        setExp (_exp_);
-        setVirgula (_virgula_);
-        setListaExp (_lista_exp_);
+        // Constructor
+        setExp(_exp_);
+
+        setVirgula(_virgula_);
+
+        setListaExp(_listaExp_);
+
     }
 
+    @Override
     public Object clone()
     {
-        return new AListaExpListaExp (
-            (PExp)cloneNode (_exp_),
-            (TVirgula)cloneNode (_virgula_),
-            (PListaExp)cloneNode (_lista_exp_)
-        );
+        return new AListaExpListaExp(
+            cloneNode(this._exp_),
+            cloneNode(this._virgula_),
+            cloneNode(this._listaExp_));
     }
 
+    @Override
     public void apply(Switch sw)
     {
         ((Analysis) sw).caseAListaExpListaExp(this);
     }
 
-    public PExp getExp ()
+    public PExp getExp()
     {
-        return _exp_;
+        return this._exp_;
     }
 
-    public void setExp (PExp node)
+    public void setExp(PExp node)
     {
-        if(_exp_ != null)
+        if(this._exp_ != null)
         {
-            _exp_.parent(null);
+            this._exp_.parent(null);
         }
 
         if(node != null)
@@ -62,18 +67,19 @@ public final class AListaExpListaExp extends PListaExp
             node.parent(this);
         }
 
-        _exp_ = node;
-    }
-    public TVirgula getVirgula ()
-    {
-        return _virgula_;
+        this._exp_ = node;
     }
 
-    public void setVirgula (TVirgula node)
+    public TVirgula getVirgula()
     {
-        if(_virgula_ != null)
+        return this._virgula_;
+    }
+
+    public void setVirgula(TVirgula node)
+    {
+        if(this._virgula_ != null)
         {
-            _virgula_.parent(null);
+            this._virgula_.parent(null);
         }
 
         if(node != null)
@@ -86,18 +92,19 @@ public final class AListaExpListaExp extends PListaExp
             node.parent(this);
         }
 
-        _virgula_ = node;
-    }
-    public PListaExp getListaExp ()
-    {
-        return _lista_exp_;
+        this._virgula_ = node;
     }
 
-    public void setListaExp (PListaExp node)
+    public PListaExp getListaExp()
     {
-        if(_lista_exp_ != null)
+        return this._listaExp_;
+    }
+
+    public void setListaExp(PListaExp node)
+    {
+        if(this._listaExp_ != null)
         {
-            _lista_exp_.parent(null);
+            this._listaExp_.parent(null);
         }
 
         if(node != null)
@@ -110,54 +117,65 @@ public final class AListaExpListaExp extends PListaExp
             node.parent(this);
         }
 
-        _lista_exp_ = node;
+        this._listaExp_ = node;
     }
 
+    @Override
     public String toString()
     {
         return ""
-            + toString (_exp_)
-            + toString (_virgula_)
-            + toString (_lista_exp_)
-        ;
+            + toString(this._exp_)
+            + toString(this._virgula_)
+            + toString(this._listaExp_);
     }
 
-    void removeChild(Node child)
+    @Override
+    void removeChild(@SuppressWarnings("unused") Node child)
     {
-        if ( _exp_ == child )
+        // Remove child
+        if(this._exp_ == child)
         {
-            _exp_ = null;
+            this._exp_ = null;
             return;
         }
-        if ( _virgula_ == child )
+
+        if(this._virgula_ == child)
         {
-            _virgula_ = null;
+            this._virgula_ = null;
             return;
         }
-        if ( _lista_exp_ == child )
+
+        if(this._listaExp_ == child)
         {
-            _lista_exp_ = null;
+            this._listaExp_ = null;
             return;
         }
+
+        throw new RuntimeException("Not a child.");
     }
 
-    void replaceChild(Node oldChild, Node newChild)
+    @Override
+    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
     {
-        if ( _exp_ == oldChild )
+        // Replace child
+        if(this._exp_ == oldChild)
         {
-            setExp ((PExp) newChild);
+            setExp((PExp) newChild);
             return;
         }
-        if ( _virgula_ == oldChild )
-        {
-            setVirgula ((TVirgula) newChild);
-            return;
-        }
-        if ( _lista_exp_ == oldChild )
-        {
-            setListaExp ((PListaExp) newChild);
-            return;
-        }
-    }
 
+        if(this._virgula_ == oldChild)
+        {
+            setVirgula((TVirgula) newChild);
+            return;
+        }
+
+        if(this._listaExp_ == oldChild)
+        {
+            setListaExp((PListaExp) newChild);
+            return;
+        }
+
+        throw new RuntimeException("Not a child.");
+    }
 }

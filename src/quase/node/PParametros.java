@@ -4,4 +4,5 @@ package quase.node;
 
 public abstract class PParametros extends Node
 {
+    // Empty body
 }

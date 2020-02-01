@@ -2,46 +2,49 @@
 
 package quase.node;
 
-import java.util.*;
 import quase.analysis.*;
 
+@SuppressWarnings("nls")
 public final class ATrueTermo extends PTermo
 {
     private TTrue _true_;
 
-    public ATrueTermo ()
+    public ATrueTermo()
     {
+        // Constructor
     }
 
-    public ATrueTermo (
-            TTrue _true_
-    )
+    public ATrueTermo(
+        @SuppressWarnings("hiding") TTrue _true_)
     {
-        setTrue (_true_);
+        // Constructor
+        setTrue(_true_);
+
     }
 
+    @Override
     public Object clone()
     {
-        return new ATrueTermo (
-            (TTrue)cloneNode (_true_)
-        );
+        return new ATrueTermo(
+            cloneNode(this._true_));
     }
 
+    @Override
     public void apply(Switch sw)
     {
         ((Analysis) sw).caseATrueTermo(this);
     }
 
-    public TTrue getTrue ()
+    public TTrue getTrue()
     {
-        return _true_;
+        return this._true_;
     }
 
-    public void setTrue (TTrue node)
+    public void setTrue(TTrue node)
     {
-        if(_true_ != null)
+        if(this._true_ != null)
         {
-            _true_.parent(null);
+            this._true_.parent(null);
         }
 
         if(node != null)
@@ -54,32 +57,39 @@ public final class ATrueTermo extends PTermo
             node.parent(this);
         }
 
-        _true_ = node;
+        this._true_ = node;
     }
 
+    @Override
     public String toString()
     {
         return ""
-            + toString (_true_)
-        ;
+            + toString(this._true_);
     }
 
-    void removeChild(Node child)
+    @Override
+    void removeChild(@SuppressWarnings("unused") Node child)
     {
-        if ( _true_ == child )
+        // Remove child
+        if(this._true_ == child)
         {
-            _true_ = null;
+            this._true_ = null;
             return;
         }
+
+        throw new RuntimeException("Not a child.");
     }
 
-    void replaceChild(Node oldChild, Node newChild)
+    @Override
+    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
     {
-        if ( _true_ == oldChild )
+        // Replace child
+        if(this._true_ == oldChild)
         {
-            setTrue ((TTrue) newChild);
+            setTrue((TTrue) newChild);
             return;
         }
-    }
 
+        throw new RuntimeException("Not a child.");
+    }
 }

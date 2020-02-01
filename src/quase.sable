@@ -9,7 +9,7 @@ Helpers
     inteiro_decimal = digito+;
     real_decimal = inteiro_decimal '.' inteiro_decimal;
     real_cientifico = ['1'..'9'] ('.' inteiro_decimal)? ('e' | 'E') '-'? inteiro_decimal;
- 
+
 Tokens
     e_comercial = '&';
     ponto_virgula = ';';
@@ -63,7 +63,7 @@ Ignored Tokens
     comentario, vazio;
 
 Productions
-    programa = 
+    programa =
       {programa} familia lista_classe;
     lista_classe =
       {lista_classe} def_classe lista_classe |
@@ -212,3 +212,5 @@ Productions
     /* todo */
     atributo =
       {vazio} ;
+
+Abstract Syntax Tree

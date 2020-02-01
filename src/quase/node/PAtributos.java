@@ -4,4 +4,5 @@ package quase.node;
 
 public abstract class PAtributos extends Node
 {
+    // Empty body
 }

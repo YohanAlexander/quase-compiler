@@ -2,46 +2,49 @@
 
 package quase.node;
 
-import java.util.*;
 import quase.analysis.*;
 
+@SuppressWarnings("nls")
 public final class ATermoExp extends PExp
 {
     private PTermo _termo_;
 
-    public ATermoExp ()
+    public ATermoExp()
     {
+        // Constructor
     }
 
-    public ATermoExp (
-            PTermo _termo_
-    )
+    public ATermoExp(
+        @SuppressWarnings("hiding") PTermo _termo_)
     {
-        setTermo (_termo_);
+        // Constructor
+        setTermo(_termo_);
+
     }
 
+    @Override
     public Object clone()
     {
-        return new ATermoExp (
-            (PTermo)cloneNode (_termo_)
-        );
+        return new ATermoExp(
+            cloneNode(this._termo_));
     }
 
+    @Override
     public void apply(Switch sw)
     {
         ((Analysis) sw).caseATermoExp(this);
     }
 
-    public PTermo getTermo ()
+    public PTermo getTermo()
     {
-        return _termo_;
+        return this._termo_;
     }
 
-    public void setTermo (PTermo node)
+    public void setTermo(PTermo node)
     {
-        if(_termo_ != null)
+        if(this._termo_ != null)
         {
-            _termo_.parent(null);
+            this._termo_.parent(null);
         }
 
         if(node != null)
@@ -54,32 +57,39 @@ public final class ATermoExp extends PExp
             node.parent(this);
         }
 
-        _termo_ = node;
+        this._termo_ = node;
     }
 
+    @Override
     public String toString()
     {
         return ""
-            + toString (_termo_)
-        ;
+            + toString(this._termo_);
     }
 
-    void removeChild(Node child)
+    @Override
+    void removeChild(@SuppressWarnings("unused") Node child)
     {
-        if ( _termo_ == child )
+        // Remove child
+        if(this._termo_ == child)
         {
-            _termo_ = null;
+            this._termo_ = null;
             return;
         }
+
+        throw new RuntimeException("Not a child.");
     }
 
-    void replaceChild(Node oldChild, Node newChild)
+    @Override
+    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
     {
-        if ( _termo_ == oldChild )
+        // Replace child
+        if(this._termo_ == oldChild)
         {
-            setTermo ((PTermo) newChild);
+            setTermo((PTermo) newChild);
             return;
         }
-    }
 
+        throw new RuntimeException("Not a child.");
+    }
 }

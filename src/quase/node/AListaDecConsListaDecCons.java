@@ -2,50 +2,54 @@
 
 package quase.node;
 
-import java.util.*;
 import quase.analysis.*;
 
+@SuppressWarnings("nls")
 public final class AListaDecConsListaDecCons extends PListaDecCons
 {
-    private PDecCons _dec_cons_;
-    private PListaDecCons _lista_dec_cons_;
+    private PDecCons _decCons_;
+    private PListaDecCons _listaDecCons_;
 
-    public AListaDecConsListaDecCons ()
+    public AListaDecConsListaDecCons()
     {
+        // Constructor
     }
 
-    public AListaDecConsListaDecCons (
-            PDecCons _dec_cons_,
-            PListaDecCons _lista_dec_cons_
-    )
+    public AListaDecConsListaDecCons(
+        @SuppressWarnings("hiding") PDecCons _decCons_,
+        @SuppressWarnings("hiding") PListaDecCons _listaDecCons_)
     {
-        setDecCons (_dec_cons_);
-        setListaDecCons (_lista_dec_cons_);
+        // Constructor
+        setDecCons(_decCons_);
+
+        setListaDecCons(_listaDecCons_);
+
     }
 
+    @Override
     public Object clone()
     {
-        return new AListaDecConsListaDecCons (
-            (PDecCons)cloneNode (_dec_cons_),
-            (PListaDecCons)cloneNode (_lista_dec_cons_)
-        );
+        return new AListaDecConsListaDecCons(
+            cloneNode(this._decCons_),
+            cloneNode(this._listaDecCons_));
     }
 
+    @Override
     public void apply(Switch sw)
     {
         ((Analysis) sw).caseAListaDecConsListaDecCons(this);
     }
 
-    public PDecCons getDecCons ()
+    public PDecCons getDecCons()
     {
-        return _dec_cons_;
+        return this._decCons_;
     }
 
-    public void setDecCons (PDecCons node)
+    public void setDecCons(PDecCons node)
     {
-        if(_dec_cons_ != null)
+        if(this._decCons_ != null)
         {
-            _dec_cons_.parent(null);
+            this._decCons_.parent(null);
         }
 
         if(node != null)
@@ -58,18 +62,19 @@ public final class AListaDecConsListaDecCons extends PListaDecCons
             node.parent(this);
         }
 
-        _dec_cons_ = node;
-    }
-    public PListaDecCons getListaDecCons ()
-    {
-        return _lista_dec_cons_;
+        this._decCons_ = node;
     }
 
-    public void setListaDecCons (PListaDecCons node)
+    public PListaDecCons getListaDecCons()
     {
-        if(_lista_dec_cons_ != null)
+        return this._listaDecCons_;
+    }
+
+    public void setListaDecCons(PListaDecCons node)
+    {
+        if(this._listaDecCons_ != null)
         {
-            _lista_dec_cons_.parent(null);
+            this._listaDecCons_.parent(null);
         }
 
         if(node != null)
@@ -82,43 +87,52 @@ public final class AListaDecConsListaDecCons extends PListaDecCons
             node.parent(this);
         }
 
-        _lista_dec_cons_ = node;
+        this._listaDecCons_ = node;
     }
 
+    @Override
     public String toString()
     {
         return ""
-            + toString (_dec_cons_)
-            + toString (_lista_dec_cons_)
-        ;
+            + toString(this._decCons_)
+            + toString(this._listaDecCons_);
     }
 
-    void removeChild(Node child)
+    @Override
+    void removeChild(@SuppressWarnings("unused") Node child)
     {
-        if ( _dec_cons_ == child )
+        // Remove child
+        if(this._decCons_ == child)
         {
-            _dec_cons_ = null;
+            this._decCons_ = null;
             return;
         }
-        if ( _lista_dec_cons_ == child )
+
+        if(this._listaDecCons_ == child)
         {
-            _lista_dec_cons_ = null;
+            this._listaDecCons_ = null;
             return;
         }
+
+        throw new RuntimeException("Not a child.");
     }
 
-    void replaceChild(Node oldChild, Node newChild)
+    @Override
+    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
     {
-        if ( _dec_cons_ == oldChild )
+        // Replace child
+        if(this._decCons_ == oldChild)
         {
-            setDecCons ((PDecCons) newChild);
+            setDecCons((PDecCons) newChild);
             return;
         }
-        if ( _lista_dec_cons_ == oldChild )
-        {
-            setListaDecCons ((PListaDecCons) newChild);
-            return;
-        }
-    }
 
+        if(this._listaDecCons_ == oldChild)
+        {
+            setListaDecCons((PListaDecCons) newChild);
+            return;
+        }
+
+        throw new RuntimeException("Not a child.");
+    }
 }

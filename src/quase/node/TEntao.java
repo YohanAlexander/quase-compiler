@@ -4,31 +4,35 @@ package quase.node;
 
 import quase.analysis.*;
 
+@SuppressWarnings("nls")
 public final class TEntao extends Token
 {
     public TEntao()
     {
-        super.setText("ent\u00e3o");
+        super.setText("então");
     }
 
     public TEntao(int line, int pos)
     {
-        super.setText("ent\u00e3o");
+        super.setText("então");
         setLine(line);
         setPos(pos);
     }
 
+    @Override
     public Object clone()
     {
       return new TEntao(getLine(), getPos());
     }
 
+    @Override
     public void apply(Switch sw)
     {
         ((Analysis) sw).caseTEntao(this);
     }
 
-    public void setText(String text)
+    @Override
+    public void setText(@SuppressWarnings("unused") String text)
     {
         throw new RuntimeException("Cannot change TEntao text.");
     }

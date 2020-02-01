@@ -2,46 +2,49 @@
 
 package quase.node;
 
-import java.util.*;
 import quase.analysis.*;
 
+@SuppressWarnings("nls")
 public final class ABlocoComando extends PComando
 {
     private PBloco _bloco_;
 
-    public ABlocoComando ()
+    public ABlocoComando()
     {
+        // Constructor
     }
 
-    public ABlocoComando (
-            PBloco _bloco_
-    )
+    public ABlocoComando(
+        @SuppressWarnings("hiding") PBloco _bloco_)
     {
-        setBloco (_bloco_);
+        // Constructor
+        setBloco(_bloco_);
+
     }
 
+    @Override
     public Object clone()
     {
-        return new ABlocoComando (
-            (PBloco)cloneNode (_bloco_)
-        );
+        return new ABlocoComando(
+            cloneNode(this._bloco_));
     }
 
+    @Override
     public void apply(Switch sw)
     {
         ((Analysis) sw).caseABlocoComando(this);
     }
 
-    public PBloco getBloco ()
+    public PBloco getBloco()
     {
-        return _bloco_;
+        return this._bloco_;
     }
 
-    public void setBloco (PBloco node)
+    public void setBloco(PBloco node)
     {
-        if(_bloco_ != null)
+        if(this._bloco_ != null)
         {
-            _bloco_.parent(null);
+            this._bloco_.parent(null);
         }
 
         if(node != null)
@@ -54,32 +57,39 @@ public final class ABlocoComando extends PComando
             node.parent(this);
         }
 
-        _bloco_ = node;
+        this._bloco_ = node;
     }
 
+    @Override
     public String toString()
     {
         return ""
-            + toString (_bloco_)
-        ;
+            + toString(this._bloco_);
     }
 
-    void removeChild(Node child)
+    @Override
+    void removeChild(@SuppressWarnings("unused") Node child)
     {
-        if ( _bloco_ == child )
+        // Remove child
+        if(this._bloco_ == child)
         {
-            _bloco_ = null;
+            this._bloco_ = null;
             return;
         }
+
+        throw new RuntimeException("Not a child.");
     }
 
-    void replaceChild(Node oldChild, Node newChild)
+    @Override
+    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
     {
-        if ( _bloco_ == oldChild )
+        // Replace child
+        if(this._bloco_ == oldChild)
         {
-            setBloco ((PBloco) newChild);
+            setBloco((PBloco) newChild);
             return;
         }
-    }
 
+        throw new RuntimeException("Not a child.");
+    }
 }

@@ -2,46 +2,49 @@
 
 package quase.node;
 
-import java.util.*;
 import quase.analysis.*;
 
+@SuppressWarnings("nls")
 public final class ABlocoExpExp extends PExp
 {
-    private PBlocoExp _bloco_exp_;
+    private PBlocoExp _blocoExp_;
 
-    public ABlocoExpExp ()
+    public ABlocoExpExp()
     {
+        // Constructor
     }
 
-    public ABlocoExpExp (
-            PBlocoExp _bloco_exp_
-    )
+    public ABlocoExpExp(
+        @SuppressWarnings("hiding") PBlocoExp _blocoExp_)
     {
-        setBlocoExp (_bloco_exp_);
+        // Constructor
+        setBlocoExp(_blocoExp_);
+
     }
 
+    @Override
     public Object clone()
     {
-        return new ABlocoExpExp (
-            (PBlocoExp)cloneNode (_bloco_exp_)
-        );
+        return new ABlocoExpExp(
+            cloneNode(this._blocoExp_));
     }
 
+    @Override
     public void apply(Switch sw)
     {
         ((Analysis) sw).caseABlocoExpExp(this);
     }
 
-    public PBlocoExp getBlocoExp ()
+    public PBlocoExp getBlocoExp()
     {
-        return _bloco_exp_;
+        return this._blocoExp_;
     }
 
-    public void setBlocoExp (PBlocoExp node)
+    public void setBlocoExp(PBlocoExp node)
     {
-        if(_bloco_exp_ != null)
+        if(this._blocoExp_ != null)
         {
-            _bloco_exp_.parent(null);
+            this._blocoExp_.parent(null);
         }
 
         if(node != null)
@@ -54,32 +57,39 @@ public final class ABlocoExpExp extends PExp
             node.parent(this);
         }
 
-        _bloco_exp_ = node;
+        this._blocoExp_ = node;
     }
 
+    @Override
     public String toString()
     {
         return ""
-            + toString (_bloco_exp_)
-        ;
+            + toString(this._blocoExp_);
     }
 
-    void removeChild(Node child)
+    @Override
+    void removeChild(@SuppressWarnings("unused") Node child)
     {
-        if ( _bloco_exp_ == child )
+        // Remove child
+        if(this._blocoExp_ == child)
         {
-            _bloco_exp_ = null;
+            this._blocoExp_ = null;
             return;
         }
+
+        throw new RuntimeException("Not a child.");
     }
 
-    void replaceChild(Node oldChild, Node newChild)
+    @Override
+    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
     {
-        if ( _bloco_exp_ == oldChild )
+        // Replace child
+        if(this._blocoExp_ == oldChild)
         {
-            setBlocoExp ((PBlocoExp) newChild);
+            setBlocoExp((PBlocoExp) newChild);
             return;
         }
-    }
 
+        throw new RuntimeException("Not a child.");
+    }
 }

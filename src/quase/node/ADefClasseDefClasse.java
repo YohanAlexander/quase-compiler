@@ -2,9 +2,9 @@
 
 package quase.node;
 
-import java.util.*;
 import quase.analysis.*;
 
+@SuppressWarnings("nls")
 public final class ADefClasseDefClasse extends PDefClasse
 {
     private TClasse _classe_;
@@ -14,54 +14,62 @@ public final class ADefClasseDefClasse extends PDefClasse
     private PMetodos _metodos_;
     private TTermina _termina_;
 
-    public ADefClasseDefClasse ()
+    public ADefClasseDefClasse()
     {
+        // Constructor
     }
 
-    public ADefClasseDefClasse (
-            TClasse _classe_,
-            TCid _cid_,
-            TComeca _comeca_,
-            PAtributos _atributos_,
-            PMetodos _metodos_,
-            TTermina _termina_
-    )
+    public ADefClasseDefClasse(
+        @SuppressWarnings("hiding") TClasse _classe_,
+        @SuppressWarnings("hiding") TCid _cid_,
+        @SuppressWarnings("hiding") TComeca _comeca_,
+        @SuppressWarnings("hiding") PAtributos _atributos_,
+        @SuppressWarnings("hiding") PMetodos _metodos_,
+        @SuppressWarnings("hiding") TTermina _termina_)
     {
-        setClasse (_classe_);
-        setCid (_cid_);
-        setComeca (_comeca_);
-        setAtributos (_atributos_);
-        setMetodos (_metodos_);
-        setTermina (_termina_);
+        // Constructor
+        setClasse(_classe_);
+
+        setCid(_cid_);
+
+        setComeca(_comeca_);
+
+        setAtributos(_atributos_);
+
+        setMetodos(_metodos_);
+
+        setTermina(_termina_);
+
     }
 
+    @Override
     public Object clone()
     {
-        return new ADefClasseDefClasse (
-            (TClasse)cloneNode (_classe_),
-            (TCid)cloneNode (_cid_),
-            (TComeca)cloneNode (_comeca_),
-            (PAtributos)cloneNode (_atributos_),
-            (PMetodos)cloneNode (_metodos_),
-            (TTermina)cloneNode (_termina_)
-        );
+        return new ADefClasseDefClasse(
+            cloneNode(this._classe_),
+            cloneNode(this._cid_),
+            cloneNode(this._comeca_),
+            cloneNode(this._atributos_),
+            cloneNode(this._metodos_),
+            cloneNode(this._termina_));
     }
 
+    @Override
     public void apply(Switch sw)
     {
         ((Analysis) sw).caseADefClasseDefClasse(this);
     }
 
-    public TClasse getClasse ()
+    public TClasse getClasse()
     {
-        return _classe_;
+        return this._classe_;
     }
 
-    public void setClasse (TClasse node)
+    public void setClasse(TClasse node)
     {
-        if(_classe_ != null)
+        if(this._classe_ != null)
         {
-            _classe_.parent(null);
+            this._classe_.parent(null);
         }
 
         if(node != null)
@@ -74,18 +82,19 @@ public final class ADefClasseDefClasse extends PDefClasse
             node.parent(this);
         }
 
-        _classe_ = node;
-    }
-    public TCid getCid ()
-    {
-        return _cid_;
+        this._classe_ = node;
     }
 
-    public void setCid (TCid node)
+    public TCid getCid()
     {
-        if(_cid_ != null)
+        return this._cid_;
+    }
+
+    public void setCid(TCid node)
+    {
+        if(this._cid_ != null)
         {
-            _cid_.parent(null);
+            this._cid_.parent(null);
         }
 
         if(node != null)
@@ -98,18 +107,19 @@ public final class ADefClasseDefClasse extends PDefClasse
             node.parent(this);
         }
 
-        _cid_ = node;
-    }
-    public TComeca getComeca ()
-    {
-        return _comeca_;
+        this._cid_ = node;
     }
 
-    public void setComeca (TComeca node)
+    public TComeca getComeca()
     {
-        if(_comeca_ != null)
+        return this._comeca_;
+    }
+
+    public void setComeca(TComeca node)
+    {
+        if(this._comeca_ != null)
         {
-            _comeca_.parent(null);
+            this._comeca_.parent(null);
         }
 
         if(node != null)
@@ -122,18 +132,19 @@ public final class ADefClasseDefClasse extends PDefClasse
             node.parent(this);
         }
 
-        _comeca_ = node;
-    }
-    public PAtributos getAtributos ()
-    {
-        return _atributos_;
+        this._comeca_ = node;
     }
 
-    public void setAtributos (PAtributos node)
+    public PAtributos getAtributos()
     {
-        if(_atributos_ != null)
+        return this._atributos_;
+    }
+
+    public void setAtributos(PAtributos node)
+    {
+        if(this._atributos_ != null)
         {
-            _atributos_.parent(null);
+            this._atributos_.parent(null);
         }
 
         if(node != null)
@@ -146,18 +157,19 @@ public final class ADefClasseDefClasse extends PDefClasse
             node.parent(this);
         }
 
-        _atributos_ = node;
-    }
-    public PMetodos getMetodos ()
-    {
-        return _metodos_;
+        this._atributos_ = node;
     }
 
-    public void setMetodos (PMetodos node)
+    public PMetodos getMetodos()
     {
-        if(_metodos_ != null)
+        return this._metodos_;
+    }
+
+    public void setMetodos(PMetodos node)
+    {
+        if(this._metodos_ != null)
         {
-            _metodos_.parent(null);
+            this._metodos_.parent(null);
         }
 
         if(node != null)
@@ -170,18 +182,19 @@ public final class ADefClasseDefClasse extends PDefClasse
             node.parent(this);
         }
 
-        _metodos_ = node;
-    }
-    public TTermina getTermina ()
-    {
-        return _termina_;
+        this._metodos_ = node;
     }
 
-    public void setTermina (TTermina node)
+    public TTermina getTermina()
     {
-        if(_termina_ != null)
+        return this._termina_;
+    }
+
+    public void setTermina(TTermina node)
+    {
+        if(this._termina_ != null)
         {
-            _termina_.parent(null);
+            this._termina_.parent(null);
         }
 
         if(node != null)
@@ -194,87 +207,104 @@ public final class ADefClasseDefClasse extends PDefClasse
             node.parent(this);
         }
 
-        _termina_ = node;
+        this._termina_ = node;
     }
 
+    @Override
     public String toString()
     {
         return ""
-            + toString (_classe_)
-            + toString (_cid_)
-            + toString (_comeca_)
-            + toString (_atributos_)
-            + toString (_metodos_)
-            + toString (_termina_)
-        ;
+            + toString(this._classe_)
+            + toString(this._cid_)
+            + toString(this._comeca_)
+            + toString(this._atributos_)
+            + toString(this._metodos_)
+            + toString(this._termina_);
     }
 
-    void removeChild(Node child)
+    @Override
+    void removeChild(@SuppressWarnings("unused") Node child)
     {
-        if ( _classe_ == child )
+        // Remove child
+        if(this._classe_ == child)
         {
-            _classe_ = null;
+            this._classe_ = null;
             return;
         }
-        if ( _cid_ == child )
+
+        if(this._cid_ == child)
         {
-            _cid_ = null;
+            this._cid_ = null;
             return;
         }
-        if ( _comeca_ == child )
+
+        if(this._comeca_ == child)
         {
-            _comeca_ = null;
+            this._comeca_ = null;
             return;
         }
-        if ( _atributos_ == child )
+
+        if(this._atributos_ == child)
         {
-            _atributos_ = null;
+            this._atributos_ = null;
             return;
         }
-        if ( _metodos_ == child )
+
+        if(this._metodos_ == child)
         {
-            _metodos_ = null;
+            this._metodos_ = null;
             return;
         }
-        if ( _termina_ == child )
+
+        if(this._termina_ == child)
         {
-            _termina_ = null;
+            this._termina_ = null;
             return;
         }
+
+        throw new RuntimeException("Not a child.");
     }
 
-    void replaceChild(Node oldChild, Node newChild)
+    @Override
+    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
     {
-        if ( _classe_ == oldChild )
+        // Replace child
+        if(this._classe_ == oldChild)
         {
-            setClasse ((TClasse) newChild);
+            setClasse((TClasse) newChild);
             return;
         }
-        if ( _cid_ == oldChild )
-        {
-            setCid ((TCid) newChild);
-            return;
-        }
-        if ( _comeca_ == oldChild )
-        {
-            setComeca ((TComeca) newChild);
-            return;
-        }
-        if ( _atributos_ == oldChild )
-        {
-            setAtributos ((PAtributos) newChild);
-            return;
-        }
-        if ( _metodos_ == oldChild )
-        {
-            setMetodos ((PMetodos) newChild);
-            return;
-        }
-        if ( _termina_ == oldChild )
-        {
-            setTermina ((TTermina) newChild);
-            return;
-        }
-    }
 
+        if(this._cid_ == oldChild)
+        {
+            setCid((TCid) newChild);
+            return;
+        }
+
+        if(this._comeca_ == oldChild)
+        {
+            setComeca((TComeca) newChild);
+            return;
+        }
+
+        if(this._atributos_ == oldChild)
+        {
+            setAtributos((PAtributos) newChild);
+            return;
+        }
+
+        if(this._metodos_ == oldChild)
+        {
+            setMetodos((PMetodos) newChild);
+            return;
+        }
+
+        if(this._termina_ == oldChild)
+        {
+            setTermina((TTermina) newChild);
+            return;
+        }
+
+        throw new RuntimeException("Not a child.");
+    }
 }

@@ -4,4 +4,5 @@ package quase.node;
 
 public interface Switch
 {
+        // Empty body
 }

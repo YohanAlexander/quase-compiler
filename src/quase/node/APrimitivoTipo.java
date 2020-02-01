@@ -2,46 +2,49 @@
 
 package quase.node;
 
-import java.util.*;
 import quase.analysis.*;
 
+@SuppressWarnings("nls")
 public final class APrimitivoTipo extends PTipo
 {
-    private PTipoPrimitivo _tipo_primitivo_;
+    private PTipoPrimitivo _tipoPrimitivo_;
 
-    public APrimitivoTipo ()
+    public APrimitivoTipo()
     {
+        // Constructor
     }
 
-    public APrimitivoTipo (
-            PTipoPrimitivo _tipo_primitivo_
-    )
+    public APrimitivoTipo(
+        @SuppressWarnings("hiding") PTipoPrimitivo _tipoPrimitivo_)
     {
-        setTipoPrimitivo (_tipo_primitivo_);
+        // Constructor
+        setTipoPrimitivo(_tipoPrimitivo_);
+
     }
 
+    @Override
     public Object clone()
     {
-        return new APrimitivoTipo (
-            (PTipoPrimitivo)cloneNode (_tipo_primitivo_)
-        );
+        return new APrimitivoTipo(
+            cloneNode(this._tipoPrimitivo_));
     }
 
+    @Override
     public void apply(Switch sw)
     {
         ((Analysis) sw).caseAPrimitivoTipo(this);
     }
 
-    public PTipoPrimitivo getTipoPrimitivo ()
+    public PTipoPrimitivo getTipoPrimitivo()
     {
-        return _tipo_primitivo_;
+        return this._tipoPrimitivo_;
     }
 
-    public void setTipoPrimitivo (PTipoPrimitivo node)
+    public void setTipoPrimitivo(PTipoPrimitivo node)
     {
-        if(_tipo_primitivo_ != null)
+        if(this._tipoPrimitivo_ != null)
         {
-            _tipo_primitivo_.parent(null);
+            this._tipoPrimitivo_.parent(null);
         }
 
         if(node != null)
@@ -54,32 +57,39 @@ public final class APrimitivoTipo extends PTipo
             node.parent(this);
         }
 
-        _tipo_primitivo_ = node;
+        this._tipoPrimitivo_ = node;
     }
 
+    @Override
     public String toString()
     {
         return ""
-            + toString (_tipo_primitivo_)
-        ;
+            + toString(this._tipoPrimitivo_);
     }
 
-    void removeChild(Node child)
+    @Override
+    void removeChild(@SuppressWarnings("unused") Node child)
     {
-        if ( _tipo_primitivo_ == child )
+        // Remove child
+        if(this._tipoPrimitivo_ == child)
         {
-            _tipo_primitivo_ = null;
+            this._tipoPrimitivo_ = null;
             return;
         }
+
+        throw new RuntimeException("Not a child.");
     }
 
-    void replaceChild(Node oldChild, Node newChild)
+    @Override
+    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
     {
-        if ( _tipo_primitivo_ == oldChild )
+        // Replace child
+        if(this._tipoPrimitivo_ == oldChild)
         {
-            setTipoPrimitivo ((PTipoPrimitivo) newChild);
+            setTipoPrimitivo((PTipoPrimitivo) newChild);
             return;
         }
-    }
 
+        throw new RuntimeException("Not a child.");
+    }
 }

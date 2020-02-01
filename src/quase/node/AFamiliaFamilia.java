@@ -2,50 +2,54 @@
 
 package quase.node;
 
-import java.util.*;
 import quase.analysis.*;
 
+@SuppressWarnings("nls")
 public final class AFamiliaFamilia extends PFamilia
 {
-    private PListaRelacao _lista_relacao_;
-    private TPontoVirgula _ponto_virgula_;
+    private PListaRelacao _listaRelacao_;
+    private TPontoVirgula _pontoVirgula_;
 
-    public AFamiliaFamilia ()
+    public AFamiliaFamilia()
     {
+        // Constructor
     }
 
-    public AFamiliaFamilia (
-            PListaRelacao _lista_relacao_,
-            TPontoVirgula _ponto_virgula_
-    )
+    public AFamiliaFamilia(
+        @SuppressWarnings("hiding") PListaRelacao _listaRelacao_,
+        @SuppressWarnings("hiding") TPontoVirgula _pontoVirgula_)
     {
-        setListaRelacao (_lista_relacao_);
-        setPontoVirgula (_ponto_virgula_);
+        // Constructor
+        setListaRelacao(_listaRelacao_);
+
+        setPontoVirgula(_pontoVirgula_);
+
     }
 
+    @Override
     public Object clone()
     {
-        return new AFamiliaFamilia (
-            (PListaRelacao)cloneNode (_lista_relacao_),
-            (TPontoVirgula)cloneNode (_ponto_virgula_)
-        );
+        return new AFamiliaFamilia(
+            cloneNode(this._listaRelacao_),
+            cloneNode(this._pontoVirgula_));
     }
 
+    @Override
     public void apply(Switch sw)
     {
         ((Analysis) sw).caseAFamiliaFamilia(this);
     }
 
-    public PListaRelacao getListaRelacao ()
+    public PListaRelacao getListaRelacao()
     {
-        return _lista_relacao_;
+        return this._listaRelacao_;
     }
 
-    public void setListaRelacao (PListaRelacao node)
+    public void setListaRelacao(PListaRelacao node)
     {
-        if(_lista_relacao_ != null)
+        if(this._listaRelacao_ != null)
         {
-            _lista_relacao_.parent(null);
+            this._listaRelacao_.parent(null);
         }
 
         if(node != null)
@@ -58,18 +62,19 @@ public final class AFamiliaFamilia extends PFamilia
             node.parent(this);
         }
 
-        _lista_relacao_ = node;
-    }
-    public TPontoVirgula getPontoVirgula ()
-    {
-        return _ponto_virgula_;
+        this._listaRelacao_ = node;
     }
 
-    public void setPontoVirgula (TPontoVirgula node)
+    public TPontoVirgula getPontoVirgula()
     {
-        if(_ponto_virgula_ != null)
+        return this._pontoVirgula_;
+    }
+
+    public void setPontoVirgula(TPontoVirgula node)
+    {
+        if(this._pontoVirgula_ != null)
         {
-            _ponto_virgula_.parent(null);
+            this._pontoVirgula_.parent(null);
         }
 
         if(node != null)
@@ -82,43 +87,52 @@ public final class AFamiliaFamilia extends PFamilia
             node.parent(this);
         }
 
-        _ponto_virgula_ = node;
+        this._pontoVirgula_ = node;
     }
 
+    @Override
     public String toString()
     {
         return ""
-            + toString (_lista_relacao_)
-            + toString (_ponto_virgula_)
-        ;
+            + toString(this._listaRelacao_)
+            + toString(this._pontoVirgula_);
     }
 
-    void removeChild(Node child)
+    @Override
+    void removeChild(@SuppressWarnings("unused") Node child)
     {
-        if ( _lista_relacao_ == child )
+        // Remove child
+        if(this._listaRelacao_ == child)
         {
-            _lista_relacao_ = null;
+            this._listaRelacao_ = null;
             return;
         }
-        if ( _ponto_virgula_ == child )
+
+        if(this._pontoVirgula_ == child)
         {
-            _ponto_virgula_ = null;
+            this._pontoVirgula_ = null;
             return;
         }
+
+        throw new RuntimeException("Not a child.");
     }
 
-    void replaceChild(Node oldChild, Node newChild)
+    @Override
+    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
     {
-        if ( _lista_relacao_ == oldChild )
+        // Replace child
+        if(this._listaRelacao_ == oldChild)
         {
-            setListaRelacao ((PListaRelacao) newChild);
+            setListaRelacao((PListaRelacao) newChild);
             return;
         }
-        if ( _ponto_virgula_ == oldChild )
-        {
-            setPontoVirgula ((TPontoVirgula) newChild);
-            return;
-        }
-    }
 
+        if(this._pontoVirgula_ == oldChild)
+        {
+            setPontoVirgula((TPontoVirgula) newChild);
+            return;
+        }
+
+        throw new RuntimeException("Not a child.");
+    }
 }

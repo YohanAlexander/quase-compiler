@@ -2,58 +2,64 @@
 
 package quase.node;
 
-import java.util.*;
 import quase.analysis.*;
 
+@SuppressWarnings("nls")
 public final class ADecObjDecObj extends PDecObj
 {
     private TObjeto _objeto_;
     private TCid _cid_;
-    private PListaId _lista_id_;
-    private TPontoVirgula _ponto_virgula_;
+    private PListaId _listaId_;
+    private TPontoVirgula _pontoVirgula_;
 
-    public ADecObjDecObj ()
+    public ADecObjDecObj()
     {
+        // Constructor
     }
 
-    public ADecObjDecObj (
-            TObjeto _objeto_,
-            TCid _cid_,
-            PListaId _lista_id_,
-            TPontoVirgula _ponto_virgula_
-    )
+    public ADecObjDecObj(
+        @SuppressWarnings("hiding") TObjeto _objeto_,
+        @SuppressWarnings("hiding") TCid _cid_,
+        @SuppressWarnings("hiding") PListaId _listaId_,
+        @SuppressWarnings("hiding") TPontoVirgula _pontoVirgula_)
     {
-        setObjeto (_objeto_);
-        setCid (_cid_);
-        setListaId (_lista_id_);
-        setPontoVirgula (_ponto_virgula_);
+        // Constructor
+        setObjeto(_objeto_);
+
+        setCid(_cid_);
+
+        setListaId(_listaId_);
+
+        setPontoVirgula(_pontoVirgula_);
+
     }
 
+    @Override
     public Object clone()
     {
-        return new ADecObjDecObj (
-            (TObjeto)cloneNode (_objeto_),
-            (TCid)cloneNode (_cid_),
-            (PListaId)cloneNode (_lista_id_),
-            (TPontoVirgula)cloneNode (_ponto_virgula_)
-        );
+        return new ADecObjDecObj(
+            cloneNode(this._objeto_),
+            cloneNode(this._cid_),
+            cloneNode(this._listaId_),
+            cloneNode(this._pontoVirgula_));
     }
 
+    @Override
     public void apply(Switch sw)
     {
         ((Analysis) sw).caseADecObjDecObj(this);
     }
 
-    public TObjeto getObjeto ()
+    public TObjeto getObjeto()
     {
-        return _objeto_;
+        return this._objeto_;
     }
 
-    public void setObjeto (TObjeto node)
+    public void setObjeto(TObjeto node)
     {
-        if(_objeto_ != null)
+        if(this._objeto_ != null)
         {
-            _objeto_.parent(null);
+            this._objeto_.parent(null);
         }
 
         if(node != null)
@@ -66,18 +72,19 @@ public final class ADecObjDecObj extends PDecObj
             node.parent(this);
         }
 
-        _objeto_ = node;
-    }
-    public TCid getCid ()
-    {
-        return _cid_;
+        this._objeto_ = node;
     }
 
-    public void setCid (TCid node)
+    public TCid getCid()
     {
-        if(_cid_ != null)
+        return this._cid_;
+    }
+
+    public void setCid(TCid node)
+    {
+        if(this._cid_ != null)
         {
-            _cid_.parent(null);
+            this._cid_.parent(null);
         }
 
         if(node != null)
@@ -90,18 +97,19 @@ public final class ADecObjDecObj extends PDecObj
             node.parent(this);
         }
 
-        _cid_ = node;
-    }
-    public PListaId getListaId ()
-    {
-        return _lista_id_;
+        this._cid_ = node;
     }
 
-    public void setListaId (PListaId node)
+    public PListaId getListaId()
     {
-        if(_lista_id_ != null)
+        return this._listaId_;
+    }
+
+    public void setListaId(PListaId node)
+    {
+        if(this._listaId_ != null)
         {
-            _lista_id_.parent(null);
+            this._listaId_.parent(null);
         }
 
         if(node != null)
@@ -114,18 +122,19 @@ public final class ADecObjDecObj extends PDecObj
             node.parent(this);
         }
 
-        _lista_id_ = node;
-    }
-    public TPontoVirgula getPontoVirgula ()
-    {
-        return _ponto_virgula_;
+        this._listaId_ = node;
     }
 
-    public void setPontoVirgula (TPontoVirgula node)
+    public TPontoVirgula getPontoVirgula()
     {
-        if(_ponto_virgula_ != null)
+        return this._pontoVirgula_;
+    }
+
+    public void setPontoVirgula(TPontoVirgula node)
+    {
+        if(this._pontoVirgula_ != null)
         {
-            _ponto_virgula_.parent(null);
+            this._pontoVirgula_.parent(null);
         }
 
         if(node != null)
@@ -138,65 +147,78 @@ public final class ADecObjDecObj extends PDecObj
             node.parent(this);
         }
 
-        _ponto_virgula_ = node;
+        this._pontoVirgula_ = node;
     }
 
+    @Override
     public String toString()
     {
         return ""
-            + toString (_objeto_)
-            + toString (_cid_)
-            + toString (_lista_id_)
-            + toString (_ponto_virgula_)
-        ;
+            + toString(this._objeto_)
+            + toString(this._cid_)
+            + toString(this._listaId_)
+            + toString(this._pontoVirgula_);
     }
 
-    void removeChild(Node child)
+    @Override
+    void removeChild(@SuppressWarnings("unused") Node child)
     {
-        if ( _objeto_ == child )
+        // Remove child
+        if(this._objeto_ == child)
         {
-            _objeto_ = null;
+            this._objeto_ = null;
             return;
         }
-        if ( _cid_ == child )
+
+        if(this._cid_ == child)
         {
-            _cid_ = null;
+            this._cid_ = null;
             return;
         }
-        if ( _lista_id_ == child )
+
+        if(this._listaId_ == child)
         {
-            _lista_id_ = null;
+            this._listaId_ = null;
             return;
         }
-        if ( _ponto_virgula_ == child )
+
+        if(this._pontoVirgula_ == child)
         {
-            _ponto_virgula_ = null;
+            this._pontoVirgula_ = null;
             return;
         }
+
+        throw new RuntimeException("Not a child.");
     }
 
-    void replaceChild(Node oldChild, Node newChild)
+    @Override
+    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
     {
-        if ( _objeto_ == oldChild )
+        // Replace child
+        if(this._objeto_ == oldChild)
         {
-            setObjeto ((TObjeto) newChild);
+            setObjeto((TObjeto) newChild);
             return;
         }
-        if ( _cid_ == oldChild )
-        {
-            setCid ((TCid) newChild);
-            return;
-        }
-        if ( _lista_id_ == oldChild )
-        {
-            setListaId ((PListaId) newChild);
-            return;
-        }
-        if ( _ponto_virgula_ == oldChild )
-        {
-            setPontoVirgula ((TPontoVirgula) newChild);
-            return;
-        }
-    }
 
+        if(this._cid_ == oldChild)
+        {
+            setCid((TCid) newChild);
+            return;
+        }
+
+        if(this._listaId_ == oldChild)
+        {
+            setListaId((PListaId) newChild);
+            return;
+        }
+
+        if(this._pontoVirgula_ == oldChild)
+        {
+            setPontoVirgula((TPontoVirgula) newChild);
+            return;
+        }
+
+        throw new RuntimeException("Not a child.");
+    }
 }

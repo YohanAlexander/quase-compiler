@@ -2,50 +2,54 @@
 
 package quase.node;
 
-import java.util.*;
 import quase.analysis.*;
 
+@SuppressWarnings("nls")
 public final class AAtributosAtributos extends PAtributos
 {
     private PDec _dec_;
     private PAtributos _atributos_;
 
-    public AAtributosAtributos ()
+    public AAtributosAtributos()
     {
+        // Constructor
     }
 
-    public AAtributosAtributos (
-            PDec _dec_,
-            PAtributos _atributos_
-    )
+    public AAtributosAtributos(
+        @SuppressWarnings("hiding") PDec _dec_,
+        @SuppressWarnings("hiding") PAtributos _atributos_)
     {
-        setDec (_dec_);
-        setAtributos (_atributos_);
+        // Constructor
+        setDec(_dec_);
+
+        setAtributos(_atributos_);
+
     }
 
+    @Override
     public Object clone()
     {
-        return new AAtributosAtributos (
-            (PDec)cloneNode (_dec_),
-            (PAtributos)cloneNode (_atributos_)
-        );
+        return new AAtributosAtributos(
+            cloneNode(this._dec_),
+            cloneNode(this._atributos_));
     }
 
+    @Override
     public void apply(Switch sw)
     {
         ((Analysis) sw).caseAAtributosAtributos(this);
     }
 
-    public PDec getDec ()
+    public PDec getDec()
     {
-        return _dec_;
+        return this._dec_;
     }
 
-    public void setDec (PDec node)
+    public void setDec(PDec node)
     {
-        if(_dec_ != null)
+        if(this._dec_ != null)
         {
-            _dec_.parent(null);
+            this._dec_.parent(null);
         }
 
         if(node != null)
@@ -58,18 +62,19 @@ public final class AAtributosAtributos extends PAtributos
             node.parent(this);
         }
 
-        _dec_ = node;
-    }
-    public PAtributos getAtributos ()
-    {
-        return _atributos_;
+        this._dec_ = node;
     }
 
-    public void setAtributos (PAtributos node)
+    public PAtributos getAtributos()
     {
-        if(_atributos_ != null)
+        return this._atributos_;
+    }
+
+    public void setAtributos(PAtributos node)
+    {
+        if(this._atributos_ != null)
         {
-            _atributos_.parent(null);
+            this._atributos_.parent(null);
         }
 
         if(node != null)
@@ -82,43 +87,52 @@ public final class AAtributosAtributos extends PAtributos
             node.parent(this);
         }
 
-        _atributos_ = node;
+        this._atributos_ = node;
     }
 
+    @Override
     public String toString()
     {
         return ""
-            + toString (_dec_)
-            + toString (_atributos_)
-        ;
+            + toString(this._dec_)
+            + toString(this._atributos_);
     }
 
-    void removeChild(Node child)
+    @Override
+    void removeChild(@SuppressWarnings("unused") Node child)
     {
-        if ( _dec_ == child )
+        // Remove child
+        if(this._dec_ == child)
         {
-            _dec_ = null;
+            this._dec_ = null;
             return;
         }
-        if ( _atributos_ == child )
+
+        if(this._atributos_ == child)
         {
-            _atributos_ = null;
+            this._atributos_ = null;
             return;
         }
+
+        throw new RuntimeException("Not a child.");
     }
 
-    void replaceChild(Node oldChild, Node newChild)
+    @Override
+    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
     {
-        if ( _dec_ == oldChild )
+        // Replace child
+        if(this._dec_ == oldChild)
         {
-            setDec ((PDec) newChild);
+            setDec((PDec) newChild);
             return;
         }
-        if ( _atributos_ == oldChild )
-        {
-            setAtributos ((PAtributos) newChild);
-            return;
-        }
-    }
 
+        if(this._atributos_ == oldChild)
+        {
+            setAtributos((PAtributos) newChild);
+            return;
+        }
+
+        throw new RuntimeException("Not a child.");
+    }
 }

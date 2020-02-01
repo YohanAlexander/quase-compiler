@@ -2,46 +2,49 @@
 
 package quase.node;
 
-import java.util.*;
 import quase.analysis.*;
 
+@SuppressWarnings("nls")
 public final class AIdListaId extends PListaId
 {
     private TId _id_;
 
-    public AIdListaId ()
+    public AIdListaId()
     {
+        // Constructor
     }
 
-    public AIdListaId (
-            TId _id_
-    )
+    public AIdListaId(
+        @SuppressWarnings("hiding") TId _id_)
     {
-        setId (_id_);
+        // Constructor
+        setId(_id_);
+
     }
 
+    @Override
     public Object clone()
     {
-        return new AIdListaId (
-            (TId)cloneNode (_id_)
-        );
+        return new AIdListaId(
+            cloneNode(this._id_));
     }
 
+    @Override
     public void apply(Switch sw)
     {
         ((Analysis) sw).caseAIdListaId(this);
     }
 
-    public TId getId ()
+    public TId getId()
     {
-        return _id_;
+        return this._id_;
     }
 
-    public void setId (TId node)
+    public void setId(TId node)
     {
-        if(_id_ != null)
+        if(this._id_ != null)
         {
-            _id_.parent(null);
+            this._id_.parent(null);
         }
 
         if(node != null)
@@ -54,32 +57,39 @@ public final class AIdListaId extends PListaId
             node.parent(this);
         }
 
-        _id_ = node;
+        this._id_ = node;
     }
 
+    @Override
     public String toString()
     {
         return ""
-            + toString (_id_)
-        ;
+            + toString(this._id_);
     }
 
-    void removeChild(Node child)
+    @Override
+    void removeChild(@SuppressWarnings("unused") Node child)
     {
-        if ( _id_ == child )
+        // Remove child
+        if(this._id_ == child)
         {
-            _id_ = null;
+            this._id_ = null;
             return;
         }
+
+        throw new RuntimeException("Not a child.");
     }
 
-    void replaceChild(Node oldChild, Node newChild)
+    @Override
+    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
     {
-        if ( _id_ == oldChild )
+        // Replace child
+        if(this._id_ == oldChild)
         {
-            setId ((TId) newChild);
+            setId((TId) newChild);
             return;
         }
-    }
 
+        throw new RuntimeException("Not a child.");
+    }
 }

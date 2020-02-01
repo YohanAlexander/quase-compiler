@@ -2,50 +2,59 @@
 
 package quase.node;
 
-import java.util.*;
 import quase.analysis.*;
 
+@SuppressWarnings("nls")
 public final class ACallComando extends PComando
 {
+    private PIdPonto _idPonto_;
     private PChamada _chamada_;
-    private TPontoVirgula _ponto_virgula_;
+    private TPontoVirgula _pontoVirgula_;
 
-    public ACallComando ()
+    public ACallComando()
     {
+        // Constructor
     }
 
-    public ACallComando (
-            PChamada _chamada_,
-            TPontoVirgula _ponto_virgula_
-    )
+    public ACallComando(
+        @SuppressWarnings("hiding") PIdPonto _idPonto_,
+        @SuppressWarnings("hiding") PChamada _chamada_,
+        @SuppressWarnings("hiding") TPontoVirgula _pontoVirgula_)
     {
-        setChamada (_chamada_);
-        setPontoVirgula (_ponto_virgula_);
+        // Constructor
+        setIdPonto(_idPonto_);
+
+        setChamada(_chamada_);
+
+        setPontoVirgula(_pontoVirgula_);
+
     }
 
+    @Override
     public Object clone()
     {
-        return new ACallComando (
-            (PChamada)cloneNode (_chamada_),
-            (TPontoVirgula)cloneNode (_ponto_virgula_)
-        );
+        return new ACallComando(
+            cloneNode(this._idPonto_),
+            cloneNode(this._chamada_),
+            cloneNode(this._pontoVirgula_));
     }
 
+    @Override
     public void apply(Switch sw)
     {
         ((Analysis) sw).caseACallComando(this);
     }
 
-    public PChamada getChamada ()
+    public PIdPonto getIdPonto()
     {
-        return _chamada_;
+        return this._idPonto_;
     }
 
-    public void setChamada (PChamada node)
+    public void setIdPonto(PIdPonto node)
     {
-        if(_chamada_ != null)
+        if(this._idPonto_ != null)
         {
-            _chamada_.parent(null);
+            this._idPonto_.parent(null);
         }
 
         if(node != null)
@@ -58,18 +67,19 @@ public final class ACallComando extends PComando
             node.parent(this);
         }
 
-        _chamada_ = node;
-    }
-    public TPontoVirgula getPontoVirgula ()
-    {
-        return _ponto_virgula_;
+        this._idPonto_ = node;
     }
 
-    public void setPontoVirgula (TPontoVirgula node)
+    public PChamada getChamada()
     {
-        if(_ponto_virgula_ != null)
+        return this._chamada_;
+    }
+
+    public void setChamada(PChamada node)
+    {
+        if(this._chamada_ != null)
         {
-            _ponto_virgula_.parent(null);
+            this._chamada_.parent(null);
         }
 
         if(node != null)
@@ -82,43 +92,90 @@ public final class ACallComando extends PComando
             node.parent(this);
         }
 
-        _ponto_virgula_ = node;
+        this._chamada_ = node;
     }
 
+    public TPontoVirgula getPontoVirgula()
+    {
+        return this._pontoVirgula_;
+    }
+
+    public void setPontoVirgula(TPontoVirgula node)
+    {
+        if(this._pontoVirgula_ != null)
+        {
+            this._pontoVirgula_.parent(null);
+        }
+
+        if(node != null)
+        {
+            if(node.parent() != null)
+            {
+                node.parent().removeChild(node);
+            }
+
+            node.parent(this);
+        }
+
+        this._pontoVirgula_ = node;
+    }
+
+    @Override
     public String toString()
     {
         return ""
-            + toString (_chamada_)
-            + toString (_ponto_virgula_)
-        ;
+            + toString(this._idPonto_)
+            + toString(this._chamada_)
+            + toString(this._pontoVirgula_);
     }
 
-    void removeChild(Node child)
+    @Override
+    void removeChild(@SuppressWarnings("unused") Node child)
     {
-        if ( _chamada_ == child )
+        // Remove child
+        if(this._idPonto_ == child)
         {
-            _chamada_ = null;
+            this._idPonto_ = null;
             return;
         }
-        if ( _ponto_virgula_ == child )
+
+        if(this._chamada_ == child)
         {
-            _ponto_virgula_ = null;
+            this._chamada_ = null;
             return;
         }
+
+        if(this._pontoVirgula_ == child)
+        {
+            this._pontoVirgula_ = null;
+            return;
+        }
+
+        throw new RuntimeException("Not a child.");
     }
 
-    void replaceChild(Node oldChild, Node newChild)
+    @Override
+    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
     {
-        if ( _chamada_ == oldChild )
+        // Replace child
+        if(this._idPonto_ == oldChild)
         {
-            setChamada ((PChamada) newChild);
+            setIdPonto((PIdPonto) newChild);
             return;
         }
-        if ( _ponto_virgula_ == oldChild )
-        {
-            setPontoVirgula ((TPontoVirgula) newChild);
-            return;
-        }
-    }
 
+        if(this._chamada_ == oldChild)
+        {
+            setChamada((PChamada) newChild);
+            return;
+        }
+
+        if(this._pontoVirgula_ == oldChild)
+        {
+            setPontoVirgula((TPontoVirgula) newChild);
+            return;
+        }
+
+        throw new RuntimeException("Not a child.");
+    }
 }

@@ -2,46 +2,49 @@
 
 package quase.node;
 
-import java.util.*;
 import quase.analysis.*;
 
+@SuppressWarnings("nls")
 public final class AInteiroTermo extends PTermo
 {
-    private TNumeroInteiro _numero_inteiro_;
+    private TNumeroInteiro _numeroInteiro_;
 
-    public AInteiroTermo ()
+    public AInteiroTermo()
     {
+        // Constructor
     }
 
-    public AInteiroTermo (
-            TNumeroInteiro _numero_inteiro_
-    )
+    public AInteiroTermo(
+        @SuppressWarnings("hiding") TNumeroInteiro _numeroInteiro_)
     {
-        setNumeroInteiro (_numero_inteiro_);
+        // Constructor
+        setNumeroInteiro(_numeroInteiro_);
+
     }
 
+    @Override
     public Object clone()
     {
-        return new AInteiroTermo (
-            (TNumeroInteiro)cloneNode (_numero_inteiro_)
-        );
+        return new AInteiroTermo(
+            cloneNode(this._numeroInteiro_));
     }
 
+    @Override
     public void apply(Switch sw)
     {
         ((Analysis) sw).caseAInteiroTermo(this);
     }
 
-    public TNumeroInteiro getNumeroInteiro ()
+    public TNumeroInteiro getNumeroInteiro()
     {
-        return _numero_inteiro_;
+        return this._numeroInteiro_;
     }
 
-    public void setNumeroInteiro (TNumeroInteiro node)
+    public void setNumeroInteiro(TNumeroInteiro node)
     {
-        if(_numero_inteiro_ != null)
+        if(this._numeroInteiro_ != null)
         {
-            _numero_inteiro_.parent(null);
+            this._numeroInteiro_.parent(null);
         }
 
         if(node != null)
@@ -54,32 +57,39 @@ public final class AInteiroTermo extends PTermo
             node.parent(this);
         }
 
-        _numero_inteiro_ = node;
+        this._numeroInteiro_ = node;
     }
 
+    @Override
     public String toString()
     {
         return ""
-            + toString (_numero_inteiro_)
-        ;
+            + toString(this._numeroInteiro_);
     }
 
-    void removeChild(Node child)
+    @Override
+    void removeChild(@SuppressWarnings("unused") Node child)
     {
-        if ( _numero_inteiro_ == child )
+        // Remove child
+        if(this._numeroInteiro_ == child)
         {
-            _numero_inteiro_ = null;
+            this._numeroInteiro_ = null;
             return;
         }
+
+        throw new RuntimeException("Not a child.");
     }
 
-    void replaceChild(Node oldChild, Node newChild)
+    @Override
+    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
     {
-        if ( _numero_inteiro_ == oldChild )
+        // Replace child
+        if(this._numeroInteiro_ == oldChild)
         {
-            setNumeroInteiro ((TNumeroInteiro) newChild);
+            setNumeroInteiro((TNumeroInteiro) newChild);
             return;
         }
-    }
 
+        throw new RuntimeException("Not a child.");
+    }
 }

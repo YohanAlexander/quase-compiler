@@ -2,50 +2,54 @@
 
 package quase.node;
 
-import java.util.*;
 import quase.analysis.*;
 
+@SuppressWarnings("nls")
 public final class AMetodosMetodos extends PMetodos
 {
     private PDec2 _dec2_;
     private PMetodos _metodos_;
 
-    public AMetodosMetodos ()
+    public AMetodosMetodos()
     {
+        // Constructor
     }
 
-    public AMetodosMetodos (
-            PDec2 _dec2_,
-            PMetodos _metodos_
-    )
+    public AMetodosMetodos(
+        @SuppressWarnings("hiding") PDec2 _dec2_,
+        @SuppressWarnings("hiding") PMetodos _metodos_)
     {
-        setDec2 (_dec2_);
-        setMetodos (_metodos_);
+        // Constructor
+        setDec2(_dec2_);
+
+        setMetodos(_metodos_);
+
     }
 
+    @Override
     public Object clone()
     {
-        return new AMetodosMetodos (
-            (PDec2)cloneNode (_dec2_),
-            (PMetodos)cloneNode (_metodos_)
-        );
+        return new AMetodosMetodos(
+            cloneNode(this._dec2_),
+            cloneNode(this._metodos_));
     }
 
+    @Override
     public void apply(Switch sw)
     {
         ((Analysis) sw).caseAMetodosMetodos(this);
     }
 
-    public PDec2 getDec2 ()
+    public PDec2 getDec2()
     {
-        return _dec2_;
+        return this._dec2_;
     }
 
-    public void setDec2 (PDec2 node)
+    public void setDec2(PDec2 node)
     {
-        if(_dec2_ != null)
+        if(this._dec2_ != null)
         {
-            _dec2_.parent(null);
+            this._dec2_.parent(null);
         }
 
         if(node != null)
@@ -58,18 +62,19 @@ public final class AMetodosMetodos extends PMetodos
             node.parent(this);
         }
 
-        _dec2_ = node;
-    }
-    public PMetodos getMetodos ()
-    {
-        return _metodos_;
+        this._dec2_ = node;
     }
 
-    public void setMetodos (PMetodos node)
+    public PMetodos getMetodos()
     {
-        if(_metodos_ != null)
+        return this._metodos_;
+    }
+
+    public void setMetodos(PMetodos node)
+    {
+        if(this._metodos_ != null)
         {
-            _metodos_.parent(null);
+            this._metodos_.parent(null);
         }
 
         if(node != null)
@@ -82,43 +87,52 @@ public final class AMetodosMetodos extends PMetodos
             node.parent(this);
         }
 
-        _metodos_ = node;
+        this._metodos_ = node;
     }
 
+    @Override
     public String toString()
     {
         return ""
-            + toString (_dec2_)
-            + toString (_metodos_)
-        ;
+            + toString(this._dec2_)
+            + toString(this._metodos_);
     }
 
-    void removeChild(Node child)
+    @Override
+    void removeChild(@SuppressWarnings("unused") Node child)
     {
-        if ( _dec2_ == child )
+        // Remove child
+        if(this._dec2_ == child)
         {
-            _dec2_ = null;
+            this._dec2_ = null;
             return;
         }
-        if ( _metodos_ == child )
+
+        if(this._metodos_ == child)
         {
-            _metodos_ = null;
+            this._metodos_ = null;
             return;
         }
+
+        throw new RuntimeException("Not a child.");
     }
 
-    void replaceChild(Node oldChild, Node newChild)
+    @Override
+    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
     {
-        if ( _dec2_ == oldChild )
+        // Replace child
+        if(this._dec2_ == oldChild)
         {
-            setDec2 ((PDec2) newChild);
+            setDec2((PDec2) newChild);
             return;
         }
-        if ( _metodos_ == oldChild )
-        {
-            setMetodos ((PMetodos) newChild);
-            return;
-        }
-    }
 
+        if(this._metodos_ == oldChild)
+        {
+            setMetodos((PMetodos) newChild);
+            return;
+        }
+
+        throw new RuntimeException("Not a child.");
+    }
 }

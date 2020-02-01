@@ -4,30 +4,34 @@ package quase.node;
 
 import quase.analysis.*;
 
+@SuppressWarnings("nls")
 public final class Start extends Node
 {
-    private PPrograma _base_;
+    private PPrograma _pPrograma_;
     private EOF _eof_;
 
     public Start()
     {
+        // Empty body
     }
 
     public Start(
-        PPrograma _base_,
-        EOF _eof_)
+        @SuppressWarnings("hiding") PPrograma _pPrograma_,
+        @SuppressWarnings("hiding") EOF _eof_)
     {
-        setPPrograma(_base_);
+        setPPrograma(_pPrograma_);
         setEOF(_eof_);
     }
 
+    @Override
     public Object clone()
     {
         return new Start(
-            (PPrograma) cloneNode(_base_),
-            (EOF) cloneNode(_eof_));
+            cloneNode(this._pPrograma_),
+            cloneNode(this._eof_));
     }
 
+    @Override
     public void apply(Switch sw)
     {
         ((Analysis) sw).caseStart(this);
@@ -35,13 +39,14 @@ public final class Start extends Node
 
     public PPrograma getPPrograma()
     {
-        return _base_;
+        return this._pPrograma_;
     }
+
     public void setPPrograma(PPrograma node)
     {
-        if(_base_ != null)
+        if(this._pPrograma_ != null)
         {
-            _base_.parent(null);
+            this._pPrograma_.parent(null);
         }
 
         if(node != null)
@@ -54,18 +59,19 @@ public final class Start extends Node
             node.parent(this);
         }
 
-        _base_ = node;
+        this._pPrograma_ = node;
     }
 
     public EOF getEOF()
     {
-        return _eof_;
+        return this._eof_;
     }
+
     public void setEOF(EOF node)
     {
-        if(_eof_ != null)
+        if(this._eof_ != null)
         {
-            _eof_.parent(null);
+            this._eof_.parent(null);
         }
 
         if(node != null)
@@ -78,42 +84,50 @@ public final class Start extends Node
             node.parent(this);
         }
 
-        _eof_ = node;
+        this._eof_ = node;
     }
 
+    @Override
     void removeChild(Node child)
     {
-        if(_base_ == child)
+        if(this._pPrograma_ == child)
         {
-            _base_ = null;
+            this._pPrograma_ = null;
             return;
         }
 
-        if(_eof_ == child)
+        if(this._eof_ == child)
         {
-            _eof_ = null;
+            this._eof_ = null;
             return;
         }
+
+        throw new RuntimeException("Not a child.");
     }
+
+    @Override
     void replaceChild(Node oldChild, Node newChild)
     {
-        if(_base_ == oldChild)
+        if(this._pPrograma_ == oldChild)
         {
             setPPrograma((PPrograma) newChild);
             return;
         }
 
-        if(_eof_ == oldChild)
+        if(this._eof_ == oldChild)
         {
             setEOF((EOF) newChild);
             return;
         }
+
+        throw new RuntimeException("Not a child.");
     }
 
+    @Override
     public String toString()
     {
         return "" +
-            toString(_base_) +
-            toString(_eof_);
+            toString(this._pPrograma_) +
+            toString(this._eof_);
     }
 }

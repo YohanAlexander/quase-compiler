@@ -2,70 +2,79 @@
 
 package quase.node;
 
-import java.util.*;
 import quase.analysis.*;
 
+@SuppressWarnings("nls")
 public final class ADecFuncaoDecFuncao extends PDecFuncao
 {
     private TFuncao _funcao_;
     private PTipo _tipo_;
     private TId _id_;
-    private TParentesesEsquerdo _parenteses_esquerdo_;
+    private TParentesesEsquerdo _parentesesEsquerdo_;
     private PParametros _parametros_;
-    private TParentesesDireito _parenteses_direito_;
+    private TParentesesDireito _parentesesDireito_;
     private PExp _exp_;
 
-    public ADecFuncaoDecFuncao ()
+    public ADecFuncaoDecFuncao()
     {
+        // Constructor
     }
 
-    public ADecFuncaoDecFuncao (
-            TFuncao _funcao_,
-            PTipo _tipo_,
-            TId _id_,
-            TParentesesEsquerdo _parenteses_esquerdo_,
-            PParametros _parametros_,
-            TParentesesDireito _parenteses_direito_,
-            PExp _exp_
-    )
+    public ADecFuncaoDecFuncao(
+        @SuppressWarnings("hiding") TFuncao _funcao_,
+        @SuppressWarnings("hiding") PTipo _tipo_,
+        @SuppressWarnings("hiding") TId _id_,
+        @SuppressWarnings("hiding") TParentesesEsquerdo _parentesesEsquerdo_,
+        @SuppressWarnings("hiding") PParametros _parametros_,
+        @SuppressWarnings("hiding") TParentesesDireito _parentesesDireito_,
+        @SuppressWarnings("hiding") PExp _exp_)
     {
-        setFuncao (_funcao_);
-        setTipo (_tipo_);
-        setId (_id_);
-        setParentesesEsquerdo (_parenteses_esquerdo_);
-        setParametros (_parametros_);
-        setParentesesDireito (_parenteses_direito_);
-        setExp (_exp_);
+        // Constructor
+        setFuncao(_funcao_);
+
+        setTipo(_tipo_);
+
+        setId(_id_);
+
+        setParentesesEsquerdo(_parentesesEsquerdo_);
+
+        setParametros(_parametros_);
+
+        setParentesesDireito(_parentesesDireito_);
+
+        setExp(_exp_);
+
     }
 
+    @Override
     public Object clone()
     {
-        return new ADecFuncaoDecFuncao (
-            (TFuncao)cloneNode (_funcao_),
-            (PTipo)cloneNode (_tipo_),
-            (TId)cloneNode (_id_),
-            (TParentesesEsquerdo)cloneNode (_parenteses_esquerdo_),
-            (PParametros)cloneNode (_parametros_),
-            (TParentesesDireito)cloneNode (_parenteses_direito_),
-            (PExp)cloneNode (_exp_)
-        );
+        return new ADecFuncaoDecFuncao(
+            cloneNode(this._funcao_),
+            cloneNode(this._tipo_),
+            cloneNode(this._id_),
+            cloneNode(this._parentesesEsquerdo_),
+            cloneNode(this._parametros_),
+            cloneNode(this._parentesesDireito_),
+            cloneNode(this._exp_));
     }
 
+    @Override
     public void apply(Switch sw)
     {
         ((Analysis) sw).caseADecFuncaoDecFuncao(this);
     }
 
-    public TFuncao getFuncao ()
+    public TFuncao getFuncao()
     {
-        return _funcao_;
+        return this._funcao_;
     }
 
-    public void setFuncao (TFuncao node)
+    public void setFuncao(TFuncao node)
     {
-        if(_funcao_ != null)
+        if(this._funcao_ != null)
         {
-            _funcao_.parent(null);
+            this._funcao_.parent(null);
         }
 
         if(node != null)
@@ -78,18 +87,19 @@ public final class ADecFuncaoDecFuncao extends PDecFuncao
             node.parent(this);
         }
 
-        _funcao_ = node;
-    }
-    public PTipo getTipo ()
-    {
-        return _tipo_;
+        this._funcao_ = node;
     }
 
-    public void setTipo (PTipo node)
+    public PTipo getTipo()
     {
-        if(_tipo_ != null)
+        return this._tipo_;
+    }
+
+    public void setTipo(PTipo node)
+    {
+        if(this._tipo_ != null)
         {
-            _tipo_.parent(null);
+            this._tipo_.parent(null);
         }
 
         if(node != null)
@@ -102,18 +112,19 @@ public final class ADecFuncaoDecFuncao extends PDecFuncao
             node.parent(this);
         }
 
-        _tipo_ = node;
-    }
-    public TId getId ()
-    {
-        return _id_;
+        this._tipo_ = node;
     }
 
-    public void setId (TId node)
+    public TId getId()
     {
-        if(_id_ != null)
+        return this._id_;
+    }
+
+    public void setId(TId node)
+    {
+        if(this._id_ != null)
         {
-            _id_.parent(null);
+            this._id_.parent(null);
         }
 
         if(node != null)
@@ -126,18 +137,19 @@ public final class ADecFuncaoDecFuncao extends PDecFuncao
             node.parent(this);
         }
 
-        _id_ = node;
-    }
-    public TParentesesEsquerdo getParentesesEsquerdo ()
-    {
-        return _parenteses_esquerdo_;
+        this._id_ = node;
     }
 
-    public void setParentesesEsquerdo (TParentesesEsquerdo node)
+    public TParentesesEsquerdo getParentesesEsquerdo()
     {
-        if(_parenteses_esquerdo_ != null)
+        return this._parentesesEsquerdo_;
+    }
+
+    public void setParentesesEsquerdo(TParentesesEsquerdo node)
+    {
+        if(this._parentesesEsquerdo_ != null)
         {
-            _parenteses_esquerdo_.parent(null);
+            this._parentesesEsquerdo_.parent(null);
         }
 
         if(node != null)
@@ -150,18 +162,19 @@ public final class ADecFuncaoDecFuncao extends PDecFuncao
             node.parent(this);
         }
 
-        _parenteses_esquerdo_ = node;
-    }
-    public PParametros getParametros ()
-    {
-        return _parametros_;
+        this._parentesesEsquerdo_ = node;
     }
 
-    public void setParametros (PParametros node)
+    public PParametros getParametros()
     {
-        if(_parametros_ != null)
+        return this._parametros_;
+    }
+
+    public void setParametros(PParametros node)
+    {
+        if(this._parametros_ != null)
         {
-            _parametros_.parent(null);
+            this._parametros_.parent(null);
         }
 
         if(node != null)
@@ -174,18 +187,19 @@ public final class ADecFuncaoDecFuncao extends PDecFuncao
             node.parent(this);
         }
 
-        _parametros_ = node;
-    }
-    public TParentesesDireito getParentesesDireito ()
-    {
-        return _parenteses_direito_;
+        this._parametros_ = node;
     }
 
-    public void setParentesesDireito (TParentesesDireito node)
+    public TParentesesDireito getParentesesDireito()
     {
-        if(_parenteses_direito_ != null)
+        return this._parentesesDireito_;
+    }
+
+    public void setParentesesDireito(TParentesesDireito node)
+    {
+        if(this._parentesesDireito_ != null)
         {
-            _parenteses_direito_.parent(null);
+            this._parentesesDireito_.parent(null);
         }
 
         if(node != null)
@@ -198,18 +212,19 @@ public final class ADecFuncaoDecFuncao extends PDecFuncao
             node.parent(this);
         }
 
-        _parenteses_direito_ = node;
-    }
-    public PExp getExp ()
-    {
-        return _exp_;
+        this._parentesesDireito_ = node;
     }
 
-    public void setExp (PExp node)
+    public PExp getExp()
     {
-        if(_exp_ != null)
+        return this._exp_;
+    }
+
+    public void setExp(PExp node)
+    {
+        if(this._exp_ != null)
         {
-            _exp_.parent(null);
+            this._exp_.parent(null);
         }
 
         if(node != null)
@@ -222,98 +237,117 @@ public final class ADecFuncaoDecFuncao extends PDecFuncao
             node.parent(this);
         }
 
-        _exp_ = node;
+        this._exp_ = node;
     }
 
+    @Override
     public String toString()
     {
         return ""
-            + toString (_funcao_)
-            + toString (_tipo_)
-            + toString (_id_)
-            + toString (_parenteses_esquerdo_)
-            + toString (_parametros_)
-            + toString (_parenteses_direito_)
-            + toString (_exp_)
-        ;
+            + toString(this._funcao_)
+            + toString(this._tipo_)
+            + toString(this._id_)
+            + toString(this._parentesesEsquerdo_)
+            + toString(this._parametros_)
+            + toString(this._parentesesDireito_)
+            + toString(this._exp_);
     }
 
-    void removeChild(Node child)
+    @Override
+    void removeChild(@SuppressWarnings("unused") Node child)
     {
-        if ( _funcao_ == child )
+        // Remove child
+        if(this._funcao_ == child)
         {
-            _funcao_ = null;
+            this._funcao_ = null;
             return;
         }
-        if ( _tipo_ == child )
+
+        if(this._tipo_ == child)
         {
-            _tipo_ = null;
+            this._tipo_ = null;
             return;
         }
-        if ( _id_ == child )
+
+        if(this._id_ == child)
         {
-            _id_ = null;
+            this._id_ = null;
             return;
         }
-        if ( _parenteses_esquerdo_ == child )
+
+        if(this._parentesesEsquerdo_ == child)
         {
-            _parenteses_esquerdo_ = null;
+            this._parentesesEsquerdo_ = null;
             return;
         }
-        if ( _parametros_ == child )
+
+        if(this._parametros_ == child)
         {
-            _parametros_ = null;
+            this._parametros_ = null;
             return;
         }
-        if ( _parenteses_direito_ == child )
+
+        if(this._parentesesDireito_ == child)
         {
-            _parenteses_direito_ = null;
+            this._parentesesDireito_ = null;
             return;
         }
-        if ( _exp_ == child )
+
+        if(this._exp_ == child)
         {
-            _exp_ = null;
+            this._exp_ = null;
             return;
         }
+
+        throw new RuntimeException("Not a child.");
     }
 
-    void replaceChild(Node oldChild, Node newChild)
+    @Override
+    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
     {
-        if ( _funcao_ == oldChild )
+        // Replace child
+        if(this._funcao_ == oldChild)
         {
-            setFuncao ((TFuncao) newChild);
+            setFuncao((TFuncao) newChild);
             return;
         }
-        if ( _tipo_ == oldChild )
-        {
-            setTipo ((PTipo) newChild);
-            return;
-        }
-        if ( _id_ == oldChild )
-        {
-            setId ((TId) newChild);
-            return;
-        }
-        if ( _parenteses_esquerdo_ == oldChild )
-        {
-            setParentesesEsquerdo ((TParentesesEsquerdo) newChild);
-            return;
-        }
-        if ( _parametros_ == oldChild )
-        {
-            setParametros ((PParametros) newChild);
-            return;
-        }
-        if ( _parenteses_direito_ == oldChild )
-        {
-            setParentesesDireito ((TParentesesDireito) newChild);
-            return;
-        }
-        if ( _exp_ == oldChild )
-        {
-            setExp ((PExp) newChild);
-            return;
-        }
-    }
 
+        if(this._tipo_ == oldChild)
+        {
+            setTipo((PTipo) newChild);
+            return;
+        }
+
+        if(this._id_ == oldChild)
+        {
+            setId((TId) newChild);
+            return;
+        }
+
+        if(this._parentesesEsquerdo_ == oldChild)
+        {
+            setParentesesEsquerdo((TParentesesEsquerdo) newChild);
+            return;
+        }
+
+        if(this._parametros_ == oldChild)
+        {
+            setParametros((PParametros) newChild);
+            return;
+        }
+
+        if(this._parentesesDireito_ == oldChild)
+        {
+            setParentesesDireito((TParentesesDireito) newChild);
+            return;
+        }
+
+        if(this._exp_ == oldChild)
+        {
+            setExp((PExp) newChild);
+            return;
+        }
+
+        throw new RuntimeException("Not a child.");
+    }
 }

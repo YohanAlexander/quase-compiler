@@ -2,50 +2,54 @@
 
 package quase.node;
 
-import java.util.*;
 import quase.analysis.*;
 
+@SuppressWarnings("nls")
 public final class AProgramaPrograma extends PPrograma
 {
     private PFamilia _familia_;
-    private PListaClasse _lista_classe_;
+    private PListaClasse _listaClasse_;
 
-    public AProgramaPrograma ()
+    public AProgramaPrograma()
     {
+        // Constructor
     }
 
-    public AProgramaPrograma (
-            PFamilia _familia_,
-            PListaClasse _lista_classe_
-    )
+    public AProgramaPrograma(
+        @SuppressWarnings("hiding") PFamilia _familia_,
+        @SuppressWarnings("hiding") PListaClasse _listaClasse_)
     {
-        setFamilia (_familia_);
-        setListaClasse (_lista_classe_);
+        // Constructor
+        setFamilia(_familia_);
+
+        setListaClasse(_listaClasse_);
+
     }
 
+    @Override
     public Object clone()
     {
-        return new AProgramaPrograma (
-            (PFamilia)cloneNode (_familia_),
-            (PListaClasse)cloneNode (_lista_classe_)
-        );
+        return new AProgramaPrograma(
+            cloneNode(this._familia_),
+            cloneNode(this._listaClasse_));
     }
 
+    @Override
     public void apply(Switch sw)
     {
         ((Analysis) sw).caseAProgramaPrograma(this);
     }
 
-    public PFamilia getFamilia ()
+    public PFamilia getFamilia()
     {
-        return _familia_;
+        return this._familia_;
     }
 
-    public void setFamilia (PFamilia node)
+    public void setFamilia(PFamilia node)
     {
-        if(_familia_ != null)
+        if(this._familia_ != null)
         {
-            _familia_.parent(null);
+            this._familia_.parent(null);
         }
 
         if(node != null)
@@ -58,18 +62,19 @@ public final class AProgramaPrograma extends PPrograma
             node.parent(this);
         }
 
-        _familia_ = node;
-    }
-    public PListaClasse getListaClasse ()
-    {
-        return _lista_classe_;
+        this._familia_ = node;
     }
 
-    public void setListaClasse (PListaClasse node)
+    public PListaClasse getListaClasse()
     {
-        if(_lista_classe_ != null)
+        return this._listaClasse_;
+    }
+
+    public void setListaClasse(PListaClasse node)
+    {
+        if(this._listaClasse_ != null)
         {
-            _lista_classe_.parent(null);
+            this._listaClasse_.parent(null);
         }
 
         if(node != null)
@@ -82,43 +87,52 @@ public final class AProgramaPrograma extends PPrograma
             node.parent(this);
         }
 
-        _lista_classe_ = node;
+        this._listaClasse_ = node;
     }
 
+    @Override
     public String toString()
     {
         return ""
-            + toString (_familia_)
-            + toString (_lista_classe_)
-        ;
+            + toString(this._familia_)
+            + toString(this._listaClasse_);
     }
 
-    void removeChild(Node child)
+    @Override
+    void removeChild(@SuppressWarnings("unused") Node child)
     {
-        if ( _familia_ == child )
+        // Remove child
+        if(this._familia_ == child)
         {
-            _familia_ = null;
+            this._familia_ = null;
             return;
         }
-        if ( _lista_classe_ == child )
+
+        if(this._listaClasse_ == child)
         {
-            _lista_classe_ = null;
+            this._listaClasse_ = null;
             return;
         }
+
+        throw new RuntimeException("Not a child.");
     }
 
-    void replaceChild(Node oldChild, Node newChild)
+    @Override
+    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
     {
-        if ( _familia_ == oldChild )
+        // Replace child
+        if(this._familia_ == oldChild)
         {
-            setFamilia ((PFamilia) newChild);
+            setFamilia((PFamilia) newChild);
             return;
         }
-        if ( _lista_classe_ == oldChild )
-        {
-            setListaClasse ((PListaClasse) newChild);
-            return;
-        }
-    }
 
+        if(this._listaClasse_ == oldChild)
+        {
+            setListaClasse((PListaClasse) newChild);
+            return;
+        }
+
+        throw new RuntimeException("Not a child.");
+    }
 }

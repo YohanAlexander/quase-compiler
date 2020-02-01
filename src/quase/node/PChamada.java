@@ -4,4 +4,5 @@ package quase.node;
 
 public abstract class PChamada extends Node
 {
+    // Empty body
 }

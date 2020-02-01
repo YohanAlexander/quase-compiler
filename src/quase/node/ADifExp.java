@@ -2,50 +2,54 @@
 
 package quase.node;
 
-import java.util.*;
 import quase.analysis.*;
 
+@SuppressWarnings("nls")
 public final class ADifExp extends PExp
 {
     private TNegacao _negacao_;
     private PExp _exp_;
 
-    public ADifExp ()
+    public ADifExp()
     {
+        // Constructor
     }
 
-    public ADifExp (
-            TNegacao _negacao_,
-            PExp _exp_
-    )
+    public ADifExp(
+        @SuppressWarnings("hiding") TNegacao _negacao_,
+        @SuppressWarnings("hiding") PExp _exp_)
     {
-        setNegacao (_negacao_);
-        setExp (_exp_);
+        // Constructor
+        setNegacao(_negacao_);
+
+        setExp(_exp_);
+
     }
 
+    @Override
     public Object clone()
     {
-        return new ADifExp (
-            (TNegacao)cloneNode (_negacao_),
-            (PExp)cloneNode (_exp_)
-        );
+        return new ADifExp(
+            cloneNode(this._negacao_),
+            cloneNode(this._exp_));
     }
 
+    @Override
     public void apply(Switch sw)
     {
         ((Analysis) sw).caseADifExp(this);
     }
 
-    public TNegacao getNegacao ()
+    public TNegacao getNegacao()
     {
-        return _negacao_;
+        return this._negacao_;
     }
 
-    public void setNegacao (TNegacao node)
+    public void setNegacao(TNegacao node)
     {
-        if(_negacao_ != null)
+        if(this._negacao_ != null)
         {
-            _negacao_.parent(null);
+            this._negacao_.parent(null);
         }
 
         if(node != null)
@@ -58,18 +62,19 @@ public final class ADifExp extends PExp
             node.parent(this);
         }
 
-        _negacao_ = node;
-    }
-    public PExp getExp ()
-    {
-        return _exp_;
+        this._negacao_ = node;
     }
 
-    public void setExp (PExp node)
+    public PExp getExp()
     {
-        if(_exp_ != null)
+        return this._exp_;
+    }
+
+    public void setExp(PExp node)
+    {
+        if(this._exp_ != null)
         {
-            _exp_.parent(null);
+            this._exp_.parent(null);
         }
 
         if(node != null)
@@ -82,43 +87,52 @@ public final class ADifExp extends PExp
             node.parent(this);
         }
 
-        _exp_ = node;
+        this._exp_ = node;
     }
 
+    @Override
     public String toString()
     {
         return ""
-            + toString (_negacao_)
-            + toString (_exp_)
-        ;
+            + toString(this._negacao_)
+            + toString(this._exp_);
     }
 
-    void removeChild(Node child)
+    @Override
+    void removeChild(@SuppressWarnings("unused") Node child)
     {
-        if ( _negacao_ == child )
+        // Remove child
+        if(this._negacao_ == child)
         {
-            _negacao_ = null;
+            this._negacao_ = null;
             return;
         }
-        if ( _exp_ == child )
+
+        if(this._exp_ == child)
         {
-            _exp_ = null;
+            this._exp_ = null;
             return;
         }
+
+        throw new RuntimeException("Not a child.");
     }
 
-    void replaceChild(Node oldChild, Node newChild)
+    @Override
+    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
     {
-        if ( _negacao_ == oldChild )
+        // Replace child
+        if(this._negacao_ == oldChild)
         {
-            setNegacao ((TNegacao) newChild);
+            setNegacao((TNegacao) newChild);
             return;
         }
-        if ( _exp_ == oldChild )
-        {
-            setExp ((PExp) newChild);
-            return;
-        }
-    }
 
+        if(this._exp_ == oldChild)
+        {
+            setExp((PExp) newChild);
+            return;
+        }
+
+        throw new RuntimeException("Not a child.");
+    }
 }

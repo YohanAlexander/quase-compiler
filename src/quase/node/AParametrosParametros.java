@@ -2,46 +2,49 @@
 
 package quase.node;
 
-import java.util.*;
 import quase.analysis.*;
 
+@SuppressWarnings("nls")
 public final class AParametrosParametros extends PParametros
 {
-    private PListaParametro _lista_parametro_;
+    private PListaParametro _listaParametro_;
 
-    public AParametrosParametros ()
+    public AParametrosParametros()
     {
+        // Constructor
     }
 
-    public AParametrosParametros (
-            PListaParametro _lista_parametro_
-    )
+    public AParametrosParametros(
+        @SuppressWarnings("hiding") PListaParametro _listaParametro_)
     {
-        setListaParametro (_lista_parametro_);
+        // Constructor
+        setListaParametro(_listaParametro_);
+
     }
 
+    @Override
     public Object clone()
     {
-        return new AParametrosParametros (
-            (PListaParametro)cloneNode (_lista_parametro_)
-        );
+        return new AParametrosParametros(
+            cloneNode(this._listaParametro_));
     }
 
+    @Override
     public void apply(Switch sw)
     {
         ((Analysis) sw).caseAParametrosParametros(this);
     }
 
-    public PListaParametro getListaParametro ()
+    public PListaParametro getListaParametro()
     {
-        return _lista_parametro_;
+        return this._listaParametro_;
     }
 
-    public void setListaParametro (PListaParametro node)
+    public void setListaParametro(PListaParametro node)
     {
-        if(_lista_parametro_ != null)
+        if(this._listaParametro_ != null)
         {
-            _lista_parametro_.parent(null);
+            this._listaParametro_.parent(null);
         }
 
         if(node != null)
@@ -54,32 +57,39 @@ public final class AParametrosParametros extends PParametros
             node.parent(this);
         }
 
-        _lista_parametro_ = node;
+        this._listaParametro_ = node;
     }
 
+    @Override
     public String toString()
     {
         return ""
-            + toString (_lista_parametro_)
-        ;
+            + toString(this._listaParametro_);
     }
 
-    void removeChild(Node child)
+    @Override
+    void removeChild(@SuppressWarnings("unused") Node child)
     {
-        if ( _lista_parametro_ == child )
+        // Remove child
+        if(this._listaParametro_ == child)
         {
-            _lista_parametro_ = null;
+            this._listaParametro_ = null;
             return;
         }
+
+        throw new RuntimeException("Not a child.");
     }
 
-    void replaceChild(Node oldChild, Node newChild)
+    @Override
+    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
     {
-        if ( _lista_parametro_ == oldChild )
+        // Replace child
+        if(this._listaParametro_ == oldChild)
         {
-            setListaParametro ((PListaParametro) newChild);
+            setListaParametro((PListaParametro) newChild);
             return;
         }
-    }
 
+        throw new RuntimeException("Not a child.");
+    }
 }

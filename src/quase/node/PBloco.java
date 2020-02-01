@@ -4,4 +4,5 @@ package quase.node;
 
 public abstract class PBloco extends Node
 {
+    // Empty body
 }

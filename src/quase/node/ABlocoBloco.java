@@ -2,58 +2,64 @@
 
 package quase.node;
 
-import java.util.*;
 import quase.analysis.*;
 
+@SuppressWarnings("nls")
 public final class ABlocoBloco extends PBloco
 {
     private TComeca _comeca_;
-    private PDec _dec_;
-    private PComando _comando_;
+    private PListaDecs _listaDecs_;
+    private PListaComandos _listaComandos_;
     private TTermina _termina_;
 
-    public ABlocoBloco ()
+    public ABlocoBloco()
     {
+        // Constructor
     }
 
-    public ABlocoBloco (
-            TComeca _comeca_,
-            PDec _dec_,
-            PComando _comando_,
-            TTermina _termina_
-    )
+    public ABlocoBloco(
+        @SuppressWarnings("hiding") TComeca _comeca_,
+        @SuppressWarnings("hiding") PListaDecs _listaDecs_,
+        @SuppressWarnings("hiding") PListaComandos _listaComandos_,
+        @SuppressWarnings("hiding") TTermina _termina_)
     {
-        setComeca (_comeca_);
-        setDec (_dec_);
-        setComando (_comando_);
-        setTermina (_termina_);
+        // Constructor
+        setComeca(_comeca_);
+
+        setListaDecs(_listaDecs_);
+
+        setListaComandos(_listaComandos_);
+
+        setTermina(_termina_);
+
     }
 
+    @Override
     public Object clone()
     {
-        return new ABlocoBloco (
-            (TComeca)cloneNode (_comeca_),
-            (PDec)cloneNode (_dec_),
-            (PComando)cloneNode (_comando_),
-            (TTermina)cloneNode (_termina_)
-        );
+        return new ABlocoBloco(
+            cloneNode(this._comeca_),
+            cloneNode(this._listaDecs_),
+            cloneNode(this._listaComandos_),
+            cloneNode(this._termina_));
     }
 
+    @Override
     public void apply(Switch sw)
     {
         ((Analysis) sw).caseABlocoBloco(this);
     }
 
-    public TComeca getComeca ()
+    public TComeca getComeca()
     {
-        return _comeca_;
+        return this._comeca_;
     }
 
-    public void setComeca (TComeca node)
+    public void setComeca(TComeca node)
     {
-        if(_comeca_ != null)
+        if(this._comeca_ != null)
         {
-            _comeca_.parent(null);
+            this._comeca_.parent(null);
         }
 
         if(node != null)
@@ -66,18 +72,19 @@ public final class ABlocoBloco extends PBloco
             node.parent(this);
         }
 
-        _comeca_ = node;
-    }
-    public PDec getDec ()
-    {
-        return _dec_;
+        this._comeca_ = node;
     }
 
-    public void setDec (PDec node)
+    public PListaDecs getListaDecs()
     {
-        if(_dec_ != null)
+        return this._listaDecs_;
+    }
+
+    public void setListaDecs(PListaDecs node)
+    {
+        if(this._listaDecs_ != null)
         {
-            _dec_.parent(null);
+            this._listaDecs_.parent(null);
         }
 
         if(node != null)
@@ -90,18 +97,19 @@ public final class ABlocoBloco extends PBloco
             node.parent(this);
         }
 
-        _dec_ = node;
-    }
-    public PComando getComando ()
-    {
-        return _comando_;
+        this._listaDecs_ = node;
     }
 
-    public void setComando (PComando node)
+    public PListaComandos getListaComandos()
     {
-        if(_comando_ != null)
+        return this._listaComandos_;
+    }
+
+    public void setListaComandos(PListaComandos node)
+    {
+        if(this._listaComandos_ != null)
         {
-            _comando_.parent(null);
+            this._listaComandos_.parent(null);
         }
 
         if(node != null)
@@ -114,18 +122,19 @@ public final class ABlocoBloco extends PBloco
             node.parent(this);
         }
 
-        _comando_ = node;
-    }
-    public TTermina getTermina ()
-    {
-        return _termina_;
+        this._listaComandos_ = node;
     }
 
-    public void setTermina (TTermina node)
+    public TTermina getTermina()
     {
-        if(_termina_ != null)
+        return this._termina_;
+    }
+
+    public void setTermina(TTermina node)
+    {
+        if(this._termina_ != null)
         {
-            _termina_.parent(null);
+            this._termina_.parent(null);
         }
 
         if(node != null)
@@ -138,65 +147,78 @@ public final class ABlocoBloco extends PBloco
             node.parent(this);
         }
 
-        _termina_ = node;
+        this._termina_ = node;
     }
 
+    @Override
     public String toString()
     {
         return ""
-            + toString (_comeca_)
-            + toString (_dec_)
-            + toString (_comando_)
-            + toString (_termina_)
-        ;
+            + toString(this._comeca_)
+            + toString(this._listaDecs_)
+            + toString(this._listaComandos_)
+            + toString(this._termina_);
     }
 
-    void removeChild(Node child)
+    @Override
+    void removeChild(@SuppressWarnings("unused") Node child)
     {
-        if ( _comeca_ == child )
+        // Remove child
+        if(this._comeca_ == child)
         {
-            _comeca_ = null;
+            this._comeca_ = null;
             return;
         }
-        if ( _dec_ == child )
+
+        if(this._listaDecs_ == child)
         {
-            _dec_ = null;
+            this._listaDecs_ = null;
             return;
         }
-        if ( _comando_ == child )
+
+        if(this._listaComandos_ == child)
         {
-            _comando_ = null;
+            this._listaComandos_ = null;
             return;
         }
-        if ( _termina_ == child )
+
+        if(this._termina_ == child)
         {
-            _termina_ = null;
+            this._termina_ = null;
             return;
         }
+
+        throw new RuntimeException("Not a child.");
     }
 
-    void replaceChild(Node oldChild, Node newChild)
+    @Override
+    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
     {
-        if ( _comeca_ == oldChild )
+        // Replace child
+        if(this._comeca_ == oldChild)
         {
-            setComeca ((TComeca) newChild);
+            setComeca((TComeca) newChild);
             return;
         }
-        if ( _dec_ == oldChild )
-        {
-            setDec ((PDec) newChild);
-            return;
-        }
-        if ( _comando_ == oldChild )
-        {
-            setComando ((PComando) newChild);
-            return;
-        }
-        if ( _termina_ == oldChild )
-        {
-            setTermina ((TTermina) newChild);
-            return;
-        }
-    }
 
+        if(this._listaDecs_ == oldChild)
+        {
+            setListaDecs((PListaDecs) newChild);
+            return;
+        }
+
+        if(this._listaComandos_ == oldChild)
+        {
+            setListaComandos((PListaComandos) newChild);
+            return;
+        }
+
+        if(this._termina_ == oldChild)
+        {
+            setTermina((TTermina) newChild);
+            return;
+        }
+
+        throw new RuntimeException("Not a child.");
+    }
 }

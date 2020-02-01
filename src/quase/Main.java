@@ -10,7 +10,7 @@ public class Main {
 	public static void main(String[] args) {
 		try
 		{
-			String arquivo = "teste/sintatico.quase";
+			String arquivo = "teste/foi.quase";
 
 			Lexer lexer = new Lexer(new PushbackReader(new FileReader(arquivo), 1024)); 
 			Token token;
@@ -26,6 +26,7 @@ public class Main {
 
 			Start tree = p.parse();
    			tree.apply(new ASTPrinter());
+   			tree.apply(new ASTDisplay());
 		}
 		catch(Exception e)
 		{

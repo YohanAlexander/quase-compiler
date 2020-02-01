@@ -2,54 +2,64 @@
 
 package quase.node;
 
-import java.util.*;
 import quase.analysis.*;
 
+@SuppressWarnings("nls")
 public final class ADecConsDecCons extends PDecCons
 {
     private TConstante _constante_;
-    private PTipoPrimitivo _tipo_primitivo_;
-    private PListaInicializacao _lista_inicializacao_;
+    private PTipoPrimitivo _tipoPrimitivo_;
+    private PListaInicializacao _listaInicializacao_;
+    private TPontoVirgula _pontoVirgula_;
 
-    public ADecConsDecCons ()
+    public ADecConsDecCons()
     {
+        // Constructor
     }
 
-    public ADecConsDecCons (
-            TConstante _constante_,
-            PTipoPrimitivo _tipo_primitivo_,
-            PListaInicializacao _lista_inicializacao_
-    )
+    public ADecConsDecCons(
+        @SuppressWarnings("hiding") TConstante _constante_,
+        @SuppressWarnings("hiding") PTipoPrimitivo _tipoPrimitivo_,
+        @SuppressWarnings("hiding") PListaInicializacao _listaInicializacao_,
+        @SuppressWarnings("hiding") TPontoVirgula _pontoVirgula_)
     {
-        setConstante (_constante_);
-        setTipoPrimitivo (_tipo_primitivo_);
-        setListaInicializacao (_lista_inicializacao_);
+        // Constructor
+        setConstante(_constante_);
+
+        setTipoPrimitivo(_tipoPrimitivo_);
+
+        setListaInicializacao(_listaInicializacao_);
+
+        setPontoVirgula(_pontoVirgula_);
+
     }
 
+    @Override
     public Object clone()
     {
-        return new ADecConsDecCons (
-            (TConstante)cloneNode (_constante_),
-            (PTipoPrimitivo)cloneNode (_tipo_primitivo_),
-            (PListaInicializacao)cloneNode (_lista_inicializacao_)
-        );
+        return new ADecConsDecCons(
+            cloneNode(this._constante_),
+            cloneNode(this._tipoPrimitivo_),
+            cloneNode(this._listaInicializacao_),
+            cloneNode(this._pontoVirgula_));
     }
 
+    @Override
     public void apply(Switch sw)
     {
         ((Analysis) sw).caseADecConsDecCons(this);
     }
 
-    public TConstante getConstante ()
+    public TConstante getConstante()
     {
-        return _constante_;
+        return this._constante_;
     }
 
-    public void setConstante (TConstante node)
+    public void setConstante(TConstante node)
     {
-        if(_constante_ != null)
+        if(this._constante_ != null)
         {
-            _constante_.parent(null);
+            this._constante_.parent(null);
         }
 
         if(node != null)
@@ -62,18 +72,19 @@ public final class ADecConsDecCons extends PDecCons
             node.parent(this);
         }
 
-        _constante_ = node;
-    }
-    public PTipoPrimitivo getTipoPrimitivo ()
-    {
-        return _tipo_primitivo_;
+        this._constante_ = node;
     }
 
-    public void setTipoPrimitivo (PTipoPrimitivo node)
+    public PTipoPrimitivo getTipoPrimitivo()
     {
-        if(_tipo_primitivo_ != null)
+        return this._tipoPrimitivo_;
+    }
+
+    public void setTipoPrimitivo(PTipoPrimitivo node)
+    {
+        if(this._tipoPrimitivo_ != null)
         {
-            _tipo_primitivo_.parent(null);
+            this._tipoPrimitivo_.parent(null);
         }
 
         if(node != null)
@@ -86,18 +97,19 @@ public final class ADecConsDecCons extends PDecCons
             node.parent(this);
         }
 
-        _tipo_primitivo_ = node;
-    }
-    public PListaInicializacao getListaInicializacao ()
-    {
-        return _lista_inicializacao_;
+        this._tipoPrimitivo_ = node;
     }
 
-    public void setListaInicializacao (PListaInicializacao node)
+    public PListaInicializacao getListaInicializacao()
     {
-        if(_lista_inicializacao_ != null)
+        return this._listaInicializacao_;
+    }
+
+    public void setListaInicializacao(PListaInicializacao node)
+    {
+        if(this._listaInicializacao_ != null)
         {
-            _lista_inicializacao_.parent(null);
+            this._listaInicializacao_.parent(null);
         }
 
         if(node != null)
@@ -110,54 +122,103 @@ public final class ADecConsDecCons extends PDecCons
             node.parent(this);
         }
 
-        _lista_inicializacao_ = node;
+        this._listaInicializacao_ = node;
     }
 
+    public TPontoVirgula getPontoVirgula()
+    {
+        return this._pontoVirgula_;
+    }
+
+    public void setPontoVirgula(TPontoVirgula node)
+    {
+        if(this._pontoVirgula_ != null)
+        {
+            this._pontoVirgula_.parent(null);
+        }
+
+        if(node != null)
+        {
+            if(node.parent() != null)
+            {
+                node.parent().removeChild(node);
+            }
+
+            node.parent(this);
+        }
+
+        this._pontoVirgula_ = node;
+    }
+
+    @Override
     public String toString()
     {
         return ""
-            + toString (_constante_)
-            + toString (_tipo_primitivo_)
-            + toString (_lista_inicializacao_)
-        ;
+            + toString(this._constante_)
+            + toString(this._tipoPrimitivo_)
+            + toString(this._listaInicializacao_)
+            + toString(this._pontoVirgula_);
     }
 
-    void removeChild(Node child)
+    @Override
+    void removeChild(@SuppressWarnings("unused") Node child)
     {
-        if ( _constante_ == child )
+        // Remove child
+        if(this._constante_ == child)
         {
-            _constante_ = null;
+            this._constante_ = null;
             return;
         }
-        if ( _tipo_primitivo_ == child )
+
+        if(this._tipoPrimitivo_ == child)
         {
-            _tipo_primitivo_ = null;
+            this._tipoPrimitivo_ = null;
             return;
         }
-        if ( _lista_inicializacao_ == child )
+
+        if(this._listaInicializacao_ == child)
         {
-            _lista_inicializacao_ = null;
+            this._listaInicializacao_ = null;
             return;
         }
+
+        if(this._pontoVirgula_ == child)
+        {
+            this._pontoVirgula_ = null;
+            return;
+        }
+
+        throw new RuntimeException("Not a child.");
     }
 
-    void replaceChild(Node oldChild, Node newChild)
+    @Override
+    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
     {
-        if ( _constante_ == oldChild )
+        // Replace child
+        if(this._constante_ == oldChild)
         {
-            setConstante ((TConstante) newChild);
+            setConstante((TConstante) newChild);
             return;
         }
-        if ( _tipo_primitivo_ == oldChild )
-        {
-            setTipoPrimitivo ((PTipoPrimitivo) newChild);
-            return;
-        }
-        if ( _lista_inicializacao_ == oldChild )
-        {
-            setListaInicializacao ((PListaInicializacao) newChild);
-            return;
-        }
-    }
 
+        if(this._tipoPrimitivo_ == oldChild)
+        {
+            setTipoPrimitivo((PTipoPrimitivo) newChild);
+            return;
+        }
+
+        if(this._listaInicializacao_ == oldChild)
+        {
+            setListaInicializacao((PListaInicializacao) newChild);
+            return;
+        }
+
+        if(this._pontoVirgula_ == oldChild)
+        {
+            setPontoVirgula((TPontoVirgula) newChild);
+            return;
+        }
+
+        throw new RuntimeException("Not a child.");
+    }
 }

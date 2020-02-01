@@ -2,54 +2,59 @@
 
 package quase.node;
 
-import java.util.*;
 import quase.analysis.*;
 
+@SuppressWarnings("nls")
 public final class AListaIdListaId extends PListaId
 {
     private TId _id_;
     private TVirgula _virgula_;
-    private PListaId _lista_id_;
+    private PListaId _listaId_;
 
-    public AListaIdListaId ()
+    public AListaIdListaId()
     {
+        // Constructor
     }
 
-    public AListaIdListaId (
-            TId _id_,
-            TVirgula _virgula_,
-            PListaId _lista_id_
-    )
+    public AListaIdListaId(
+        @SuppressWarnings("hiding") TId _id_,
+        @SuppressWarnings("hiding") TVirgula _virgula_,
+        @SuppressWarnings("hiding") PListaId _listaId_)
     {
-        setId (_id_);
-        setVirgula (_virgula_);
-        setListaId (_lista_id_);
+        // Constructor
+        setId(_id_);
+
+        setVirgula(_virgula_);
+
+        setListaId(_listaId_);
+
     }
 
+    @Override
     public Object clone()
     {
-        return new AListaIdListaId (
-            (TId)cloneNode (_id_),
-            (TVirgula)cloneNode (_virgula_),
-            (PListaId)cloneNode (_lista_id_)
-        );
+        return new AListaIdListaId(
+            cloneNode(this._id_),
+            cloneNode(this._virgula_),
+            cloneNode(this._listaId_));
     }
 
+    @Override
     public void apply(Switch sw)
     {
         ((Analysis) sw).caseAListaIdListaId(this);
     }
 
-    public TId getId ()
+    public TId getId()
     {
-        return _id_;
+        return this._id_;
     }
 
-    public void setId (TId node)
+    public void setId(TId node)
     {
-        if(_id_ != null)
+        if(this._id_ != null)
         {
-            _id_.parent(null);
+            this._id_.parent(null);
         }
 
         if(node != null)
@@ -62,18 +67,19 @@ public final class AListaIdListaId extends PListaId
             node.parent(this);
         }
 
-        _id_ = node;
-    }
-    public TVirgula getVirgula ()
-    {
-        return _virgula_;
+        this._id_ = node;
     }
 
-    public void setVirgula (TVirgula node)
+    public TVirgula getVirgula()
     {
-        if(_virgula_ != null)
+        return this._virgula_;
+    }
+
+    public void setVirgula(TVirgula node)
+    {
+        if(this._virgula_ != null)
         {
-            _virgula_.parent(null);
+            this._virgula_.parent(null);
         }
 
         if(node != null)
@@ -86,18 +92,19 @@ public final class AListaIdListaId extends PListaId
             node.parent(this);
         }
 
-        _virgula_ = node;
-    }
-    public PListaId getListaId ()
-    {
-        return _lista_id_;
+        this._virgula_ = node;
     }
 
-    public void setListaId (PListaId node)
+    public PListaId getListaId()
     {
-        if(_lista_id_ != null)
+        return this._listaId_;
+    }
+
+    public void setListaId(PListaId node)
+    {
+        if(this._listaId_ != null)
         {
-            _lista_id_.parent(null);
+            this._listaId_.parent(null);
         }
 
         if(node != null)
@@ -110,54 +117,65 @@ public final class AListaIdListaId extends PListaId
             node.parent(this);
         }
 
-        _lista_id_ = node;
+        this._listaId_ = node;
     }
 
+    @Override
     public String toString()
     {
         return ""
-            + toString (_id_)
-            + toString (_virgula_)
-            + toString (_lista_id_)
-        ;
+            + toString(this._id_)
+            + toString(this._virgula_)
+            + toString(this._listaId_);
     }
 
-    void removeChild(Node child)
+    @Override
+    void removeChild(@SuppressWarnings("unused") Node child)
     {
-        if ( _id_ == child )
+        // Remove child
+        if(this._id_ == child)
         {
-            _id_ = null;
+            this._id_ = null;
             return;
         }
-        if ( _virgula_ == child )
+
+        if(this._virgula_ == child)
         {
-            _virgula_ = null;
+            this._virgula_ = null;
             return;
         }
-        if ( _lista_id_ == child )
+
+        if(this._listaId_ == child)
         {
-            _lista_id_ = null;
+            this._listaId_ = null;
             return;
         }
+
+        throw new RuntimeException("Not a child.");
     }
 
-    void replaceChild(Node oldChild, Node newChild)
+    @Override
+    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
     {
-        if ( _id_ == oldChild )
+        // Replace child
+        if(this._id_ == oldChild)
         {
-            setId ((TId) newChild);
+            setId((TId) newChild);
             return;
         }
-        if ( _virgula_ == oldChild )
-        {
-            setVirgula ((TVirgula) newChild);
-            return;
-        }
-        if ( _lista_id_ == oldChild )
-        {
-            setListaId ((PListaId) newChild);
-            return;
-        }
-    }
 
+        if(this._virgula_ == oldChild)
+        {
+            setVirgula((TVirgula) newChild);
+            return;
+        }
+
+        if(this._listaId_ == oldChild)
+        {
+            setListaId((PListaId) newChild);
+            return;
+        }
+
+        throw new RuntimeException("Not a child.");
+    }
 }
