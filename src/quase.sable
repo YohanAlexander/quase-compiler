@@ -63,7 +63,8 @@ Ignored Tokens
     comentario, vazio;
 
 Productions
-    programa = {programa} familia lista_classe;
+    programa = 
+      {programa} familia lista_classe;
     lista_classe =
       {lista_classe} def_classe lista_classe |
       {classe} def_classe;
@@ -78,10 +79,10 @@ Productions
       {relacao} classe cid filha_relacao;
     filha_relacao =
       {filha_relacao} filha_da_classe cid;
-  
+
     def_classe =
       {def_classe} classe cid comeca atributos metodos termina;
-	
+
     atributos =
       {atributos} dec atributos |
       {vazio} ;
@@ -119,13 +120,13 @@ Productions
       {bool} bool |
       {real} real;
     tipo_classe =
-      {tipo_classe} cid;  
+      {tipo_classe} cid;
 
     dec2 =
       {proc} dec_procedimento |
       {func} dec_funcao;
     dec_procedimento =
-      {dec_procedimento} ponto_de_entrada? procedimento id parenteses_esquerdo parametros 
+      {dec_procedimento} ponto_de_entrada? procedimento id parenteses_esquerdo parametros
         parenteses_direito comando;
     dec_funcao =
       {dec_funcao} funcao tipo id parenteses_esquerdo parametros parenteses_direito
@@ -138,18 +139,18 @@ Productions
       {parametro} parametro;
     parametro =
       {parametro} tipo id;
-      
+
     comando =
       {cond} se parenteses_esquerdo exp parenteses_direito comando |
       {cond_else} se parenteses_esquerdo exp parenteses_direito comando_else senao comando |
-      {loop} enquanto parenteses_esquerdo exp parenteses_direito 
+      {loop} enquanto parenteses_esquerdo exp parenteses_direito
         comando |
       {atrib} id atribuicao exp ponto_virgula |
       {call} id_ponto? chamada ponto_virgula |
       {bloco} bloco;
     comando_else =
       {cond} se parenteses_esquerdo exp parenteses_direito comando_else cont_comando_else |
-      {loop} enquanto parenteses_esquerdo exp parenteses_direito 
+      {loop} enquanto parenteses_esquerdo exp parenteses_direito
         comando_else |
       {atrib} id atribuicao exp ponto_virgula |
       {call} id_ponto? chamada ponto_virgula |
@@ -162,7 +163,7 @@ Productions
 
     bloco =
       {bloco} comeca lista_decs lista_comandos termina;
-	
+
     exp =
       {cond} se parenteses_esquerdo exp parenteses_direito entao cond_exp2 |
       {soma} termo adicao exp |
@@ -181,8 +182,8 @@ Productions
       {cont_cond} exp cond_exp3;
     cond_exp3 =
 	  {fim_cond} senao exp;
-	  
-    termo = 
+
+    termo =
       {inteiro} numero_inteiro |
       {real} numero_real |
       {true} true |
@@ -194,7 +195,7 @@ Productions
 	  {id} id |
 	  {call} id_ponto? chamada ponto_virgula |
 	  {atrib} id_ponto? atributo ponto_virgula;
-	  
+
 	id_ponto =
 	  {id_ponto} id ponto;
 
@@ -203,7 +204,7 @@ Productions
     lista_dec_cons =
       {lista_dec_cons} dec_cons lista_dec_cons |
       {vazio} ;
-    
+
     chamada =
       {chamada} id parenteses_esquerdo lista_exp parenteses_direito;
     lista_exp =
