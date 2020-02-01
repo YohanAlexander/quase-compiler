@@ -6,9 +6,9 @@ Helpers
     letra = letra_minuscula | letra_maiuscula;
     digito = ['0'..'9'];
     inteiro_binario = '0b' ('0' | '1')+;
-    inteiro_decimal = '-'? digito+;
-    real_decimal = '-'? inteiro_decimal '.' inteiro_decimal;
-    real_cientifico = '-'? ['1'..'9'] ('.' inteiro_decimal)? ('e' | 'E') inteiro_decimal;
+    inteiro_decimal = digito+;
+    real_decimal = inteiro_decimal '.' inteiro_decimal;
+    real_cientifico = ['1'..'9'] ('.' inteiro_decimal)? ('e' | 'E') '-'? inteiro_decimal;
  
 Tokens
     e_comercial = '&';
@@ -162,6 +162,7 @@ Productions
 
     exp =
       {cond} se parenteses_esquerdo exp parenteses_direito entao cond_exp2 |
+      {negativo} subtracao exp |
       {soma} termo adicao exp |
       {subt} termo subtracao exp |
       {multi} termo multiplicacao exp |
