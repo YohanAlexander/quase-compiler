@@ -1,0 +1,230 @@
+Package quase;
+
+Helpers
+    letra_minuscula = ['a'..'z'] | [224..227] | 231 | 233 | 234 | 237 | [243..245] | 250;
+    letra_maiuscula = ['A'..'Z'] | [192..195] | 199 | 201 | 202 | 205 | [211..213] | 218;
+    letra = letra_minuscula | letra_maiuscula;
+    digito = ['0'..'9'];
+    inteiro_binario = '0b' ('0' | '1')+;
+    inteiro_decimal = digito+;
+    real_decimal = inteiro_decimal '.' inteiro_decimal;
+    real_cientifico = ['1'..'9'] ('.' inteiro_decimal)? ('e' | 'E') '-'? inteiro_decimal;
+
+Tokens
+    e_comercial = '&';
+    ponto_virgula = ';';
+    classe = 'classe';
+    filha_da_classe = 'filha da classe';
+    comeca = 'começa';
+    termina = 'termina';
+    objeto = 'objeto';
+    virgula = ',';
+    variavel = 'var';
+    constante = 'cons';
+    inicializacao = ':=';
+    int = 'int';
+    bool = 'bool';
+    real = 'real';
+    ponto_de_entrada = '=>';
+    procedimento = 'procedimento';
+    parenteses_esquerdo = '(';
+    parenteses_direito = ')';
+    funcao = 'função';
+    se = 'se';
+    senao = 'senão';
+    enquanto = 'enquanto';
+    atribuicao = '=';
+    ponto = '.';
+    true = 'true';
+    false = 'false';
+    subtracao = '-';
+    entao = 'então';
+    adicao = '+';
+    multiplicacao = '*';
+    divisao = '/';
+    modulo = '%';
+    igualdade = '==';
+    menor_que = '<';
+    negacao = '!';
+    e = 'e';
+    ou = 'ou';
+
+    comentario = '{' ([0..124] | 126 | 127)* '}';
+
+    id = letra (letra | '_')*;
+    cid = '_' (letra | '_')*;
+
+    numero_inteiro = inteiro_binario | inteiro_decimal;
+    numero_real = real_decimal | real_cientifico;
+
+    vazio = (' ' | 9 | 10 | 13)+;
+
+Ignored Tokens
+    comentario, vazio;
+
+Productions
+    programa =
+      {programa} familia lista_classe;
+    lista_classe =
+      {lista_classe} def_classe lista_classe |
+      {classe} def_classe;
+
+    familia =
+      {familia} lista_relacao ponto_virgula |
+      {vazio} ;
+    lista_relacao =
+      {lista_relacao} relacao e_comercial lista_relacao |
+      {relacao} relacao;
+    relacao =
+      {relacao} classe cid filha_relacao;
+    filha_relacao =
+      {filha_relacao} filha_da_classe cid;
+
+    def_classe =
+      {def_classe} classe cid comeca atributos metodos termina;
+
+    atributos =
+      {atributos} dec atributos |
+      {vazio} ;
+    metodos =
+      {metodos} dec2 metodos |
+      {vazio} ;
+
+    dec =
+      {obj} dec_obj |
+      {var} dec_var |
+      {cons} dec_cons;
+    lista_decs =
+      {lista_dec} dec lista_decs |
+      {vazio} ;
+    dec_obj =
+      {dec_obj} objeto cid lista_id ponto_virgula;
+    dec_var =
+      {dec_var} variavel tipo lista_id ponto_virgula;
+    dec_cons =
+      {dec_cons} constante tipo_primitivo lista_inicializacao ponto_virgula;
+    inicializacao =
+      {inicializacao} id T.inicializacao exp;
+    lista_id =
+      {lista_id} id virgula lista_id |
+      {id} id;
+    lista_inicializacao =
+      {lista_inicializacao} P.inicializacao virgula lista_inicializacao |
+      {inicializacao} P.inicializacao;
+
+    tipo =
+      {classe} tipo_classe |
+      {primitivo} tipo_primitivo;
+    tipo_primitivo =
+      {int} int |
+      {bool} bool |
+      {real} real;
+    tipo_classe =
+      {tipo_classe} cid;
+
+    dec2 =
+      {proc} dec_procedimento |
+      {func} dec_funcao;
+    dec_procedimento =
+      {dec_procedimento} ponto_de_entrada? procedimento id parenteses_esquerdo parametros parenteses_direito comando;
+    dec_funcao =
+      {dec_funcao} funcao tipo id parenteses_esquerdo parametros parenteses_direito exp;
+    parametros =
+      {parametros} lista_parametro |
+      {vazio} ;
+    lista_parametro =
+      {lista_parametro} parametro virgula lista_parametro |
+      {parametro} parametro;
+    parametro =
+      {parametro} tipo id;
+
+    comando =
+      {cond} se parenteses_esquerdo exp parenteses_direito comando |
+      {cond_else} se parenteses_esquerdo exp parenteses_direito comando_else senao comando |
+      {loop} enquanto parenteses_esquerdo exp parenteses_direito comando |
+      {atrib} id atribuicao exp ponto_virgula |
+      {call} id_ponto? chamada ponto_virgula |
+      {bloco} bloco;
+    comando_else =
+      {cond} se parenteses_esquerdo exp parenteses_direito comando_else cont_comando_else |
+      {loop} enquanto parenteses_esquerdo exp parenteses_direito comando_else |
+      {atrib} id atribuicao exp ponto_virgula |
+      {call} id_ponto? chamada ponto_virgula |
+      {bloco} bloco;
+    cont_comando_else =
+      {cont_cond} senao comando_else;
+    lista_comandos =
+      {lista_comandos} comando lista_comandos |
+      {vazio} ;
+
+    bloco =
+      {bloco} comeca lista_decs lista_comandos termina;
+
+    exp {-> exp} =
+      {cond} se parenteses_esquerdo exp parenteses_direito entao cond_exp2 |
+      {negativo} subtracao exp {-> New exp.a_negativo(exp)} |
+      {soma} [esq]:termo adicao [dir]:exp {-> New exp.a_soma(esq.exp, dir.exp)} |
+      {subt} [esq]:termo subtracao [dir]:exp {-> New exp.a_subt(esq.exp, dir.exp)} |
+      {multi} [esq]:termo multiplicacao [dir]:exp {-> New exp.a_multi(esq.exp, dir.exp)} |
+      {div} [esq]:termo divisao [dir]:exp {-> New exp.a_div(esq.exp, dir.exp)} |
+      {mod} [esq]:termo modulo [dir]:exp {-> New exp.a_mod(esq.exp, dir.exp)} |
+      {igual} [esq]:termo igualdade [dir]:exp {-> New exp.a_igual(esq.exp, dir.exp)} |
+      {menor} [esq]:termo menor_que [dir]:exp {-> New exp.a_menor(esq.exp, dir.exp)} |
+      {dif} negacao exp {-> New exp.a_dif(exp)} |
+      {and} termo e exp {-> New exp.a_and(exp)} |
+      {or} termo ou exp {-> New exp.a_or(exp)} |
+      {bloco_exp} bloco_exp |
+      {termo} termo {-> termo.exp};
+    cond_exp2 =
+      {cont_cond} exp cond_exp3;
+    cond_exp3 =
+      {fim_cond} senao exp;
+
+    termo {-> exp} =
+      {inteiro} numero_inteiro {-> New exp.a_numero(numero_inteiro)} |
+      {real} numero_real |
+      {true} true {-> New exp.a_bool(true)} |
+      {false} false |
+      {id_call} id_call |
+      {par} parenteses_esquerdo exp parenteses_direito {-> exp.exp};
+
+    id_call =
+      {id} id |
+      {call} id_ponto? chamada ponto_virgula |
+      {atrib} id_ponto? atributo ponto_virgula;
+
+    id_ponto =
+      {id_ponto} id ponto;
+
+    bloco_exp =
+      {bloco_exp} comeca lista_dec_cons exp termina;
+    lista_dec_cons =
+      {lista_dec_cons} dec_cons lista_dec_cons |
+      {vazio} ;
+
+    chamada =
+      {chamada} id parenteses_esquerdo lista_exp parenteses_direito;
+    lista_exp =
+      {lista_exp} exp virgula lista_exp |
+      {exp} exp |
+      {vazio} ;
+
+    /* todo */
+    atributo =
+      {vazio} ;
+
+Abstract Syntax Tree
+	exp =
+	    {a_soma} [esq]:exp [dir]:exp |
+	    {a_subt} [esq]:exp [dir]:exp |
+	    {a_multi} [esq]:exp [dir]:exp |
+	    {a_div} [esq]:exp [dir]:exp |
+	    {a_mod} [esq]:exp [dir]:exp |
+	    {a_igual} [esq]:exp [dir]:exp |
+	    {a_menor} [esq]:exp [dir]:exp |
+	    {a_numero} numero_inteiro |
+	    {a_bool} true |
+	    {a_negativo} exp |
+	    {a_dif} exp |
+	    {a_and} exp |
+	    {a_or} exp;
