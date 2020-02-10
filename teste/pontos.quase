@@ -4,8 +4,8 @@ classe _Ponto começa
 	
 	var int x, y;
 	
-	procedimento Setx ( int t_x ) x = t_x
-	procedimento Sety ( int t_y ) y = t_y
+	procedimento Setx ( int t_x ) x = t_x;
+	procedimento Sety ( int t_y ) y = t_y;
 
 termina
 
@@ -14,7 +14,7 @@ classe _Vetor começa
 	objeto _Ponto pxy;
 	var int z;
 	
-	procedimento Setz ( int t_z ) z = t_z
+	procedimento Setz ( int t_z ) z = t_z;
 
 termina
 
@@ -26,27 +26,27 @@ classe _Func começa
 	termina
 
         função real raiz(real n, real i, real j) começa
-	
-	       se ( ((i + j) / 2) * ((i + j) / 2) == n ) ou
-	       	       ( (modulo_real(((i + j) / 2) * ((i + j) / 2)) - n) < 0.00001) então
+	       
+	       se ( (((i + j) / 2) * ((i + j) / 2) == n) ou
+	       	       ((((i + j) / 2) * ((i + j) / 2)) - n) < 0.00001 ) então
 		       	      (i + j) / 2
 	       senão se ( ((i + j) / 2) * ((i + j) / 2) < n)
-	       	     então sqrt(n, (i + j) / 2)
-		     senão sqrt(n, i, (i + j) / 2)
+	       	     então sqrt(n, (i + j) / 2);
+		     senão sqrt(n, i, (i + j) / 2);
 		     
 	termina
 
 	função real achar_raiz(real n, real i) começa
 	
 		 se (i * i == n) então i
-		 senão se (i * i > n) então raiz(n, i - 1, i)
-		       senão achar_raiz(n, i + 1)
+		 senão se (n < i * i) então raiz(n, i - 1, i);
+		       senão achar_raiz(n, i + 1);
 		       
 	termina
 
 	função real dist ( _Ponto pi, _Ponto pii ) começa
 
-		achar_raiz((pii.x - pi.x) * (pii.x - pi.x) + (pii.y - pi.y) * (pii.y - pi.y))
+		achar_raiz((pii.x - pi.x) * (pii.x - pi.x) + (pii.y - pi.y) * (pii.y - pi.y));
 
 	termina
 

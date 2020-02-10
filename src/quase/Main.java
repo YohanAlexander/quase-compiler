@@ -10,7 +10,7 @@ public class Main {
 	public static void main(String[] args) {
 		try
 		{
-			String arquivo = "teste/foi.quase";
+			String arquivo = "teste/pontos.quase";
 
 			Lexer lexer = new Lexer(new PushbackReader(new FileReader(arquivo), 1024)); 
 			Token token;
