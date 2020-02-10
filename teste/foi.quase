@@ -16,7 +16,7 @@ classe _Chave começa
 	var real escala;
 
 	procedimento SetEscala() começa
-		se ((escala % 2e0 == 0E3) e true ou !false)
+		se ((escala % 2e0 == 1E3) e true ou !false)
 			escala = -4e-2;
 		senão
 			escala = 7E-5 + 1 - 2 * 3 / 4;
