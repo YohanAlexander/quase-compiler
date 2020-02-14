@@ -205,9 +205,11 @@ Productions
     chamada =
       {chamada} id parenteses_esquerdo lista_exp parenteses_direito;
     lista_exp =
-      {lista_exp} exp virgula lista_exp |
-      {exp} exp |
+      {lista_exp_nao_vazia} lista_exp_nao_vazia |
       {vazio} ;
+    lista_exp_nao_vazia =
+      {lista_exp_nao_vazia} exp virgula lista_exp_nao_vazia |
+      {exp} exp ;
 
     /* todo */
     atributo =
