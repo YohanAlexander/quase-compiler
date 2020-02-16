@@ -189,9 +189,8 @@ Productions
       {par} parenteses_esquerdo exp parenteses_direito;
 
     id_call =
-      {id} id |
-      {call} id_ponto? chamada ponto_virgula |
-      {atrib} id_ponto? atributo ponto_virgula;
+      {id_atrib} id_ponto? id |
+      {call} id_ponto? chamada;
 
     id_ponto =
       {id_ponto} id ponto;
@@ -210,8 +209,3 @@ Productions
     lista_exp_nao_vazia =
       {lista_exp_nao_vazia} exp virgula lista_exp_nao_vazia |
       {exp} exp ;
-
-    /* todo */
-    atributo =
-      {vazio} ;
-
