@@ -63,149 +63,232 @@ Ignored Tokens
     comentario, vazio;
 
 Productions
-    programa =
-      {programa} familia lista_classe;
-    lista_classe =
-      {lista_classe} def_classe lista_classe |
-      {classe} def_classe;
-
-    familia =
-      {familia} lista_relacao ponto_virgula |
-      {vazio} ;
-    lista_relacao =
-      {lista_relacao} relacao e_comercial lista_relacao |
-      {relacao} relacao;
-    relacao =
-      {relacao} classe cid filha_relacao;
+    programa {-> programa} = 
+      [esq]:familia? [dir]:lista_classe {-> New programa.a_programa(esq.familia, [dir.def_classe])};
+    lista_classe {-> def_classe*} =
+      {lista_classe} [esq]:def_classe [dir]:lista_classe {-> [esq.def_classe, dir.def_classe]} |
+      {classe} def_classe {-> [def_classe]};
+      
+    familia {-> familia} =
+      {familia} lista_relacao ponto_virgula {-> New familia.a_lista_relacao([lista_relacao.relacao])};
+    lista_relacao {-> relacao*} =
+      {lista_relacao} [esq]:relacao e_comercial [dir]:lista_relacao {-> [esq.relacao, dir.relacao]} |
+      {relacao} relacao {-> [relacao]};
+    relacao {-> relacao} =
+      {relacao} classe cid filha_relacao {-> New relacao.a_relacao(filha_relacao)};
     filha_relacao =
       {filha_relacao} filha_da_classe cid;
-
-    def_classe =
-      {def_classe} classe cid comeca atributos metodos termina;
-
-    atributos =
-      {atributos} dec atributos |
-      {vazio} ;
-    metodos =
-      {metodos} dec2 metodos |
-      {vazio} ;
-
-    dec =
-      {obj} dec_obj |
-      {var} dec_var |
-      {cons} dec_cons;
-    lista_decs =
-      {lista_dec} dec lista_decs |
-      {vazio} ;
-    dec_obj =
-      {dec_obj} objeto cid lista_id ponto_virgula;
-    dec_var =
-      {dec_var} variavel tipo lista_id ponto_virgula;
-    dec_cons =
-      {dec_cons} constante tipo_primitivo lista_inicializacao ponto_virgula;
-    inicializacao =
-      {inicializacao} id T.inicializacao exp;
-    lista_id =
-      {lista_id} id virgula lista_id |
+    
+    def_classe {-> def_classe} =
+      {def_classe} classe cid comeca [esq]:atributos? [dir]:metodos? termina {-> New def_classe.a_def_classe([esq.dec], [dir.dec2])};
+      
+    atributos {-> dec*} =
+      {atributos} [esq]:dec [dir]:atributos {-> [esq.dec, dir.dec]} |
+      {dec} dec {-> [dec]};
+    metodos {-> dec2*} =
+      {metodos} [esq]:dec2 [dir]:metodos {-> [esq.dec2, dir.dec2]} |
+      {dec} dec2 {-> [dec2]};
+      
+    dec {-> dec} =
+      {obj} dec_obj {-> dec_obj.dec} |
+      {var} dec_var {-> dec_var.dec} |
+      {cons} dec_cons {-> dec_cons.dec};
+    lista_decs {-> dec*} =
+      {lista_dec} [esq]:dec [dir]:lista_decs {-> [esq.dec, dir.dec]} |
+      {dec} dec {-> [dec]};
+    lista_dec_cons {-> dec*} =
+      {lista_dec_cons} [esq]:dec_cons [dir]:lista_dec_cons {-> [esq.dec, dir.dec]}|
+      {dec_cons} dec_cons {-> [dec_cons.dec]};
+    dec_obj {-> dec} =
+      {dec_obj} objeto cid lista_id ponto_virgula {-> New dec.a_dec_obj([lista_id.pid])};
+    dec_var {-> dec} =
+      {dec_var} variavel [esq]:tipo [dir]:lista_id ponto_virgula {-> New dec.a_dec_var(esq.tipo, [dir.pid])};
+    dec_cons {-> dec} =
+      {dec_cons} constante [esq]:tipo_primitivo [dir]:lista_inicializacao+ ponto_virgula {-> New dec.a_dec_cons(esq.tipo_primitivo, [dir.pinicializacao])};
+    lista_id {-> pid*} =
+      {lista_id} [esq]:pid virgula [dir]:lista_id {-> [esq.pid, dir.pid]} |
+      {id} pid {-> [pid]};
+    lista_inicializacao {-> pinicializacao*} =
+      {lista_inicializacao} [esq]:pinicializacao virgula [dir]:lista_inicializacao {-> [esq.pinicializacao, dir.pinicializacao]} |
+      {inicializacao} pinicializacao {-> [pinicializacao]};
+    pid =
       {id} id;
-    lista_inicializacao =
-      {lista_inicializacao} P.inicializacao virgula lista_inicializacao |
-      {inicializacao} P.inicializacao;
+    pinicializacao {-> pinicializacao} =
+      {pinicializacao} id inicializacao exp {-> New pinicializacao.a_pinicializacao(exp)};
+      
+    dec2 {-> dec2} =
+      {proc} dec_procedimento {-> dec_procedimento.dec2} |
+      {func} dec_funcao {-> dec_funcao.dec2};
+    dec_procedimento {-> dec2} =
+      {dec_procedimento} ponto_de_entrada? procedimento id parenteses_esquerdo [esq]:lista_parametro? parenteses_direito [dir]:comando {-> New dec2.a_dec_procedimento([esq.parametro], dir.comando)};
+    dec_funcao {-> dec2} =
+      {dec_funcao} funcao [esq]:tipo id parenteses_esquerdo [mid]:lista_parametro? parenteses_direito [dir]:exp {-> New dec2.a_dec_funcao(esq.tipo, [mid.parametro], dir.exp)};
+    lista_parametro {-> parametro*} =
+      {lista_parametro} [esq]:parametro virgula [dir]:lista_parametro {-> [esq.parametro, dir.parametro]} |
+      {parametro} parametro {-> [parametro]};
+    parametro =
+      {parametro} tipo id;
 
-    tipo =
-      {classe} tipo_classe |
-      {primitivo} tipo_primitivo;
+    tipo {-> tipo} =
+      {classe} tipo_classe {-> New tipo.a_tipo_classe(tipo_classe)} |
+      {primitivo} tipo_primitivo {-> New tipo.a_tipo_primtivo(tipo_primitivo)};
+    tipo_classe =
+      {tipo_classe} cid;
     tipo_primitivo =
       {int} int |
       {bool} bool |
       {real} real;
-    tipo_classe =
-      {tipo_classe} cid;
 
-    dec2 =
-      {proc} dec_procedimento |
-      {func} dec_funcao;
-    dec_procedimento =
-      {dec_procedimento} ponto_de_entrada? procedimento id parenteses_esquerdo parametros parenteses_direito comando;
-    dec_funcao =
-      {dec_funcao} funcao tipo id parenteses_esquerdo parametros parenteses_direito exp;
-    parametros =
-      {parametros} lista_parametro |
-      {vazio} ;
-    lista_parametro =
-      {lista_parametro} parametro virgula lista_parametro |
-      {parametro} parametro;
-    parametro =
-      {parametro} tipo id;
+    comando {-> comando} =
+      {cond} se parenteses_esquerdo [esq]:exp parenteses_direito [dir]:comando {-> New comando.a_cond(esq.exp, dir.comando)} |
+      {cond_else} se parenteses_esquerdo [esq]:exp parenteses_direito [mid]:comando_else senao [dir]:comando {-> New comando.a_cond_else(esq.exp, mid.comando, dir.comando)} |
+      {loop} enquanto parenteses_esquerdo [esq]:exp parenteses_direito [dir]:comando {-> New comando.a_loop(esq.exp, dir.comando)} |
+      {atrib} id atribuicao exp ponto_virgula {-> New comando.a_atrib(exp)} |
+      {call} id_ponto? chamada ponto_virgula {-> New comando.a_call(chamada)} |
+      {bloco} bloco {-> bloco.comando};
+    comando_else {-> comando} =
+      {cond} se parenteses_esquerdo [esq]:exp parenteses_direito [mid]:comando_else [dir]:cont_comando_else {-> New comando.a_cont_cond_else(esq.exp, mid.comando, dir.comando)} |
+      {loop} enquanto parenteses_esquerdo [esq]:exp parenteses_direito [dir]:comando_else {-> New comando.a_loop_else(esq.exp, dir.comando)} |
+      {atrib} id atribuicao exp ponto_virgula {-> New comando.a_atrib_else(exp)} |
+      {call} id_ponto? chamada ponto_virgula {-> New comando.a_call_else(chamada)} |
+      {bloco} bloco {-> bloco.comando};
+    cont_comando_else {-> comando} =
+      {cont_cond} senao comando_else {-> comando_else.comando};
+    lista_comandos {-> comando*} =
+      {lista_comandos} [esq]:comando [dir]:lista_comandos {-> [esq.comando, dir.comando]} |
+      {comando} comando {-> [comando]};
+      
+    bloco {-> comando} =
+      {bloco} comeca [esq]:lista_decs? [dir]:lista_comandos? termina {-> New comando.a_bloco([esq.dec], [dir.comando])};
+    
+    exp {-> exp} =
+      {cond} se parenteses_esquerdo [esq]:exp parenteses_direito entao [dir]:cond_exp2 {-> New exp.a_se_cond(esq.exp, dir.exp)} |
+      {negativo} subtracao exp {-> New exp.a_negativo(exp)} |
+      {soma} [esq]:termo adicao [dir]:exp {-> New exp.a_soma(esq.exp, dir.exp)} |
+      {subt} [esq]:termo subtracao [dir]:exp {-> New exp.a_subt(esq.exp, dir.exp)} |
+      {multi} [esq]:termo multiplicacao [dir]:exp {-> New exp.a_multi(esq.exp, dir.exp)} |
+      {div} [esq]:termo divisao [dir]:exp {-> New exp.a_div(esq.exp, dir.exp)} |
+      {mod} [esq]:termo modulo [dir]:exp {-> New exp.a_mod(esq.exp, dir.exp)} |
+      {igual} [esq]:termo igualdade [dir]:exp {-> New exp.a_igual(esq.exp, dir.exp)} |
+      {menor} [esq]:termo menor_que [dir]:exp {-> New exp.a_menor(esq.exp, dir.exp)} |
+      {dif} negacao exp {-> New exp.a_dif(exp)} |
+      {and} termo e exp {-> New exp.a_and(exp)} |
+      {or} termo ou exp {-> New exp.a_or(exp)} |
+      {bloco_exp} bloco_exp {-> bloco_exp.exp} |
+      {termo} termo {-> termo.exp};
+    cond_exp2 {-> exp} =
+      {cont_cond} [esq]:exp [dir]:cond_exp3 {-> New exp.a_entao_cond(esq.exp, dir.exp)};
+    cond_exp3 {-> exp} =
+      {fim_cond} senao exp {-> New exp.a_senao_cond(exp)};
+      
+    termo {-> exp} =
+      {numero} numero {-> New exp.a_numero(numero)} |
+      {booleano} booleano {-> New exp.a_booleano(booleano)} |
+      {id_call} id_call {-> id_call.exp} |
+      {par} parenteses_esquerdo exp parenteses_direito {-> exp.exp};
 
-    comando =
-      {cond} se parenteses_esquerdo exp parenteses_direito comando |
-      {cond_else} se parenteses_esquerdo exp parenteses_direito comando_else senao comando |
-      {loop} enquanto parenteses_esquerdo exp parenteses_direito comando |
-      {atrib} id atribuicao exp ponto_virgula |
-      {call} id_ponto? chamada ponto_virgula |
-      {bloco} bloco;
-    comando_else =
-      {cond} se parenteses_esquerdo exp parenteses_direito comando_else cont_comando_else |
-      {loop} enquanto parenteses_esquerdo exp parenteses_direito comando_else |
-      {atrib} id atribuicao exp ponto_virgula |
-      {call} id_ponto? chamada ponto_virgula |
-      {bloco} bloco;
-    cont_comando_else =
-      {cont_cond} senao comando_else;
-    lista_comandos =
-      {lista_comandos} comando lista_comandos |
-      {vazio} ;
-
-    bloco =
-      {bloco} comeca lista_decs lista_comandos termina;
-
-    exp =
-      {cond} se parenteses_esquerdo exp parenteses_direito entao cond_exp2 |
-      {negativo} subtracao exp |
-      {soma} termo adicao exp |
-      {subt} termo subtracao exp |
-      {multi} termo multiplicacao exp |
-      {div} termo divisao exp |
-      {mod} termo modulo exp |
-      {igual} termo igualdade exp |
-      {menor} termo menor_que exp |
-      {dif} negacao exp |
-      {and} termo e exp |
-      {or} termo ou exp |
-      {bloco_exp} bloco_exp |
-      {termo} termo;
-    cond_exp2 =
-      {cont_cond} exp cond_exp3;
-    cond_exp3 =
-      {fim_cond} senao exp;
-
-    termo =
+    numero =
       {inteiro} numero_inteiro |
-      {real} numero_real |
+      {real} numero_real;
+    booleano =
       {true} true |
-      {false} false |
-      {id_call} id_call |
-      {par} parenteses_esquerdo exp parenteses_direito;
+      {false} false;
 
-    id_call =
-      {id_atrib} id_ponto? id |
-      {call} id_ponto? chamada;
-
+    id_call {-> exp} =
+      {id_atrib} id_ponto? id {-> New exp.a_id_atrib(id_ponto)} |
+      {id_call} [esq]:id_ponto? [dir]:chamada {-> New exp.a_id_call(esq.id_ponto, dir.chamada)};
     id_ponto =
       {id_ponto} id ponto;
 
-    bloco_exp =
-      {bloco_exp} comeca lista_dec_cons exp termina;
-    lista_dec_cons =
-      {lista_dec_cons} dec_cons lista_dec_cons |
-      {vazio} ;
+    bloco_exp {-> exp} =
+      {bloco_exp} comeca [esq]:lista_dec_cons? [dir]:exp termina {-> New exp.a_bloco_exp([esq.dec], dir.exp)};
+
+    chamada {-> chamada} =
+      {chamada} id parenteses_esquerdo lista_exp? parenteses_direito {-> New chamada.a_chamada([lista_exp.exp])};
+    lista_exp {-> exp*} =
+      {lista_exp} [esq]:exp virgula [dir]:lista_exp {-> [esq.exp, dir.exp]} |
+      {exp} exp {-> [exp]};
+
+Abstract Syntax Tree
+    programa =
+      {a_programa} [esq]:familia? [dir]:def_classe+;
+
+    familia = 
+      {a_lista_relacao} relacao+;
+    relacao =
+      {a_relacao} filha_relacao;
+    filha_relacao =
+      {filha_relacao} filha_da_classe cid;
+
+    def_classe =
+      {a_def_classe} [esq]:dec* [dir]:dec2*;
+
+    dec =
+      {a_dec_obj} pid+ |
+      {a_dec_var} [esq]:tipo [dir]:pid+ |
+      {a_dec_cons} [esq]:tipo_primitivo [dir]:pinicializacao+;
+    pid =
+      {id} id;
+    pinicializacao =
+      {a_pinicializacao} exp;
+
+    dec2 =
+      {a_dec_procedimento} [esq]:parametro* [dir]:comando |
+      {a_dec_funcao} [esq]:tipo [mid]:parametro* [dir]:exp;
+    parametro =
+      {parametro} tipo id;
+
+    tipo =
+      {a_tipo_classe} tipo_classe |
+      {a_tipo_primtivo} tipo_primitivo;
+    tipo_classe =
+      {tipo_classe} cid;
+    tipo_primitivo =
+      {int} int |
+      {bool} bool |
+      {real} real;
+
+    comando =
+      {a_cond} [esq]:exp [dir]:comando |
+      {a_cond_else} [esq]:exp [mid]:comando [dir]:comando |
+      {a_cont_cond_else} [esq]:exp [mid]:comando [dir]:comando |
+      {a_loop} [esq]:exp [dir]:comando |
+      {a_atrib} exp |
+      {a_call} chamada |
+      {a_bloco} [esq]:dec* [dir]:comando* |
+      {a_loop_else} [esq]:exp [dir]:comando |
+      {a_atrib_else} exp |
+      {a_call_else} chamada;
+
+	exp =
+      {a_se_cond} [esq]:exp [dir]:exp |
+      {a_entao_cond} [esq]:exp [dir]:exp |
+      {a_senao_cond} exp |
+      {a_soma} [esq]:exp [dir]:exp |
+      {a_subt} [esq]:exp [dir]:exp |
+      {a_multi} [esq]:exp [dir]:exp |
+      {a_div} [esq]:exp [dir]:exp |
+      {a_mod} [esq]:exp [dir]:exp |
+      {a_igual} [esq]:exp [dir]:exp |
+      {a_menor} [esq]:exp [dir]:exp |
+      {a_bloco_exp} [esq]:dec* [dir]:exp |
+      {a_negativo} exp |
+      {a_dif} exp |
+      {a_and} exp |
+      {a_or} exp |
+      {a_id_atrib} id_ponto? |
+      {a_id_call} [esq]:id_ponto? [dir]:chamada |
+      {a_numero} numero |
+      {a_booleano} booleano;
+    id_ponto =
+      {id_ponto} id ponto;
+
+    numero =
+      {inteiro} numero_inteiro |
+      {real} numero_real;
+    booleano =
+      {true} true |
+      {false} false;
 
     chamada =
-      {chamada} id parenteses_esquerdo lista_exp parenteses_direito;
-    lista_exp =
-      {lista_exp_nao_vazia} lista_exp_nao_vazia |
-      {vazio} ;
-    lista_exp_nao_vazia =
-      {lista_exp_nao_vazia} exp virgula lista_exp_nao_vazia |
-      {exp} exp ;
+      {a_chamada} exp*;
