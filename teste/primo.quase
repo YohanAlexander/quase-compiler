@@ -4,23 +4,23 @@ classe _Primo começa
 		 então 1
 		 senão se (i * i < n)
 		       então se (n % i == 0)
-		       	     então 2 + num_divs(n, i + 1);
-			     senão num_divs(n, i + 1);
+		       	     então 2 + num_divs(n, i + 1)
+			     senão num_divs(n, i + 1)
 		       senão se (i * i == n)
 		       	     então 3
 			     senão 2
 
 	função bool e_primo(int n)
-		se (num_divs(n, 2); == 2) então true senão false
+		se (num_divs(n, 2) == 2) então true senão false
 
 	=> procedimento Main() começa
 	   	objeto _IO io;
 	   	var int n;
 
-		n = io.read();;
+		n = io.read();
 		enquanto (0 < n) começa
-		      io.print(e_primo(n););
-		      n = io.read();;
+		      io.print(e_primo(n));
+		      n = io.read();
 		termina
 	termina
 termina

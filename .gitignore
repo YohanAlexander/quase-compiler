@@ -1,7 +1,4 @@
-.project
-.classpath
-bin/
-src/quase/analysis
-src/quase/lexer
-src/quase/node
-src/quase/parser
+quase/analysis
+quase/lexer
+quase/node
+quase/parser

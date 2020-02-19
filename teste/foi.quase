@@ -36,7 +36,7 @@ classe _TelefoneDeLata começa
 		var int x;
 		cons real y := 3.4;
 
-		se (true) x = console.read();;
+		se (true) x = console.read();
 		enquanto (false) console.print(123);
 	termina
 termina

@@ -27,6 +27,8 @@ public class Main {
 			Start tree = p.parse();
    			tree.apply(new ASTPrinter());
    			tree.apply(new ASTDisplay());
+            //aplicação da análise semântica em minha AST
+            tree.apply(new Semantico());
 		}
 		catch(Exception e)
 		{

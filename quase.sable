@@ -63,12 +63,12 @@ Ignored Tokens
     comentario, vazio;
 
 Productions
-    programa {-> programa} = 
+    programa {-> programa} =
       [esq]:familia? [dir]:lista_classe {-> New programa.a_programa(esq.familia, [dir.def_classe])};
     lista_classe {-> def_classe*} =
       {lista_classe} [esq]:def_classe [dir]:lista_classe {-> [esq.def_classe, dir.def_classe]} |
       {classe} def_classe {-> [def_classe]};
-      
+
     familia {-> familia} =
       {familia} lista_relacao ponto_virgula {-> New familia.a_lista_relacao([lista_relacao.relacao])};
     lista_relacao {-> relacao*} =
@@ -78,17 +78,17 @@ Productions
       {relacao} classe cid filha_relacao {-> New relacao.a_relacao(filha_relacao)};
     filha_relacao =
       {filha_relacao} filha_da_classe cid;
-    
+
     def_classe {-> def_classe} =
       {def_classe} classe cid comeca [esq]:atributos? [dir]:metodos? termina {-> New def_classe.a_def_classe([esq.dec], [dir.dec2])};
-      
+
     atributos {-> dec*} =
       {atributos} [esq]:dec [dir]:atributos {-> [esq.dec, dir.dec]} |
       {dec} dec {-> [dec]};
     metodos {-> dec2*} =
       {metodos} [esq]:dec2 [dir]:metodos {-> [esq.dec2, dir.dec2]} |
       {dec} dec2 {-> [dec2]};
-      
+
     dec {-> dec} =
       {obj} dec_obj {-> dec_obj.dec} |
       {var} dec_var {-> dec_var.dec} |
@@ -115,7 +115,7 @@ Productions
       {id} id;
     pinicializacao {-> pinicializacao} =
       {pinicializacao} id inicializacao exp {-> New pinicializacao.a_pinicializacao(exp)};
-      
+
     dec2 {-> dec2} =
       {proc} dec_procedimento {-> dec_procedimento.dec2} |
       {func} dec_funcao {-> dec_funcao.dec2};
@@ -157,10 +157,10 @@ Productions
     lista_comandos {-> comando*} =
       {lista_comandos} [esq]:comando [dir]:lista_comandos {-> [esq.comando, dir.comando]} |
       {comando} comando {-> [comando]};
-      
+
     bloco {-> comando} =
       {bloco} comeca [esq]:lista_decs? [dir]:lista_comandos? termina {-> New comando.a_bloco([esq.dec], [dir.comando])};
-    
+
     exp {-> exp} =
       {cond} se parenteses_esquerdo [esq]:exp parenteses_direito entao [dir]:cond_exp2 {-> New exp.a_se_cond(esq.exp, dir.exp)} |
       {negativo} subtracao exp {-> New exp.a_negativo(exp)} |
@@ -180,7 +180,7 @@ Productions
       {cont_cond} [esq]:exp [dir]:cond_exp3 {-> New exp.a_entao_cond(esq.exp, dir.exp)};
     cond_exp3 {-> exp} =
       {fim_cond} senao exp {-> New exp.a_senao_cond(exp)};
-      
+
     termo {-> exp} =
       {numero} numero {-> New exp.a_numero(numero)} |
       {booleano} booleano {-> New exp.a_booleano(booleano)} |
@@ -213,7 +213,7 @@ Abstract Syntax Tree
     programa =
       {a_programa} [esq]:familia? [dir]:def_classe+;
 
-    familia = 
+    familia =
       {a_lista_relacao} relacao+;
     relacao =
       {a_relacao} filha_relacao;
