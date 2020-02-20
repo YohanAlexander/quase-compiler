@@ -19,10 +19,10 @@ classe _Func começa
     função real raiz(real n, real i, real j) começa
 
 	   	se ( (((i + j) / 2) * ((i + j) / 2) == n) ou
-	   	    ((modulo_real(((i + j) / 2) * ((i + j) / 2)) - n) < 0.00001) )
+	   	(modulo_real((((i + j) / 2) * ((i + j) / 2)) - n) < 0.00001) )
 			então (i + j) / 2
 	   	senão se ( ((i + j) / 2) * ((i + j) / 2) < n)
-	   	    então sqrt(n, (i + j) / 2)
+	   		então sqrt(n, (i + j) / 2)
 	    senão sqrt(n, i, (i + j) / 2)
 
 	termina

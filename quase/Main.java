@@ -12,7 +12,7 @@ public class Main {
 		{
 			String arquivo = "teste/pontos.quase";
 
-			Lexer lexer = new Lexer(new PushbackReader(new FileReader(arquivo), 1024)); 
+			Lexer lexer = new Lexer(new PushbackReader(new FileReader(arquivo), 1024));
 			Token token;
 			while(!((token = lexer.next()) instanceof EOF))
 			{
@@ -27,7 +27,6 @@ public class Main {
 			Start tree = p.parse();
    			tree.apply(new ASTPrinter());
    			tree.apply(new ASTDisplay());
-            //aplicação da análise semântica em minha AST
             tree.apply(new Semantico());
 		}
 		catch(Exception e)

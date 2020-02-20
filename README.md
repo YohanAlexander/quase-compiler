@@ -44,7 +44,7 @@ sablecc quase.sable
 Para testar se o código esta no formato adequado da linguagem execute a main no diretório raiz do projeto:
 ```sh
 javac quase/Main.java
-java -cp . quase/Main
+java quase/Main
 ```
 Caso o código alvo não apresente erros, será apresentada a estrutura em árvore das classes.
 

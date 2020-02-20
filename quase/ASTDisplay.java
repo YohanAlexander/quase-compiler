@@ -14,13 +14,13 @@ import quase.node.*;
 
 public class ASTDisplay extends DepthFirstAdapter
 {
-    
+
     private Stack parents = new Stack ();
- 
+
     public ASTDisplay()
     {
     }
- 
+
     public void outStart(Start node)
     {
         JFrame frame = new JFrame ("AST Displayer");
@@ -46,8 +46,7 @@ public class ASTDisplay extends DepthFirstAdapter
     public void defaultIn(Node node)
     {
 		DefaultMutableTreeNode thisNode = new DefaultMutableTreeNode
-			(node.getClass ().getName ().substring 
-			 (node.getClass().getName().lastIndexOf('.') + 1));
+			(node.getClass ().getName ().substring (node.getClass().getName().lastIndexOf('.') + 1));
 		parents.push (thisNode);
     }
 
@@ -71,7 +70,7 @@ public class ASTDisplay extends DepthFirstAdapter
 			DefaultMutableTreeNode (((Token) node).getText ());
 		((DefaultMutableTreeNode) parents.peek ()).add (thisNode);
     }
-    
+
     public void caseEOF(EOF node)
     {
     }
@@ -84,12 +83,12 @@ public class ASTDisplay extends DepthFirstAdapter
 	public static void expandAll(JTree tree)
     {
         Object root = tree.getModel().getRoot();
-		
+
         if (root != null)
             expandAll(tree, new TreePath(root));
 	}
-	
-	
+
+
 	public static void expandAll(JTree tree, TreePath path)
     {
         for (Iterator i = extremalPaths(tree.getModel(), path,
@@ -112,31 +111,31 @@ public class ASTDisplay extends DepthFirstAdapter
         tree model.
     */
     public static Collection extremalPaths(TreeModel data,
-										   TreePath path, 
+										   TreePath path,
 										   Collection result)
     {
         result.clear();
-		
+
         if (data.isLeaf(path.getLastPathComponent()))
         {
             return result; // should really be forbidden (?)
         }
-        
+
         extremalPathsImpl(data, path, result);
 
         return result;
 	}
-	
-	private static void extremalPathsImpl(TreeModel data, 
+
+	private static void extremalPathsImpl(TreeModel data,
 										  TreePath path,
 										  Collection result)
     {
         Object node = path.getLastPathComponent();
-        
+
         boolean hasNonLeafChildren = false;
 
         int count = data.getChildCount(node);
-        
+
         for (int i = 0; i < count; i++)
             if (!data.isLeaf(data.getChild(node, i)))
                 hasNonLeafChildren = true;
@@ -148,7 +147,7 @@ public class ASTDisplay extends DepthFirstAdapter
             for (int i = 0; i < count; i++)
             {
                 Object child = data.getChild(node, i);
-                
+
                 if (!data.isLeaf(child))
                     extremalPathsImpl(data,
 									  path.pathByAddingChild(child),
