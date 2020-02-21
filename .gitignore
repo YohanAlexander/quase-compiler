@@ -2,3 +2,4 @@ quase/analysis
 quase/lexer
 quase/node
 quase/parser
+quase/*.class
