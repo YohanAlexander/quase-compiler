@@ -170,8 +170,8 @@ Productions
       {igual} [esq]:termo igualdade [dir]:exp {-> New exp.a_igual(esq.exp, dir.exp)} |
       {menor} [esq]:termo menor_que [dir]:exp {-> New exp.a_menor(esq.exp, dir.exp)} |
       {dif} negacao exp {-> New exp.a_dif(exp)} |
-      {and} termo e exp {-> New exp.a_and(exp)} |
-      {or} termo ou exp {-> New exp.a_or(exp)} |
+      {and} [esq]:termo e [dir]:exp {-> New exp.a_and(esq.exp, dir.exp)} |
+      {or} [esq]:termo ou [dir]:exp {-> New exp.a_or(esq.exp, dir.exp)} |
       {bloco_exp} bloco_exp {-> bloco_exp.exp} |
       {termo} termo {-> termo.exp};
     cond_exp2 {-> exp} =
@@ -274,8 +274,8 @@ Abstract Syntax Tree
       {a_bloco_exp} [esq]:dec* [dir]:exp |
       {a_negativo} exp |
       {a_dif} exp |
-      {a_and} exp |
-      {a_or} exp |
+      {a_and} [esq]:exp [dir]:exp |
+      {a_or} [esq]:exp [dir]:exp |
       {a_id} id |
       {a_id_atrib} [esq]:id_ponto? [dir]:exp |
       {a_id_call} [esq]:id_ponto? [dir]:chamada |
