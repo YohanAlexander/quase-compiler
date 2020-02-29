@@ -100,21 +100,19 @@ Productions
       {lista_dec_cons} [esq]:dec_cons [dir]:lista_dec_cons {-> [esq.dec, dir.dec]}|
       {dec_cons} dec_cons {-> [dec_cons.dec]};
     dec_obj {-> dec} =
-      {dec_obj} objeto cid lista_id ponto_virgula {-> New dec.a_dec_obj([lista_id.pid])};
+      {dec_obj} objeto cid lista_id ponto_virgula {-> New dec.a_dec_obj([lista_id.exp])};
     dec_var {-> dec} =
-      {dec_var} variavel [esq]:tipo [dir]:lista_id ponto_virgula {-> New dec.a_dec_var(esq.tipo, [dir.pid])};
+      {dec_var} variavel [esq]:tipo [dir]:lista_id ponto_virgula {-> New dec.a_dec_var(esq.tipo, [dir.exp])};
     dec_cons {-> dec} =
       {dec_cons} constante [esq]:tipo_primitivo [dir]:lista_inicializacao+ ponto_virgula {-> New dec.a_dec_cons(esq.tipo_primitivo, [dir.pinicializacao])};
-    lista_id {-> pid*} =
-      {lista_id} [esq]:pid virgula [dir]:lista_id {-> [esq.pid, dir.pid]} |
-      {id} pid {-> [pid]};
+    lista_id {-> exp*} =
+      {lista_id} [esq]:pid virgula [dir]:lista_id {-> [esq.exp, dir.exp]} |
+      {id} pid {-> [pid.exp]};
     lista_inicializacao {-> pinicializacao*} =
       {lista_inicializacao} [esq]:pinicializacao virgula [dir]:lista_inicializacao {-> [esq.pinicializacao, dir.pinicializacao]} |
       {inicializacao} pinicializacao {-> [pinicializacao]};
-    pid =
-      {id} id;
     pinicializacao {-> pinicializacao} =
-      {pinicializacao} id inicializacao exp {-> New pinicializacao.a_pinicializacao(exp)};
+      {pinicializacao} [esq]:pid inicializacao [dir]:exp {-> New pinicializacao.a_pinicializacao(esq.exp, dir.exp)};
 
     dec2 {-> dec2} =
       {proc} dec_procedimento {-> dec_procedimento.dec2} |
@@ -195,10 +193,14 @@ Productions
       {false} false;
 
     id_call {-> exp} =
-      {id_atrib} id_ponto? id {-> New exp.a_id_atrib(id_ponto)} |
+      {id} pid {-> pid.exp} |
+      {id_atrib} [esq]:id_ponto [dir]:pid {-> New exp.a_id_atrib(esq.id_ponto, dir.exp)} |
       {id_call} [esq]:id_ponto? [dir]:chamada {-> New exp.a_id_call(esq.id_ponto, dir.chamada)};
     id_ponto =
       {id_ponto} id ponto;
+
+	pid {-> exp} =
+	  {id} id {-> New exp.a_id(id)};
 
     bloco_exp {-> exp} =
       {bloco_exp} comeca [esq]:lista_dec_cons? [dir]:exp termina {-> New exp.a_bloco_exp([esq.dec], dir.exp)};
@@ -224,13 +226,11 @@ Abstract Syntax Tree
       {a_def_classe} [esq]:dec* [dir]:dec2*;
 
     dec =
-      {a_dec_obj} pid+ |
-      {a_dec_var} [esq]:tipo [dir]:pid+ |
+      {a_dec_obj} exp+ |
+      {a_dec_var} [esq]:tipo [dir]:exp+ |
       {a_dec_cons} [esq]:tipo_primitivo [dir]:pinicializacao+;
-    pid =
-      {id} id;
     pinicializacao =
-      {a_pinicializacao} exp;
+      {a_pinicializacao} [esq]:exp [dir]:exp;
 
     dec2 =
       {a_dec_procedimento} [esq]:parametro* [dir]:comando |
@@ -276,7 +276,8 @@ Abstract Syntax Tree
       {a_dif} exp |
       {a_and} exp |
       {a_or} exp |
-      {a_id_atrib} id_ponto? |
+      {a_id} id |
+      {a_id_atrib} [esq]:id_ponto? [dir]:exp |
       {a_id_call} [esq]:id_ponto? [dir]:chamada |
       {a_numero} numero |
       {a_booleano} booleano;
