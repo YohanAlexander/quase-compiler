@@ -82,10 +82,6 @@ public class Semantico extends DepthFirstAdapter {
 	public void caseAAIdAtribExp(AAIdAtribExp node)
 	{
 		inAAIdAtribExp(node);
-		if (node.getDir() != null)
-		{
-			node.getDir().apply(this);
-		}
 		outAAIdAtribExp(node);
 	}
 	
@@ -127,7 +123,11 @@ public class Semantico extends DepthFirstAdapter {
 	public void caseAAChamadaChamada(AAChamadaChamada node)
 	{
 		inAAChamadaChamada(node);
-		
+        List<PExp> copy = new ArrayList<PExp>(node.getDir());
+        for(PExp e : copy)
+        {
+			e.apply(this);
+		}
 		outAAChamadaChamada(node);
 	}
 	
