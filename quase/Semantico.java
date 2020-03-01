@@ -75,7 +75,7 @@ public class Semantico extends DepthFirstAdapter {
 				return;
 			}
 		}
-		System.out.println("Erro semântico de id");
+		System.out.println(node.toString() + "não encontrado");
 	}
 	
 	@Override
@@ -107,12 +107,12 @@ public class Semantico extends DepthFirstAdapter {
 				}
 				else
 				{
-					System.out.println("Atributo não encontrado");
+					System.out.println("Atributo " + node.getDir().toString() + "não encontrado");
 				}
 		}
 		else
 		{
-			System.out.println("Classe do atributo não existe");
+			System.out.println("A classe de " + node.getEsq().toString() + "não existe");
 		}
 	}
 	
@@ -243,7 +243,7 @@ public class Semantico extends DepthFirstAdapter {
 		}
 		else
 		{
-			System.out.println("Erro semântico de soma");
+			System.out.println("Erro semântico de soma em " + node.toString());
 		}
 	}
 	
@@ -257,7 +257,7 @@ public class Semantico extends DepthFirstAdapter {
 		}
 		else
 		{
-			System.out.println("Erro semântico de subtração");
+			System.out.println("Erro semântico de subtração em " + node.toString());
 		}
 	}
 	
@@ -271,7 +271,7 @@ public class Semantico extends DepthFirstAdapter {
 		}
 		else
 		{
-			System.out.println("Erro semântico de multiplicação");
+			System.out.println("Erro semântico de multiplicação em " + node.toString());
 		}
 	}
 	
@@ -285,7 +285,7 @@ public class Semantico extends DepthFirstAdapter {
 		}
 		else
 		{
-			System.out.println("Erro semântico de divisão");
+			System.out.println("Erro semântico de divisão em " + node.toString());
 		}
 	}
 	
@@ -299,7 +299,7 @@ public class Semantico extends DepthFirstAdapter {
 		}
 		else
 		{
-			System.out.println("Erro semântico de módulo");
+			System.out.println("Erro semântico de módulo em " + node.toString());
 		}
 	}
 	
@@ -315,7 +315,7 @@ public class Semantico extends DepthFirstAdapter {
 		}
 		else
 		{
-			System.out.println("Erro semântico de igualdade");
+			System.out.println("Erro semântico de igualdade em " + node.toString());
 		}
 	}
 	
@@ -329,7 +329,7 @@ public class Semantico extends DepthFirstAdapter {
 		}
 		else
 		{
-			System.out.println("Erro semântico de menor que");
+			System.out.println("Erro semântico de menor que em " + node.toString());
 		}
 	}
 	
@@ -343,7 +343,7 @@ public class Semantico extends DepthFirstAdapter {
 		}
 		else
 		{
-			System.out.println("Erro semântico de ou");
+			System.out.println("Erro semântico de ou em " + node.toString());
 		}
 	}
 	
@@ -357,7 +357,7 @@ public class Semantico extends DepthFirstAdapter {
 		}
 		else
 		{
-			System.out.println("Erro semântico de e");
+			System.out.println("Erro semântico de e em " + node.toString());
 		}
 	}
 	
@@ -370,7 +370,7 @@ public class Semantico extends DepthFirstAdapter {
 		}
 		else
 		{
-			System.out.println("Erro semântico de negação com num");
+			System.out.println("Erro semântico de negação em " + node.toString());
 		}
 	}
 	
@@ -383,7 +383,7 @@ public class Semantico extends DepthFirstAdapter {
 		}
 		else
 		{
-			System.out.println("Erro semântico de negação");
+			System.out.println("Erro semântico de negação em " + node.toString());
 		}
 	}
 	
@@ -391,6 +391,6 @@ public class Semantico extends DepthFirstAdapter {
 	public void outAASeCondExp(AASeCondExp node)
 	{
 		if (!(node.getEsq() instanceof AABooleanoExp))
-			System.out.println("A expressão de verificação da condicional deve ter como resultado um booleano!");
+			System.out.println("A expressão " + node.toString() + "deve ter como resultado um booleano!");
 	}
 }
