@@ -124,6 +124,13 @@ public class Semantico extends DepthFirstAdapter {
 	}
 	
 	@Override
+	public void caseAADecConsDec(AADecConsDec node)
+	{
+		inAADecConsDec(node);
+		outAADecConsDec(node);
+	}
+	
+	@Override
 	public void outAADecConsDec(AADecConsDec node)
 	{
 		String tipo = node.getEsq().toString();
@@ -134,6 +141,13 @@ public class Semantico extends DepthFirstAdapter {
 			int pos = hash(nome_val[0] + " ");
 			table.getLast().put(pos, new Simbolo(tipo, nome_val[0], nome_val[1]));
         }
+	}
+	
+	@Override
+	public void caseAADecVarDec(AADecVarDec node)
+	{
+		inAADecVarDec(node);
+		outAADecVarDec(node);
 	}
 	
 	@Override
@@ -150,16 +164,31 @@ public class Semantico extends DepthFirstAdapter {
 	}
 	
 	@Override
+	public void caseAADecObjDec(AADecObjDec node)
+	{
+		inAADecObjDec(node);
+		outAADecObjDec(node);
+	}
+	
+	@Override
 	public void outAADecObjDec(AADecObjDec node)
 	{
 		String tipo = node.getEsq().toString();
-		List<PExp> copy = new ArrayList<PExp>(node.getDir());
-		for (int i = 0; i < copy.size(); i++)
-        {
-			String[] nome_val = copy.get(i).toString().split("\\s+");
-			int pos = hash(nome_val[0] + " ");
-			table.getLast().put(pos, new Simbolo(tipo, nome_val[0]));
-        }
+		int pos = hash(tipo);
+		if (class_hash.containsKey(pos))
+		{
+			List<PExp> copy = new ArrayList<PExp>(node.getDir());
+			for (int i = 0; i < copy.size(); i++)
+			{
+				String[] nome_val = copy.get(i).toString().split("\\s+");
+				pos = hash(nome_val[0] + " ");
+				table.getLast().put(pos, new Simbolo(tipo, nome_val[0]));
+			}
+		}
+		else
+		{
+			System.out.println("A classe " + tipo + "não existe");
+		}
 	}
 	
 	@Override
