@@ -103,10 +103,10 @@ public class Semantico extends DepthFirstAdapter {
 			}
 			for (int i = 0; i < len_copy; i++)
 			{
-				if (func.getParametro(i) == "bool" && 
+				if (func.getParametro(i).equals("bool") && 
 					copy.get(i) instanceof AABooleanoExp)
 					continue;
-				if ((func.getParametro(i) == "int" || func.getParametro(i) == "real") &&
+				if ((func.getParametro(i).equals("int") || func.getParametro(i).equals("real")) &&
 					copy.get(i) instanceof AANumeroExp)
 					continue;
 				System.out.println((i + 1) + "-ésimo parâmetro de tipo inválido");
