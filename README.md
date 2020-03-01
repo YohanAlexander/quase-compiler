@@ -25,26 +25,30 @@ Implementação usando a ferramenta `Sablecc` do compilador de uma linguagem fic
 
 Para o funcionamento adequado são necessárias ferramentas para compilação de código java, e o compilador de compiladores `Sablecc` para gerar o parser da linguagem.
 * Sablecc
+* Make
 * Java
 
 Em sistemas linux utilize os comandos no terminal:
 ```sh
 sudo apt install sablecc
 sudo apt install default-jdk
+sudo apt install build-essentials
 ```
 
 ### Geração do parser
 Com as ferramentas instaladas para gerar o parser basta executar o  `Sablecc` no arquivo formatado da gramática:
 ```sh
-sablecc quase.sable
+make
+```
+Caso ocorra alguma alteração no arquivo formatado da gramática `.sable` remova as classes geradas pelo parser:
+```sh
+make clean
 ```
 
 <!-- USAGE EXAMPLES -->
 ### Uso
 Para testar se o código esta no formato adequado da linguagem execute a main no diretório raiz do projeto:
 ```sh
-javac quase/Main.java
-java quase/Main
+./quasec <arquivo>.quase
 ```
 Caso o código alvo não apresente erros, será apresentada a estrutura em árvore das classes.
-
