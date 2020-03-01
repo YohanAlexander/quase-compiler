@@ -146,6 +146,41 @@ public class Semantico extends DepthFirstAdapter {
 	}
 	
 	@Override
+	public void inAADecProcedimentoDec2(AADecProcedimentoDec2 node)
+	{
+		String nome = node.getEsq().toString();
+		int pos = hash(nome);
+		table.getLast().put(pos, new Simbolo("procedimento", nome));
+		
+		table.add(new LinkedHashMap<Integer, Simbolo>());
+		System.out.println("Nova hash table!");
+		List<PParametro> copy = new ArrayList<PParametro>(node.getMid());
+		for (int i = 0; i < copy.size(); i++)
+        {
+			String[] nome_val = copy.get(i).toString().split("\\s+");
+			pos = hash(nome_val[1] + " ");
+			table.getLast().put(pos, new Simbolo(nome_val[0], nome_val[1]));
+        }
+	}
+	
+	@Override
+	public void outAADecProcedimentoDec2(AADecProcedimentoDec2 node)
+	{
+		table.removeLast();
+	}
+	
+	@Override
+	public void caseAADecProcedimentoDec2(AADecProcedimentoDec2 node)
+	{
+		inAADecProcedimentoDec2(node);
+		if (node.getDir() != null)
+		{
+			node.getDir().apply(this);
+		}
+		outAADecProcedimentoDec2(node);
+	}
+	
+	@Override
 	public void outAASomaExp(AASomaExp node)
 	{
 		if (node.getEsq() instanceof AANumeroExp &&

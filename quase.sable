@@ -120,7 +120,7 @@ Productions
       {proc} dec_procedimento {-> dec_procedimento.dec2} |
       {func} dec_funcao {-> dec_funcao.dec2};
     dec_procedimento {-> dec2} =
-      {dec_procedimento} ponto_de_entrada? procedimento id parenteses_esquerdo [esq]:lista_parametro? parenteses_direito [dir]:comando {-> New dec2.a_dec_procedimento([esq.parametro], dir.comando)};
+      {dec_procedimento} ponto_de_entrada? procedimento [esq]:pid parenteses_esquerdo [mid]:lista_parametro? parenteses_direito [dir]:comando {-> New dec2.a_dec_procedimento(esq.exp, [mid.parametro], dir.comando)};
     dec_funcao {-> dec2} =
       {dec_funcao} funcao [esq]:tipo [esqn]:pid parenteses_esquerdo [mid]:lista_parametro? parenteses_direito [dir]:exp {-> New dec2.a_dec_funcao(esq.tipo, esqn.exp, [mid.parametro], dir.exp)};
     lista_parametro {-> parametro*} =
@@ -237,7 +237,7 @@ Abstract Syntax Tree
       {cid} cid;
 
     dec2 =
-      {a_dec_procedimento} [esq]:parametro* [dir]:comando |
+      {a_dec_procedimento} [esq]:exp [mid]:parametro* [dir]:comando |
       {a_dec_funcao} [esq]:tipo [esqn]:exp [mid]:parametro* [dir]:exp;
     parametro =
       {parametro} tipo id;
