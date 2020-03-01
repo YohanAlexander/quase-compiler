@@ -80,7 +80,7 @@ Productions
       {filha_relacao} filha_da_classe cid;
 
     def_classe {-> def_classe} =
-      {def_classe} classe cid comeca [esq]:atributos? [dir]:metodos? termina {-> New def_classe.a_def_classe([esq.dec], [dir.dec2])};
+      {def_classe} classe [nome]:pcid comeca [esq]:atributos? [dir]:metodos? termina {-> New def_classe.a_def_classe(nome.pcid, [esq.dec], [dir.dec2])};
 
     atributos {-> dec*} =
       {atributos} [esq]:dec [dir]:atributos {-> [esq.dec, dir.dec]} |
@@ -144,13 +144,13 @@ Productions
       {cond_else} se parenteses_esquerdo [esq]:exp parenteses_direito [mid]:comando_else senao [dir]:comando {-> New comando.a_cond_else(esq.exp, mid.comando, dir.comando)} |
       {loop} enquanto parenteses_esquerdo [esq]:exp parenteses_direito [dir]:comando {-> New comando.a_loop(esq.exp, dir.comando)} |
       {atrib} id atribuicao exp ponto_virgula {-> New comando.a_atrib(exp)} |
-      {call} id_ponto? chamada ponto_virgula {-> New comando.a_call(chamada)} |
+      {call} [esq]:id_ponto? [dir]:chamada ponto_virgula {-> New comando.a_call(esq.exp, dir.chamada)} |
       {bloco} bloco {-> bloco.comando};
     comando_else {-> comando} =
       {cond} se parenteses_esquerdo [esq]:exp parenteses_direito [mid]:comando_else [dir]:cont_comando_else {-> New comando.a_cont_cond_else(esq.exp, mid.comando, dir.comando)} |
       {loop} enquanto parenteses_esquerdo [esq]:exp parenteses_direito [dir]:comando_else {-> New comando.a_loop_else(esq.exp, dir.comando)} |
       {atrib} id atribuicao exp ponto_virgula {-> New comando.a_atrib_else(exp)} |
-      {call} id_ponto? chamada ponto_virgula {-> New comando.a_call_else(chamada)} |
+      {call} [esq]:id_ponto? [dir]:chamada ponto_virgula {-> New comando.a_call_else(esq.exp, dir.chamada)} |
       {bloco} bloco {-> bloco.comando};
     cont_comando_else {-> comando} =
       {cont_cond} senao comando_else {-> comando_else.comando};
@@ -196,10 +196,10 @@ Productions
 
     id_call {-> exp} =
       {id} pid {-> pid.exp} |
-      {id_atrib} [esq]:id_ponto [dir]:pid {-> New exp.a_id_atrib(esq.id_ponto, dir.exp)} |
-      {id_call} [esq]:id_ponto? [dir]:chamada {-> New exp.a_id_call(esq.id_ponto, dir.chamada)};
-    id_ponto =
-      {id_ponto} id ponto;
+      {id_atrib} [esq]:id_ponto [dir]:pid {-> New exp.a_id_atrib(esq.exp, dir.exp)} |
+      {id_call} [esq]:id_ponto? [dir]:chamada {-> New exp.a_id_call(esq.exp, dir.chamada)};
+    id_ponto {-> exp} =
+      {id_ponto} pid ponto {-> pid.exp};
 
 	pid {-> exp} =
 	  {id} id {-> New exp.a_id(id)};
@@ -225,7 +225,7 @@ Abstract Syntax Tree
       {filha_relacao} filha_da_classe cid;
 
     def_classe =
-      {a_def_classe} [esq]:dec* [dir]:dec2*;
+      {a_def_classe} [nome]:pcid [esq]:dec* [dir]:dec2*;
 
     dec =
       {a_dec_obj} [esq]:pcid [dir]:exp+ |
@@ -258,11 +258,11 @@ Abstract Syntax Tree
       {a_cont_cond_else} [esq]:exp [mid]:comando [dir]:comando |
       {a_loop} [esq]:exp [dir]:comando |
       {a_atrib} exp |
-      {a_call} chamada |
+      {a_call} [esq]:exp? [dir]:chamada |
       {a_bloco} [esq]:dec* [dir]:comando* |
       {a_loop_else} [esq]:exp [dir]:comando |
       {a_atrib_else} exp |
-      {a_call_else} chamada;
+      {a_call_else} [esq]:exp? [dir]:chamada;
 
 	exp =
       {a_se_cond} [esq]:exp [dir]:exp |
@@ -281,12 +281,12 @@ Abstract Syntax Tree
       {a_and} [esq]:exp [dir]:exp |
       {a_or} [esq]:exp [dir]:exp |
       {a_id} id |
-      {a_id_atrib} [esq]:id_ponto? [dir]:exp |
-      {a_id_call} [esq]:id_ponto? [dir]:chamada |
+      {a_id_atrib} [esq]:exp? [dir]:exp |
+      {a_id_call} [esq]:exp? [dir]:chamada |
       {a_numero} numero |
       {a_booleano} booleano;
     id_ponto =
-      {id_ponto} id ponto;
+      {a_id_ponto} exp;
 
     numero =
       {inteiro} numero_inteiro |

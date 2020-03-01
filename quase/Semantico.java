@@ -14,7 +14,8 @@ import quase.node.*;
 
 public class Semantico extends DepthFirstAdapter {
 
-	LinkedList<LinkedHashMap<Integer, Simbolo>> table = new LinkedList<LinkedHashMap<Integer, Simbolo>>();
+	LinkedHashMap<Integer, LinkedList<LinkedHashMap<Integer, Simbolo>>> class_hash = new LinkedHashMap<Integer, LinkedList<LinkedHashMap<Integer, Simbolo>>>();
+	LinkedList<LinkedHashMap<Integer, Simbolo>> table;
 
 	public int hash(String key)
 	{
@@ -42,14 +43,35 @@ public class Semantico extends DepthFirstAdapter {
 	}
 	
 	@Override
+	public void inAADefClasseDefClasse(AADefClasseDefClasse node)
+	{
+		String nome = node.getNome().toString();
+		int pos = hash(nome);
+		class_hash.put(pos, new LinkedList<LinkedHashMap<Integer, Simbolo>>());
+		System.out.println("Nova linked list de hash tables!");
+		table = (LinkedList<LinkedHashMap<Integer, Simbolo>>) class_hash.get(pos);
+		System.out.println("Nova hash table!");
+		table.add(new LinkedHashMap<Integer, Simbolo>());
+	}
+	
+	@Override
 	public void outAAIdExp(AAIdExp node)
 	{
 		Iterator<LinkedHashMap<Integer, Simbolo>> it = table.descendingIterator();
+		int pos = hash(node.toString());
 		while (it.hasNext())
 		{
-			if (((LinkedHashMap<Integer, Simbolo>) it.next()).containsKey(hash(node.toString())))
+			LinkedHashMap<Integer, Simbolo> tabela = (LinkedHashMap<Integer, Simbolo>) it.next();
+			if (tabela.containsKey(pos))
 			{
-				node.replaceBy(new AANumeroExp());
+				Simbolo simbolo = tabela.get(pos);
+				switch (simbolo.tipo) {
+					case "bool ":
+						node.replaceBy(new AABooleanoExp());
+						break;
+					default:
+						node.replaceBy(new AANumeroExp());
+				}
 				return;
 			}
 		}
@@ -57,10 +79,41 @@ public class Semantico extends DepthFirstAdapter {
 	}
 	
 	@Override
-	public void inAADefClasseDefClasse(AADefClasseDefClasse node)
+	public void caseAAIdAtribExp(AAIdAtribExp node)
 	{
-		table.add(new LinkedHashMap<Integer, Simbolo>());
-		System.out.println("Nova hash table!");
+		inAAIdAtribExp(node);
+		outAAIdAtribExp(node);
+	}
+	
+	@Override
+	public void outAAIdAtribExp(AAIdAtribExp node)
+	{
+		int pos = hash(((AAIdExp)node.getEsq()).toString());
+		
+		if (class_hash.containsKey(pos))
+		{
+				LinkedHashMap<Integer, Simbolo> temp_table = class_hash.get(pos).getLast();
+				pos = hash(node.getDir().toString());
+				if (temp_table.containsKey(pos))
+				{
+					Simbolo simbolo = temp_table.get(pos);
+					switch (simbolo.tipo) {
+						case "bool ":
+							node.replaceBy(new AABooleanoExp());
+							break;
+						default:
+							node.replaceBy(new AANumeroExp());
+					}
+				}
+				else
+				{
+					System.out.println("Atributo não encontrado");
+				}
+		}
+		else
+		{
+			System.out.println("Classe do atributo não existe");
+		}
 	}
 	
 	@Override
@@ -253,13 +306,10 @@ public class Semantico extends DepthFirstAdapter {
 	@Override
 	public void outAAIgualExp(AAIgualExp node)
 	{
-		if (node.getEsq() instanceof AANumeroExp &&
-			node.getDir() instanceof AANumeroExp)
-		{
-			node.replaceBy(new AANumeroExp());
-		}
-		else if (node.getEsq() instanceof AABooleanoExp &&
-				 node.getDir() instanceof AABooleanoExp)
+		if ((node.getEsq() instanceof AANumeroExp &&
+			node.getDir() instanceof AANumeroExp) ||
+			(node.getEsq() instanceof AABooleanoExp &&
+			node.getDir() instanceof AABooleanoExp))
 		{
 			node.replaceBy(new AABooleanoExp());
 		}
@@ -275,7 +325,7 @@ public class Semantico extends DepthFirstAdapter {
 		if (node.getEsq() instanceof AANumeroExp &&
 			node.getDir() instanceof AANumeroExp)
 		{
-			node.replaceBy(new AANumeroExp());
+			node.replaceBy(new AABooleanoExp());
 		}
 		else
 		{
@@ -283,6 +333,7 @@ public class Semantico extends DepthFirstAdapter {
 		}
 	}
 	
+	@Override
 	public void outAAOrExp(AAOrExp node)
 	{
 		if (node.getEsq() instanceof AABooleanoExp &&
@@ -296,6 +347,7 @@ public class Semantico extends DepthFirstAdapter {
 		}
 	}
 	
+	@Override
 	public void outAAAndExp(AAAndExp node)
 	{
 		if (node.getEsq() instanceof AABooleanoExp &&
@@ -309,6 +361,7 @@ public class Semantico extends DepthFirstAdapter {
 		}
 	}
 	
+	@Override
 	public void outAANegativoExp(AANegativoExp node)
 	{
 		if (node.getExp() instanceof AANumeroExp)
@@ -321,6 +374,7 @@ public class Semantico extends DepthFirstAdapter {
 		}
 	}
 	
+	@Override
 	public void outAADifExp(AADifExp node)
 	{
 		if (node.getExp() instanceof AABooleanoExp)
@@ -331,5 +385,12 @@ public class Semantico extends DepthFirstAdapter {
 		{
 			System.out.println("Erro semântico de negação");
 		}
+	}
+	
+	@Override
+	public void outAASeCondExp(AASeCondExp node)
+	{
+		if (!(node.getEsq() instanceof AABooleanoExp))
+			System.out.println("A expressão de verificação da condicional deve ter como resultado um booleano!");
 	}
 }
