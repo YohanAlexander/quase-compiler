@@ -2,11 +2,11 @@ classe _Primo começa
 	função int num_divs(int n, int i)
 		 se (n == 1)
 		 então 1
-		 senão se (i * i < n)
-		       então se (n % i == 0)
+		 senão se ((i * i) < n)
+		       então se ((n % i) == 0)
 		       	     então 2 + num_divs(n, i + 1)
 			     senão num_divs(n, i + 1)
-		       senão se (i * i == n)
+		       senão se ((i * i) == n)
 		       	     então 3
 			     senão 2
 
