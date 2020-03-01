@@ -82,7 +82,53 @@ public class Semantico extends DepthFirstAdapter {
 	public void caseAAIdAtribExp(AAIdAtribExp node)
 	{
 		inAAIdAtribExp(node);
+		if (node.getDir() != null)
+		{
+			node.getDir().apply(this);
+		}
 		outAAIdAtribExp(node);
+	}
+	
+	@Override
+	public void outAAChamadaChamada(AAChamadaChamada node)
+	{
+		LinkedHashMap<Integer, Simbolo> tabela = table.getFirst();
+		String nome = node.getEsq().toString();
+		int pos = hash(nome);
+		if (tabela.containsKey(pos))
+		{
+			Simbolo func = tabela.get(pos);
+			List<PExp> copy = new ArrayList<PExp>(node.getDir());
+			int len_copy = copy.size();
+			int len_par = func.numParametros();
+			if (len_copy != len_par)
+			{
+				System.out.println(nome + "tem " + len_par + " paramêtros, mas está recebendo " + len_copy + " parâmetros");
+			}
+			for (int i = 0; i < len_copy; i++)
+			{
+				if (func.getParametro(i) == "bool" && 
+					copy.get(i) instanceof AABooleanoExp)
+					continue;
+				if ((func.getParametro(i) == "int" || func.getParametro(i) == "real") &&
+					copy.get(i) instanceof AANumeroExp)
+					continue;
+				System.out.println((i + 1) + "-ésimo parâmetro de tipo inválido");
+				return;
+			}
+		}
+		else
+		{
+			System.out.println("Função " + nome + "não encontrada");
+		}
+	}
+	
+	@Override
+	public void caseAAChamadaChamada(AAChamadaChamada node)
+	{
+		inAAChamadaChamada(node);
+		
+		outAAChamadaChamada(node);
 	}
 	
 	@Override
@@ -197,7 +243,9 @@ public class Semantico extends DepthFirstAdapter {
 		String nome = node.getEsqn().toString();
 		String valor = node.getEsq().toString();
 		int pos = hash(nome);
-		table.getLast().put(pos, new Simbolo("funcao", nome, valor));
+		table.getLast().put(pos, new Simbolo("funcao", nome, valor, new ArrayList<String>()));
+		Simbolo func = table.getLast().get(pos);
+		System.out.println(func.nome);
 		
 		table.add(new LinkedHashMap<Integer, Simbolo>());
 		System.out.println("Nova hash table!");
@@ -207,6 +255,7 @@ public class Semantico extends DepthFirstAdapter {
 			String[] nome_val = copy.get(i).toString().split("\\s+");
 			pos = hash(nome_val[1] + " ");
 			table.getLast().put(pos, new Simbolo(nome_val[0], nome_val[1]));
+			func.addParametro(nome_val[0]);
         }
 	}
 	
