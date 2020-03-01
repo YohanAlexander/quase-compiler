@@ -44,14 +44,16 @@ public class Semantico extends DepthFirstAdapter {
 	@Override
 	public void outAAIdExp(AAIdExp node)
 	{
-		if (table.getLast().containsKey(hash(node.toString())))
+		Iterator<LinkedHashMap<Integer, Simbolo>> it = table.descendingIterator();
+		while (it.hasNext())
 		{
-			node.replaceBy(new AANumeroExp());
+			if (((LinkedHashMap<Integer, Simbolo>) it.next()).containsKey(hash(node.toString())))
+			{
+				node.replaceBy(new AANumeroExp());
+				return;
+			}
 		}
-		else
-		{
-			System.out.println("Erro semântico de id");
-		}
+		System.out.println("Erro semântico de id");
 	}
 	
 	@Override
