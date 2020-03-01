@@ -208,7 +208,7 @@ Productions
       {bloco_exp} comeca [esq]:lista_dec_cons? [dir]:exp termina {-> New exp.a_bloco_exp([esq.dec], dir.exp)};
 
     chamada {-> chamada} =
-      {chamada} id parenteses_esquerdo lista_exp? parenteses_direito {-> New chamada.a_chamada([lista_exp.exp])};
+      {chamada} [esq]:pid parenteses_esquerdo [dir]:lista_exp? parenteses_direito {-> New chamada.a_chamada(esq.exp, [dir.exp])};
     lista_exp {-> exp*} =
       {lista_exp} [esq]:exp virgula [dir]:lista_exp {-> [esq.exp, dir.exp]} |
       {exp} exp {-> [exp]};
@@ -296,4 +296,4 @@ Abstract Syntax Tree
       {false} false;
 
     chamada =
-      {a_chamada} exp*;
+      {a_chamada} [esq]:exp [dir]:exp*;
