@@ -44,6 +44,21 @@ public class Semantico extends DepthFirstAdapter {
 	}
 
 	@Override
+	public void inAAProgramaPrograma(AAProgramaPrograma node)
+	{
+		//Adicionar a classe _IO e os seus métodos no início do programa
+		String nome = "_IO ";
+		int pos = hash(nome);
+		class_hash.put(pos, new LinkedList<LinkedHashMap<Integer, Simbolo>>());
+		table = (LinkedList<LinkedHashMap<Integer, Simbolo>>) class_hash.get(pos);
+		table.add(new LinkedHashMap<Integer, Simbolo>());
+		pos = hash("print");
+		table.getLast().put(pos, new Simbolo("funcao", "print", "E"));
+		pos = hash("read");
+		table.getLast().put(pos, new Simbolo("funcao", "read", "E"));
+	}
+
+	@Override
 	public void inAADefClasseDefClasse(AADefClasseDefClasse node)
 	{
 		String nome = node.getNome().toString();
@@ -110,6 +125,14 @@ public class Semantico extends DepthFirstAdapter {
 			Simbolo func = tabela.get(pos);
 			List<PExp> copy = new ArrayList<PExp>(node.getDir());
 			int len_copy = copy.size();
+			if (func.getValor().equals("E"))
+			{
+				if (len_copy != 1)
+				{
+					System.out.println(nome + "recebe apenas 1 parâmetro");
+				}
+				return;
+			}
 			int len_par = func.numParametros();
 			if (len_copy != len_par)
 			{
