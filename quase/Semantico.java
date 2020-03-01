@@ -86,7 +86,20 @@ public class Semantico extends DepthFirstAdapter {
 	}
 	
 	@Override
-	public void outAAChamadaChamada(AAChamadaChamada node)
+	public void outAAIdCallExp(AAIdCallExp node)
+	{
+		if (node.getDir() instanceof AANumeroExp)
+		{
+			node.replaceBy(new AANumeroExp());
+		}
+		else if (node.getDir() instanceof AABooleanoExp)
+		{
+			node.replaceBy(new AABooleanoExp());
+		}
+	}
+	
+	@Override
+	public void outAAChamadaExp(AAChamadaExp node)
 	{
 		LinkedHashMap<Integer, Simbolo> tabela = table.getFirst();
 		String nome = node.getEsq().toString();
@@ -112,6 +125,10 @@ public class Semantico extends DepthFirstAdapter {
 				System.out.println((i + 1) + "-ésimo parâmetro de tipo inválido");
 				return;
 			}
+			if (func.getValor().equals("int ") || func.getValor().equals("real "))
+				node.replaceBy(new AANumeroExp());
+			else if (func.getValor().equals("bool "))
+				node.replaceBy(new AABooleanoExp());
 		}
 		else
 		{
@@ -120,15 +137,15 @@ public class Semantico extends DepthFirstAdapter {
 	}
 	
 	@Override
-	public void caseAAChamadaChamada(AAChamadaChamada node)
+	public void caseAAChamadaExp(AAChamadaExp node)
 	{
-		inAAChamadaChamada(node);
+		inAAChamadaExp(node);
         List<PExp> copy = new ArrayList<PExp>(node.getDir());
         for(PExp e : copy)
         {
 			e.apply(this);
 		}
-		outAAChamadaChamada(node);
+		outAAChamadaExp(node);
 	}
 	
 	@Override
@@ -245,7 +262,6 @@ public class Semantico extends DepthFirstAdapter {
 		int pos = hash(nome);
 		table.getLast().put(pos, new Simbolo("funcao", nome, valor, new ArrayList<String>()));
 		Simbolo func = table.getLast().get(pos);
-		System.out.println(func.nome);
 		
 		table.add(new LinkedHashMap<Integer, Simbolo>());
 		System.out.println("Nova hash table!");
@@ -324,7 +340,7 @@ public class Semantico extends DepthFirstAdapter {
 			System.out.println("Erro semântico de soma em " + node.toString());
 		}
 	}
-	
+
 	@Override
 	public void outAASubtExp(AASubtExp node)
 	{
@@ -338,7 +354,7 @@ public class Semantico extends DepthFirstAdapter {
 			System.out.println("Erro semântico de subtração em " + node.toString());
 		}
 	}
-	
+
 	@Override
 	public void outAAMultiExp(AAMultiExp node)
 	{
@@ -352,7 +368,7 @@ public class Semantico extends DepthFirstAdapter {
 			System.out.println("Erro semântico de multiplicação em " + node.toString());
 		}
 	}
-	
+
 	@Override
 	public void outAADivExp(AADivExp node)
 	{
@@ -366,7 +382,7 @@ public class Semantico extends DepthFirstAdapter {
 			System.out.println("Erro semântico de divisão em " + node.toString());
 		}
 	}
-	
+
 	@Override
 	public void outAAModExp(AAModExp node)
 	{
@@ -380,7 +396,7 @@ public class Semantico extends DepthFirstAdapter {
 			System.out.println("Erro semântico de módulo em " + node.toString());
 		}
 	}
-	
+
 	@Override
 	public void outAAIgualExp(AAIgualExp node)
 	{
@@ -396,7 +412,7 @@ public class Semantico extends DepthFirstAdapter {
 			System.out.println("Erro semântico de igualdade em " + node.toString());
 		}
 	}
-	
+
 	@Override
 	public void outAAMenorExp(AAMenorExp node)
 	{
@@ -410,7 +426,7 @@ public class Semantico extends DepthFirstAdapter {
 			System.out.println("Erro semântico de menor que em " + node.toString());
 		}
 	}
-	
+
 	@Override
 	public void outAAOrExp(AAOrExp node)
 	{
@@ -424,7 +440,7 @@ public class Semantico extends DepthFirstAdapter {
 			System.out.println("Erro semântico de ou em " + node.toString());
 		}
 	}
-	
+
 	@Override
 	public void outAAAndExp(AAAndExp node)
 	{
@@ -438,7 +454,7 @@ public class Semantico extends DepthFirstAdapter {
 			System.out.println("Erro semântico de e em " + node.toString());
 		}
 	}
-	
+
 	@Override
 	public void outAANegativoExp(AANegativoExp node)
 	{
@@ -451,7 +467,7 @@ public class Semantico extends DepthFirstAdapter {
 			System.out.println("Erro semântico de negação em " + node.toString());
 		}
 	}
-	
+
 	@Override
 	public void outAADifExp(AADifExp node)
 	{
@@ -464,7 +480,7 @@ public class Semantico extends DepthFirstAdapter {
 			System.out.println("Erro semântico de negação em " + node.toString());
 		}
 	}
-	
+
 	@Override
 	public void outAASeCondExp(AASeCondExp node)
 	{
