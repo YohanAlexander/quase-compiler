@@ -46,7 +46,6 @@ public class Semantico extends DepthFirstAdapter {
 	{
 		if (table.getLast().containsKey(hash(node.toString())))
 		{
-			System.out.println("Aqui");
 			node.replaceBy(new AANumeroExp());
 		}
 		else
@@ -80,6 +79,68 @@ public class Semantico extends DepthFirstAdapter {
 			int pos = hash(nome_val[0] + " ");
 			table.getLast().put(pos, new Simbolo(tipo, nome_val[0], nome_val[1]));
         }
+	}
+	
+	@Override
+	public void outAADecVarDec(AADecVarDec node)
+	{
+		String tipo = node.getEsq().toString();
+		List<PExp> copy = new ArrayList<PExp>(node.getDir());
+		for (int i = 0; i < copy.size(); i++)
+        {
+			String[] nome_val = copy.get(i).toString().split("\\s+");
+			int pos = hash(nome_val[0] + " ");
+			table.getLast().put(pos, new Simbolo(tipo, nome_val[0]));
+        }
+	}
+	
+	@Override
+	public void outAADecObjDec(AADecObjDec node)
+	{
+		String tipo = node.getEsq().toString();
+		List<PExp> copy = new ArrayList<PExp>(node.getDir());
+		for (int i = 0; i < copy.size(); i++)
+        {
+			String[] nome_val = copy.get(i).toString().split("\\s+");
+			int pos = hash(nome_val[0] + " ");
+			table.getLast().put(pos, new Simbolo(tipo, nome_val[0]));
+        }
+	}
+	
+	@Override
+	public void inAADecFuncaoDec2(AADecFuncaoDec2 node)
+	{
+		String nome = node.getEsqn().toString();
+		String valor = node.getEsq().toString();
+		int pos = hash(nome);
+		table.getLast().put(pos, new Simbolo("funcao", nome, valor));
+		
+		table.add(new LinkedHashMap<Integer, Simbolo>());
+		System.out.println("Nova hash table!");
+		List<PParametro> copy = new ArrayList<PParametro>(node.getMid());
+		for (int i = 0; i < copy.size(); i++)
+        {
+			String[] nome_val = copy.get(i).toString().split("\\s+");
+			pos = hash(nome_val[1] + " ");
+			table.getLast().put(pos, new Simbolo(nome_val[0], nome_val[1]));
+        }
+	}
+	
+	@Override
+	public void outAADecFuncaoDec2(AADecFuncaoDec2 node)
+	{
+		table.removeLast();
+	}
+	
+	@Override
+	public void caseAADecFuncaoDec2(AADecFuncaoDec2 node)
+	{
+		inAADecFuncaoDec2(node);
+		if (node.getDir() != null)
+		{
+			node.getDir().apply(this);
+		}
+		outAADecFuncaoDec2(node);
 	}
 	
 	@Override
@@ -167,7 +228,21 @@ public class Semantico extends DepthFirstAdapter {
 		}
 		else
 		{
-			System.out.println("Erro semântico de módulo");
+			System.out.println("Erro semântico de igualdade");
+		}
+	}
+	
+	@Override
+	public void outAAMenorExp(AAMenorExp node)
+	{
+		if (node.getEsq() instanceof AANumeroExp &&
+			node.getDir() instanceof AANumeroExp)
+		{
+			node.replaceBy(new AANumeroExp());
+		}
+		else
+		{
+			System.out.println("Erro semântico de menor que");
 		}
 	}
 	
@@ -194,6 +269,18 @@ public class Semantico extends DepthFirstAdapter {
 		else
 		{
 			System.out.println("Erro semântico de e");
+		}
+	}
+	
+	public void outAANegativoExp(AANegativoExp node)
+	{
+		if (node.getExp() instanceof AANumeroExp)
+		{
+			node.replaceBy(new AANumeroExp());
+		}
+		else
+		{
+			System.out.println("Erro semântico de negação com num");
 		}
 	}
 	
