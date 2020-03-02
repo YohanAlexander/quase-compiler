@@ -16,6 +16,7 @@ public class Semantico extends DepthFirstAdapter {
 
 	LinkedHashMap<Integer, LinkedList<LinkedHashMap<Integer, Simbolo>>> class_hash = new LinkedHashMap<Integer, LinkedList<LinkedHashMap<Integer, Simbolo>>>();
 	LinkedList<LinkedHashMap<Integer, Simbolo>> table;
+	LinkedList<LinkedHashMap<Integer, Simbolo>> temp_table;
 
 	public int hash(String key)
 	{
@@ -46,16 +47,18 @@ public class Semantico extends DepthFirstAdapter {
 	@Override
 	public void inAAProgramaPrograma(AAProgramaPrograma node)
 	{
+		temp_table = null;
+
 		//Adicionar a classe _IO e os seus métodos no início do programa
 		String nome = "_IO ";
 		int pos = hash(nome);
 		class_hash.put(pos, new LinkedList<LinkedHashMap<Integer, Simbolo>>());
 		table = (LinkedList<LinkedHashMap<Integer, Simbolo>>) class_hash.get(pos);
 		table.add(new LinkedHashMap<Integer, Simbolo>());
-		pos = hash("print");
-		table.getLast().put(pos, new Simbolo("funcao", "print", "E"));
-		pos = hash("read");
-		table.getLast().put(pos, new Simbolo("funcao", "read", "E"));
+		pos = hash("print ");
+		table.getLast().put(pos, new Simbolo("funcao", "print ", "P"));
+		pos = hash("read ");
+		table.getLast().put(pos, new Simbolo("funcao", "read ", "R"));
 	}
 
 	@Override
@@ -95,10 +98,84 @@ public class Semantico extends DepthFirstAdapter {
 	}
 
 	@Override
+	public void caseAACallComando(AACallComando node)
+	{
+		inAACallComando(node);
+		if (node.getEsq() != null)
+		{
+			Iterator<LinkedHashMap<Integer, Simbolo>> it = table.descendingIterator();
+			String nome = node.getEsq().toString();
+			int pos = hash(nome);
+			Simbolo simbolo = null;
+			while (it.hasNext())
+			{
+				LinkedHashMap<Integer, Simbolo> tabela = (LinkedHashMap<Integer, Simbolo>) it.next();
+				if (tabela.containsKey(pos))
+				{
+					simbolo = tabela.get(pos);
+					break;
+				}
+			}
+			if (simbolo != null)
+			{
+				nome = simbolo.getTipo();
+				pos = hash(nome);
+				temp_table = class_hash.get(pos);
+			}
+			else
+			{
+				System.out.println(nome + "não é uma classe");
+			}
+		}
+		if (node.getDir() != null)
+		{
+			node.getDir().apply(this);
+		}
+		outAACallComando(node);
+	}
+
+	@Override
 	public void caseAAIdAtribExp(AAIdAtribExp node)
 	{
 		inAAIdAtribExp(node);
 		outAAIdAtribExp(node);
+	}
+
+	@Override
+	public void caseAAIdCallExp(AAIdCallExp node)
+	{
+		inAAIdCallExp(node);
+		if (node.getEsq() != null)
+		{
+			Iterator<LinkedHashMap<Integer, Simbolo>> it = table.descendingIterator();
+			String nome = node.getEsq().toString();
+			int pos = hash(nome);
+			Simbolo simbolo = null;
+			while (it.hasNext())
+			{
+				LinkedHashMap<Integer, Simbolo> tabela = (LinkedHashMap<Integer, Simbolo>) it.next();
+				if (tabela.containsKey(pos))
+				{
+					simbolo = tabela.get(pos);
+					break;
+				}
+			}
+			if (simbolo != null)
+			{
+				nome = simbolo.getTipo();
+				pos = hash(nome);
+				temp_table = class_hash.get(pos);
+			}
+			else
+			{
+				System.out.println(nome + "não é uma classe");
+			}
+		}
+		if (node.getDir() != null)
+		{
+			node.getDir().apply(this);
+		}
+		outAAIdCallExp(node);
 	}
 
 	@Override
@@ -117,7 +194,16 @@ public class Semantico extends DepthFirstAdapter {
 	@Override
 	public void outAAChamadaExp(AAChamadaExp node)
 	{
-		LinkedHashMap<Integer, Simbolo> tabela = table.getFirst();
+		LinkedHashMap<Integer, Simbolo> tabela;
+		if (temp_table != null)
+		{
+			tabela = temp_table.getFirst();
+			temp_table = null;
+		}
+		else
+		{
+			tabela = table.getFirst();
+		}
 		String nome = node.getEsq().toString();
 		int pos = hash(nome);
 		if (tabela.containsKey(pos))
@@ -125,11 +211,19 @@ public class Semantico extends DepthFirstAdapter {
 			Simbolo func = tabela.get(pos);
 			List<PExp> copy = new ArrayList<PExp>(node.getDir());
 			int len_copy = copy.size();
-			if (func.getValor().equals("E"))
+			if (func.getValor().equals("P"))
 			{
 				if (len_copy != 1)
 				{
 					System.out.println(nome + "recebe apenas 1 parâmetro");
+				}
+				return;
+			}
+			if (func.getValor().equals("R"))
+			{
+				if (len_copy != 0)
+				{
+					System.out.println(nome + "recebe nenhum parâmetro");
 				}
 				return;
 			}
@@ -164,10 +258,20 @@ public class Semantico extends DepthFirstAdapter {
 	public void caseAAChamadaExp(AAChamadaExp node)
 	{
 		inAAChamadaExp(node);
+		LinkedList<LinkedHashMap<Integer, Simbolo>> temp = null;
         List<PExp> copy = new ArrayList<PExp>(node.getDir());
+		if (copy.size() > 0)
+		{
+			temp = temp_table;
+			temp_table = null;
+		}
         for(PExp e : copy)
         {
 			e.apply(this);
+		}
+		if (temp != null)
+		{
+			temp_table = temp;
 		}
 		outAAChamadaExp(node);
 	}
