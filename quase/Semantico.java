@@ -572,6 +572,40 @@ public class Semantico extends DepthFirstAdapter {
 	}
 
 	@Override
+	public void inAABlocoComando(AABlocoComando node)
+	{
+		String nome = node.getEsq().toString();
+		int pos = hash(nome);
+		table.getLast().put(pos, new Simbolo("bloco", nome));
+
+		table.add(new LinkedHashMap<Integer, Simbolo>());
+		System.out.println("Nova hash table!");
+	}
+
+	@Override
+	public void outAABlocoComando(AABlocoComando node)
+	{
+		table.removeLast();
+	}
+
+	@Override
+	public void inAABlocoExpExp(AABlocoExpExp node)
+	{
+		String nome = node.getEsq().toString();
+		int pos = hash(nome);
+		table.getLast().put(pos, new Simbolo("bloco_exp", nome));
+
+		table.add(new LinkedHashMap<Integer, Simbolo>());
+		System.out.println("Nova hash table!");
+	}
+
+	@Override
+	public void outAABlocoExpExp(AABlocoExpExp node)
+	{
+		table.removeLast();
+	}
+
+	@Override
 	public void outAASomaExp(AASomaExp node)
 	{
 		if (node.getEsq() instanceof AANumeroExp &&
