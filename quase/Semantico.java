@@ -55,9 +55,9 @@ public class Semantico extends DepthFirstAdapter {
 		table = (LinkedList<LinkedHashMap<Integer, Simbolo>>) class_hash.get(pos);
 		table.add(new LinkedHashMap<Integer, Simbolo>());
 		pos = hash("print ");
-		table.getLast().put(pos, new Simbolo("funcao", "print ", "P"));
+		table.getLast().put(pos, new Simbolo("func", "print ", "P"));
 		pos = hash("read ");
-		table.getLast().put(pos, new Simbolo("funcao", "read ", "R"));
+		table.getLast().put(pos, new Simbolo("func", "read ", "R"));
 	}
 
 	@Override
@@ -123,12 +123,18 @@ public class Semantico extends DepthFirstAdapter {
 			if (tabela.containsKey(pos))
 			{
 				Simbolo simbolo = tabela.get(pos);
-				switch (simbolo.tipo) {
+				switch (simbolo.getTipo()) {
 					case "bool ":
 						node.replaceBy(new AABooleanoExp());
 						break;
-					default:
+					case "int ":
 						node.replaceBy(new AANumeroExp());
+						break;
+					case "real ":
+						node.replaceBy(new AANumeroExp());
+						break;
+					default:
+						break;
 				}
 				return;
 			}
@@ -171,13 +177,6 @@ public class Semantico extends DepthFirstAdapter {
 			node.getDir().apply(this);
 		}
 		outAACallComando(node);
-	}
-
-	@Override
-	public void caseAAIdAtribExp(AAIdAtribExp node)
-	{
-		inAAIdAtribExp(node);
-		outAAIdAtribExp(node);
 	}
 
 	@Override
@@ -320,6 +319,13 @@ public class Semantico extends DepthFirstAdapter {
 	}
 
 	@Override
+	public void caseAAIdAtribExp(AAIdAtribExp node)
+	{
+		inAAIdAtribExp(node);
+		outAAIdAtribExp(node);
+	}
+
+	@Override
 	public void outAAIdAtribExp(AAIdAtribExp node)
 	{
 		int pos = hash(((AAIdExp)node.getEsq()).toString());
@@ -331,12 +337,19 @@ public class Semantico extends DepthFirstAdapter {
 				if (temp_table.containsKey(pos))
 				{
 					Simbolo simbolo = temp_table.get(pos);
-					switch (simbolo.tipo) {
+					switch (simbolo.getTipo()) {
 						case "bool ":
 							node.replaceBy(new AABooleanoExp());
 							break;
-						default:
+						case "int ":
 							node.replaceBy(new AANumeroExp());
+							break;
+						case "real ":
+							node.replaceBy(new AANumeroExp());
+							break;
+						default:
+							break;
+							
 					}
 				}
 				else
@@ -373,7 +386,7 @@ public class Semantico extends DepthFirstAdapter {
         {
 			String[] nome_val = copy.get(i).toString().split("\\s+");
 			int pos = hash(nome_val[0] + " ");
-			table.getLast().put(pos, new Simbolo(tipo, nome_val[0], nome_val[1]));
+			table.getLast().put(pos, new Simbolo(tipo, nome_val[0] + " ", nome_val[1] + " "));
         }
 	}
 
@@ -393,7 +406,7 @@ public class Semantico extends DepthFirstAdapter {
         {
 			String[] nome_val = copy.get(i).toString().split("\\s+");
 			int pos = hash(nome_val[0] + " ");
-			table.getLast().put(pos, new Simbolo(tipo, nome_val[0]));
+			table.getLast().put(pos, new Simbolo(tipo, nome_val[0] + " "));
         }
 	}
 
@@ -431,7 +444,7 @@ public class Semantico extends DepthFirstAdapter {
 		String nome = node.getEsqn().toString();
 		String valor = node.getEsq().toString();
 		int pos = hash(nome);
-		table.getLast().put(pos, new Simbolo("funcao", nome, valor, new ArrayList<String>()));
+		table.getLast().put(pos, new Simbolo("func", nome, valor, new ArrayList<String>()));
 		Simbolo func = table.getLast().get(pos);
 
 		table.add(new LinkedHashMap<Integer, Simbolo>());
@@ -441,7 +454,7 @@ public class Semantico extends DepthFirstAdapter {
         {
 			String[] nome_val = copy.get(i).toString().split("\\s+");
 			pos = hash(nome_val[1] + " ");
-			table.getLast().put(pos, new Simbolo(nome_val[0], nome_val[1]));
+			table.getLast().put(pos, new Simbolo(nome_val[0] + " ", nome_val[1] + " "));
 			func.addParametro(nome_val[0]);
         }
 	}
@@ -477,7 +490,7 @@ public class Semantico extends DepthFirstAdapter {
         {
 			String[] nome_val = copy.get(i).toString().split("\\s+");
 			pos = hash(nome_val[1] + " ");
-			table.getLast().put(pos, new Simbolo(nome_val[0], nome_val[1]));
+			table.getLast().put(pos, new Simbolo(nome_val[0], nome_val[1] + " "));
         }
 	}
 
