@@ -15,8 +15,9 @@ import quase.node.*;
 public class Semantico extends DepthFirstAdapter {
 
 	LinkedHashMap<Integer, LinkedList<LinkedHashMap<Integer, Simbolo>>> class_hash = new LinkedHashMap<Integer, LinkedList<LinkedHashMap<Integer, Simbolo>>>();
+	LinkedHashMap<Integer, ArrayList<String>> familia = new LinkedHashMap<Integer, ArrayList<String>>();
 	LinkedList<LinkedHashMap<Integer, Simbolo>> table;
-	LinkedList<LinkedHashMap<Integer, Simbolo>> temp_table;
+	LinkedList<LinkedHashMap<Integer, Simbolo>> temp_table = null;
 
 	public int hash(String key)
 	{
@@ -47,8 +48,6 @@ public class Semantico extends DepthFirstAdapter {
 	@Override
 	public void inAAProgramaPrograma(AAProgramaPrograma node)
 	{
-		temp_table = null;
-		
 		//Adicionar a classe _IO e os seus métodos no início do programa
 		String nome = "_IO ";
 		int pos = hash(nome);
@@ -59,6 +58,23 @@ public class Semantico extends DepthFirstAdapter {
 		table.getLast().put(pos, new Simbolo("funcao", "print ", "P"));
 		pos = hash("read ");
 		table.getLast().put(pos, new Simbolo("funcao", "read ", "R"));
+	}
+
+	@Override
+	public void outAARelacaoRelacao(AARelacaoRelacao node)
+	{
+		String filha = node.getEsq().toString();
+		String pai = node.getDir().toString();
+		int pos = hash(filha);
+		if (familia.containsKey(pos))
+		{
+			familia.get(pos).add(pai);
+		}
+		else
+		{
+			familia.put(pos, new ArrayList<String>());
+			familia.get(pos).add(pai);
+		}
 	}
 	
 	@Override
@@ -71,6 +87,29 @@ public class Semantico extends DepthFirstAdapter {
 		table = (LinkedList<LinkedHashMap<Integer, Simbolo>>) class_hash.get(pos);
 		System.out.println("Nova hash table!");
 		table.add(new LinkedHashMap<Integer, Simbolo>());
+		if (familia.containsKey(pos))
+		{
+			ArrayList<String> pais = familia.get(pos);
+			for (String pai : pais)
+			{
+				pos = hash(pai);
+				if (class_hash.containsKey(pos))
+				{
+					LinkedHashMap<Integer, Simbolo> tabela = class_hash.get(pos).getFirst();
+					for (Integer key : tabela.keySet())
+					{
+						Simbolo atual = tabela.get(key);
+						nome = atual.getNome();
+						pos = hash(nome);
+						table.getFirst().put(pos, atual);
+					}
+				}
+				else
+				{
+					System.out.println("O pai " + pai + "de " + nome + "não foi declarado");
+				}
+			}
+		}
 	}
 
 	@Override

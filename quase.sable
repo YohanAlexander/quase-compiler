@@ -75,9 +75,9 @@ Productions
       {lista_relacao} [esq]:relacao e_comercial [dir]:lista_relacao {-> [esq.relacao, dir.relacao]} |
       {relacao} relacao {-> [relacao]};
     relacao {-> relacao} =
-      {relacao} classe cid filha_relacao {-> New relacao.a_relacao(filha_relacao)};
-    filha_relacao =
-      {filha_relacao} filha_da_classe cid;
+      {relacao} classe [esq]:pcid [dir]:filha_relacao {-> New relacao.a_relacao(esq.pcid, dir.relacao)};
+    filha_relacao {-> relacao} =
+      {filha_relacao} filha_da_classe pcid {-> New relacao.a_filha_relacao(pcid)};
 
     def_classe {-> def_classe} =
       {def_classe} classe [nome]:pcid comeca [esq]:atributos? [dir]:metodos? termina {-> New def_classe.a_def_classe(nome.pcid, [esq.dec], [dir.dec2])};
@@ -220,9 +220,8 @@ Abstract Syntax Tree
     familia =
       {a_lista_relacao} relacao+;
     relacao =
-      {a_relacao} filha_relacao;
-    filha_relacao =
-      {filha_relacao} filha_da_classe cid;
+      {a_relacao} [esq]:pcid [dir]:relacao |
+      {a_filha_relacao} pcid;
 
     def_classe =
       {a_def_classe} [nome]:pcid [esq]:dec* [dir]:dec2*;
@@ -294,4 +293,4 @@ Abstract Syntax Tree
       {real} numero_real;
     booleano =
       {true} true |
-      {false} false;    
+      {false} false;
