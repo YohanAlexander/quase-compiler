@@ -6,6 +6,7 @@ public class Simbolo {
 
 	private String tipo, nome, valor;
 	private ArrayList<String> parametros;
+	private boolean cons = false;
 
 	public Simbolo(String tipo, String nome) {
 		this.tipo = tipo;
@@ -68,6 +69,16 @@ public class Simbolo {
 	public int numParametros()
 	{
 		return this.parametros.size();
+	}
+
+	public void setCons(boolean val)
+	{
+		this.cons = val;
+	}
+
+	public boolean getCons()
+	{
+		return this.cons;
 	}
 
 	@Override

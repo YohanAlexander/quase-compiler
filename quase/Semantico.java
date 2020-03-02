@@ -29,6 +29,81 @@ public class Semantico extends DepthFirstAdapter {
 		return temp;
 	}
 
+	public boolean check_id_call_exp(PExp node, String func_arg)
+	{
+		LinkedHashMap<Integer, Simbolo> tabela;
+		AAIdCallExp id_call = (AAIdCallExp) node;
+		String nome = id_call.getDir().toString();
+		int pos = hash(nome);
+		if (id_call.getEsq() != null)
+		{
+			Iterator<LinkedHashMap<Integer, Simbolo>> it = table.descendingIterator();
+			String nome_id = id_call.getEsq().toString();
+			int pos_id = hash(nome_id);
+			Simbolo simbolo = null;
+			while (it.hasNext())
+			{
+				tabela = (LinkedHashMap<Integer, Simbolo>) it.next();
+				if (tabela.containsKey(pos_id))
+				{
+					simbolo = tabela.get(pos_id);
+					break;
+				}
+			}
+			if (simbolo != null)
+			{
+				String nome_classe = simbolo.getTipo();
+				int pos_classe = hash(nome_classe);
+				if (class_hash.containsKey(pos_classe))
+				{
+					tabela = class_hash.get(pos_classe).getFirst();
+				}
+				else
+				{
+					System.out.println(nome_classe + "não é uma classe");
+					return false;
+				}
+			}
+			else
+			{
+				System.out.println(nome_id + "não foi declarado");
+				return false;
+			}
+		}
+		else
+		{
+			tabela = table.getFirst();
+		}
+		if (tabela.containsKey(pos))
+		{
+			if (tabela.get(pos).getValor().equals(func_arg))
+			{
+				return true;
+			}
+			else if (tabela.get(pos).getValor().equals("R") && (func_arg.equals("int ") || func_arg.equals("bool ") || func_arg.equals("real ")))
+			{
+				return true;
+			}
+		}
+		return false;
+	}
+
+	public boolean check_id_exp(PExp node, String func_arg)
+	{
+		AAIdExp arg = (AAIdExp) node;
+		String nome_arg = arg.toString();
+		int pos_arg = hash(nome_arg);
+		LinkedHashMap<Integer, Simbolo> tabela = table.getFirst();
+		if (tabela.containsKey(pos_arg))
+		{
+			if (tabela.get(pos_arg).getTipo().equals(func_arg))
+			{
+				return true;
+			}
+		}
+		return false;
+	}
+
 	@Override
 	public void inStart(Start node)
 	{
@@ -278,66 +353,27 @@ public class Semantico extends DepthFirstAdapter {
 			{
 				if (func.getParametro(i).equals("bool") &&
 					copy.get(i) instanceof AABooleanoExp)
-					continue;
-				if ((func.getParametro(i).equals("int") || func.getParametro(i).equals("real")) &&
-					copy.get(i) instanceof AANumeroExp)
-					continue;
-				if (copy.get(i) instanceof AAIdCallExp)
 				{
-					AAIdCallExp id_call = (AAIdCallExp) copy.get(i);
-					String func_name = id_call.getDir().toString();
-					int posf = hash(func_name);
-					if (id_call.getEsq() != null)
+					continue;
+				}
+				else if ((func.getParametro(i).equals("int") || func.getParametro(i).equals("real")) &&
+					copy.get(i) instanceof AANumeroExp)
+				{
+					continue;
+				}
+				else if (copy.get(i) instanceof AAIdCallExp)
+				{
+					if (check_id_call_exp(copy.get(i), func.getParametro(i) + " "))
 					{
-						Iterator<LinkedHashMap<Integer, Simbolo>> it = table.descendingIterator();
-						String nome_id = node.getEsq().toString();
-						int pos_id = hash(nome_id);
-						Simbolo simbolo = null;
-						while (it.hasNext())
-						{
-							tabela = (LinkedHashMap<Integer, Simbolo>) it.next();
-							if (tabela.containsKey(pos_id))
-							{
-								simbolo = tabela.get(pos_id);
-								break;
-							}
-						}
-						if (simbolo != null)
-						{
-							nome = simbolo.getTipo();
-							pos = hash(nome);
-							temp_table = class_hash.get(pos);
-						}
-						else
-						{
-							System.out.println(nome + "não é uma classe");
-						}
-					}
-					else
-					{
-						tabela = table.getFirst();
-					}
-					if (tabela.containsKey(posf))
-					{
-						if (tabela.get(pos).getValor().equals(func.getParametro(i) + " "))
-						{
-							continue;
-						}
+						continue;
 					}
 				}
-				if (copy.get(i) instanceof AAIdExp)
+				else if (copy.get(i) instanceof AAIdExp)
 				{
-					AAIdExp arg = (AAIdExp) copy.get(i);
-					String nome_arg = arg.toString();
-					int pos_arg = hash(nome_arg);
-					tabela = table.getFirst();
-					if (tabela.containsKey(pos_arg))
+					if (check_id_exp(copy.get(i), func.getParametro(i) + " "))
 					{
-						if (tabela.get(pos_arg).getTipo().equals(func.getParametro(i) + " "))
-						{
-							continue;
-						}
-					}
+						continue;
+					}	
 				}
 				else
 				{
@@ -446,7 +482,9 @@ public class Semantico extends DepthFirstAdapter {
         {
 			String[] nome_val = copy.get(i).toString().split("\\s+");
 			int pos = hash(nome_val[0] + " ");
-			table.getLast().put(pos, new Simbolo(tipo, nome_val[0] + " ", nome_val[1] + " "));
+			Simbolo novo = new Simbolo(tipo, nome_val[0] + " ", nome_val[1] + " ");
+			novo.setCons(true);
+			table.getLast().put(pos, novo);
         }
 	}
 
@@ -489,7 +527,7 @@ public class Semantico extends DepthFirstAdapter {
 			{
 				String[] nome_val = copy.get(i).toString().split("\\s+");
 				pos = hash(nome_val[0] + " ");
-				table.getLast().put(pos, new Simbolo(tipo, nome_val[0]));
+				table.getLast().put(pos, new Simbolo(tipo, nome_val[0] + " "));
 			}
 		}
 		else
@@ -603,6 +641,68 @@ public class Semantico extends DepthFirstAdapter {
 	public void outAABlocoExpExp(AABlocoExpExp node)
 	{
 		table.removeLast();
+	}
+
+	@Override
+	public void caseAAAtribComando(AAAtribComando node)
+	{
+		inAAAtribComando(node);
+		if (node.getEsq() != null)
+		{
+			String nome = node.getEsq().toString();
+			String tipo = null;
+			int pos = hash(nome);
+			Iterator<LinkedHashMap<Integer, Simbolo>> it = table.descendingIterator();
+			while (it.hasNext())
+			{
+				LinkedHashMap<Integer, Simbolo> tabela = (LinkedHashMap<Integer, Simbolo>) it.next();
+				if (tabela.containsKey(pos))
+				{
+					Simbolo decla = tabela.get(pos);
+					if (decla.getCons())
+					{
+						System.out.println("Não é possível modificar o valor de uma constante");
+						return;
+					}
+					tipo = decla.getTipo();
+					break;
+				}
+			}
+			if (tipo == null)
+			{
+				System.out.println(nome + "não está declarado");
+			}
+			else
+			{
+				if (node.getDir() != null)
+				{
+					node.getDir().apply(this);
+					if (node.getDir() instanceof AAIdCallExp)
+					{
+						if (!(check_id_call_exp(node.getDir(), tipo)))
+						{
+							System.out.println("Erro de atribuição no lado direito");
+						}
+					}
+					else if (node.getDir() instanceof AAIdExp)
+					{
+						if (!(check_id_exp(node.getDir(), tipo)))
+						{
+							System.out.println("Erro de atribuição no lado direito");
+						}
+					}
+					else if ((tipo.equals("int ") || tipo.equals("real ")) && !(node.getDir() instanceof AANumeroExp))
+					{
+						System.out.println("O lado direito da operação não é um número");
+					}
+					else if (tipo.equals("bool ") && !(node.getDir() instanceof AABooleanoExp))
+					{
+						System.out.println("O lado esquerdo da operação não é um booleano");
+					}
+				}
+			}
+		}
+		outAAAtribComando(node);
 	}
 
 	@Override
