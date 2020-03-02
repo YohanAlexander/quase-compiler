@@ -48,7 +48,7 @@ public class Semantico extends DepthFirstAdapter {
 	public void inAAProgramaPrograma(AAProgramaPrograma node)
 	{
 		temp_table = null;
-
+		
 		//Adicionar a classe _IO e os seus métodos no início do programa
 		String nome = "_IO ";
 		int pos = hash(nome);
@@ -60,7 +60,7 @@ public class Semantico extends DepthFirstAdapter {
 		pos = hash("read ");
 		table.getLast().put(pos, new Simbolo("funcao", "read ", "R"));
 	}
-
+	
 	@Override
 	public void inAADefClasseDefClasse(AADefClasseDefClasse node)
 	{
@@ -216,6 +216,10 @@ public class Semantico extends DepthFirstAdapter {
 				if (len_copy != 1)
 				{
 					System.out.println(nome + "recebe apenas 1 parâmetro");
+				}
+				else if (!(copy.get(0) instanceof AABooleanoExp || copy.get(0) instanceof AANumeroExp))
+				{
+					System.out.println(nome + "deve receber um inteiro, um número real ou um booleano");
 				}
 				return;
 			}
