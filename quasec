@@ -1,4 +1,4 @@
 #! /bin/bash
 
-javac quase/Main.java
+javac quase/Main.java &&
 java quase/Main $1

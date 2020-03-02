@@ -18,26 +18,26 @@ classe _Func começa
 
     função real raiz(real n, real i, real j) começa
 
-	   	se ( (((i + j) / 2) * ((i + j) / 2) == n) ou
-	   	(modulo_real((((i + j) / 2) * ((i + j) / 2)) - n) < 0.00001) )
+	   	se (((((i + j) / 2) * ((i + j) / 2)) == n) ou
+	   	((modulo_real((((i + j) / 2) * ((i + j) / 2)) - n)) < 0.00001))
 			então (i + j) / 2
-	   	senão se ( ((i + j) / 2) * ((i + j) / 2) < n)
-	   		então sqrt(n, (i + j) / 2)
-	    senão sqrt(n, i, (i + j) / 2)
+	   	senão se ((((i + j) / 2) * ((i + j) / 2)) < n)
+	   		então raiz(n, (i + j) / 2, i)
+	    senão raiz(n, i, (i + j) / 2)
 
 	termina
 
 	função real achar_raiz(real n, real i) começa
 
-		se (i * i == n) então i
-		senão se (n < i * i) então raiz(n, i - 1, i)
+		se ((i * i) == n) então i
+		senão se (n < (i * i)) então raiz(n, i - 1, i)
 		senão achar_raiz(n, i + 1)
 
 	termina
 
 	função real dist ( _Ponto pi, _Ponto pii ) começa
 
-		achar_raiz((pii.x - pi.x) * (pii.x - pi.x) + (pii.y - pi.y) * (pii.y - pi.y))
+		achar_raiz((pii.x - pi.x) * (pii.x - pi.x), (pii.y - pi.y) * (pii.y - pi.y))
 
 	termina
 

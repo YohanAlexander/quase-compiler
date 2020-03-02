@@ -19,6 +19,12 @@ public class Simbolo {
 		this.valor = valor;
 	}
 
+	public Simbolo(String tipo, String nome, ArrayList<String> parametros) {
+		this.tipo = tipo;
+		this.nome = nome;
+		this.parametros = parametros;
+	}
+
 	public Simbolo(String tipo, String nome, String valor, ArrayList<String> parametros) {
 		this.tipo = tipo;
 		this.nome = nome;
@@ -84,8 +90,7 @@ public class Simbolo {
 	@Override
     public boolean equals(Object obj)
     {
-        return obj instanceof Simbolo
-               && this.nome.equals(((Simbolo) obj).getNome());
+        return obj instanceof Simbolo && this.nome.equals(((Simbolo) obj).getNome());
     }
 
 }
