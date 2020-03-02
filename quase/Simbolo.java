@@ -4,8 +4,8 @@ import java.util.ArrayList;
 
 public class Simbolo {
 
-	String tipo, nome, valor;
-	ArrayList<String> parametros;
+	private String tipo, nome, valor;
+	private ArrayList<String> parametros;
 
 	public Simbolo(String tipo, String nome) {
 		this.tipo = tipo;
