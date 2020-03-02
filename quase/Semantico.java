@@ -282,6 +282,67 @@ public class Semantico extends DepthFirstAdapter {
 				if ((func.getParametro(i).equals("int") || func.getParametro(i).equals("real")) &&
 					copy.get(i) instanceof AANumeroExp)
 					continue;
+				if (copy.get(i) instanceof AAIdCallExp)
+				{
+					AAIdCallExp id_call = (AAIdCallExp) copy.get(i);
+					String func_name = id_call.getDir().toString();
+					int posf = hash(func_name);
+					if (id_call.getEsq() != null)
+					{
+						Iterator<LinkedHashMap<Integer, Simbolo>> it = table.descendingIterator();
+						String nome_id = node.getEsq().toString();
+						int pos_id = hash(nome_id);
+						Simbolo simbolo = null;
+						while (it.hasNext())
+						{
+							tabela = (LinkedHashMap<Integer, Simbolo>) it.next();
+							if (tabela.containsKey(pos_id))
+							{
+								simbolo = tabela.get(pos_id);
+								break;
+							}
+						}
+						if (simbolo != null)
+						{
+							nome = simbolo.getTipo();
+							pos = hash(nome);
+							temp_table = class_hash.get(pos);
+						}
+						else
+						{
+							System.out.println(nome + "não é uma classe");
+						}
+					}
+					else
+					{
+						tabela = table.getFirst();
+					}
+					if (tabela.containsKey(posf))
+					{
+						if (tabela.get(pos).getValor().equals(func.getParametro(i) + " "))
+						{
+							continue;
+						}
+					}
+				}
+				if (copy.get(i) instanceof AAIdExp)
+				{
+					AAIdExp arg = (AAIdExp) copy.get(i);
+					String nome_arg = arg.toString();
+					int pos_arg = hash(nome_arg);
+					tabela = table.getFirst();
+					if (tabela.containsKey(pos_arg))
+					{
+						if (tabela.get(pos_arg).getTipo().equals(func.getParametro(i) + " "))
+						{
+							continue;
+						}
+					}
+				}
+				else
+				{
+					System.out.println("Erro em id_call");
+				}
 				System.out.println((i + 1) + "-ésimo parâmetro de tipo inválido");
 				return;
 			}
@@ -349,7 +410,6 @@ public class Semantico extends DepthFirstAdapter {
 							break;
 						default:
 							break;
-							
 					}
 				}
 				else
@@ -671,5 +731,4 @@ public class Semantico extends DepthFirstAdapter {
 		if (!(node.getEsq() instanceof AABooleanoExp))
 			System.out.println("A expressão " + node.toString() + "deve ter como resultado um booleano!");
 	}
-
 }
