@@ -905,5 +905,25 @@ public class Semantico extends DepthFirstAdapter {
 		if (!(node.getEsq() instanceof AABooleanoExp))
 			System.out.println("A expressão " + node.toString() + "deve ter como resultado um booleano!");
 	}
-
+	
+	@Override
+	public void outAACondComando(AACondComando node)
+	{
+		if (!(node.getEsq() instanceof AABooleanoExp))
+			System.out.println("A expressão " + node.toString() + "deve ter como resultado um booleano!");
+	}
+	
+	@Override
+	public void outAACondElseComando(AACondElseComando node)
+	{
+		if (!(node.getEsq() instanceof AABooleanoExp))
+			System.out.println("A expressão " + node.toString() + "deve ter como resultado um booleano!");
+	}
+	
+	@Override
+	public void outAAContCondElseComando(AAContCondElseComando node)
+	{
+		if (!(node.getEsq() instanceof AABooleanoExp))
+			System.out.println("A expressão " + node.toString() + "deve ter como resultado um booleano!");
+	}
 }
